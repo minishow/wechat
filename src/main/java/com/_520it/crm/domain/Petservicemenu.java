@@ -1,6 +1,6 @@
 package com._520it.crm.domain;
 
-public class Petservicemenu {
+public class PetServiceMenu {
 
     private Long id;
     private String name;
