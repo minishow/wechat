@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.Employee" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="jobNumber" property="jobNumber" jdbcType="BIGINT" />
-    <result column="position_id" property="position" jdbcType="BIGINT" />
+    <result column="position_id" property="position.id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="INTEGER" />
     <result column="tel" property="tel" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
       gender, tel, entryTime, 
       resignationTime, basePay, idCard
       )
-    values (#{jobNumber,jdbcType=BIGINT}, #{position,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+    values (#{jobNumber,jdbcType=BIGINT}, #{position.id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
       #{gender,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{entryTime,jdbcType=DATE}, 
       #{resignationTime,jdbcType=DATE}, #{basePay,jdbcType=DOUBLE}, #{idCard,jdbcType=VARCHAR}
       )
@@ -30,7 +30,7 @@
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Employee" >
     update employee
     set jobNumber = #{jobNumber,jdbcType=BIGINT},
-      position_id = #{position,jdbcType=BIGINT},
+      position_id = #{position.id,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=INTEGER},
       tel = #{tel,jdbcType=VARCHAR},
