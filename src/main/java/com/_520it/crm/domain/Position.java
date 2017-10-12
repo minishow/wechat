@@ -7,12 +7,12 @@ import lombok.Setter;
 public class Position {
 
     private Long id;
-    private String name;
-    private Double jobSubsidys;
-    private Double travelAllowance;
-    private Double airtimeSubsidy;
-    private Double meaSubsidy;
-    private Double attendanceBonus;
-    private Double commissionRate;
+    private String name; //职位名称
+    private Double jobSubsidys; //岗位津贴
+    private Double travelAllowance; //交通补贴
+    private Double airtimeSubsidy; //话费补贴
+    private Double meaSubsidy; //餐补
+    private Double attendanceBonus; //全勤
+    private Double commissionRate; //提成
 
 }
