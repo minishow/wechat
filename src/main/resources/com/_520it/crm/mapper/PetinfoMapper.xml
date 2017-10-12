@@ -13,7 +13,7 @@
     <result column="petAllergyThing" property="petAllergyThing" jdbcType="VARCHAR" />
     <result column="petAncestryMark" property="petAncestryMark" jdbcType="INTEGER" />
     <result column="petAncestryRegister" property="petAncestryRegister" jdbcType="VARCHAR" />
-    <result column="petState" property="petAtate" jdbcType="VARCHAR" />
+    <result column="petState" property="petState" jdbcType="VARCHAR" />
     <result column="petPic" property="petPic" jdbcType="VARCHAR" />
 
     <!--宠物品种-->

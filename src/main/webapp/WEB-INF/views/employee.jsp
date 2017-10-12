@@ -1,7 +1,7 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script type="text/javascript" src="common.jsp"></script>
     <title>员工界面</title>
 </head>
 <body>
@@ -9,10 +9,10 @@
     <div region="west" split="true" title="Navigator" style="width:150px;">
         <p style="padding:5px;margin:0;">Select language:</p>
         <ul>
-            <li><a href="javascript:void(0)" onclick="showcontent('java')">Java</a></li>
-            <li><a href="javascript:void(0)" onclick="showcontent('cshape')">C#</a></li>
-            <li><a href="javascript:void(0)" onclick="showcontent('vb')">VB</a></li>
-            <li><a href="javascript:void(0)" onclick="showcontent('erlang')">Erlang</a></li>
+            <li><a href="#" onclick="">Java</a></li>
+            <li><a href="#" onclick="">C#</a></li>
+            <li><a href="#" onclick="">VB</a></li>
+            <li><a href="#" onclick="">Erlang</a></li>
         </ul>
     </div>
     <div id="content" region="center" title="Language" style="padding:5px;">
