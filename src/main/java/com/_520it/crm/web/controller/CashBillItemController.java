@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CashBillItemController {
     @RequestMapping("")
     public String index(){
-
         return "cashbillitem";
 
     }
