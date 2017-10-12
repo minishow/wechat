@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.PositionMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Position" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="jobSubsidys" property="jobSubsidys" jdbcType="DOUBLE" />
+    <result column="travelAllowance" property="travelAllowance" jdbcType="DOUBLE" />
+    <result column="airtimeSubsidy" property="airtimeSubsidy" jdbcType="DOUBLE" />
+    <result column="meaSubsidy" property="meaSubsidy" jdbcType="DOUBLE" />
+    <result column="attendanceBonus" property="attendanceBonus" jdbcType="DOUBLE" />
+    <result column="commissionRate" property="commissionRate" jdbcType="DOUBLE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from position
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.Position" useGeneratedKeys="true" keyProperty="id" >
+    insert into position (name, jobSubsidys, travelAllowance, 
+      airtimeSubsidy, meaSubsidy, attendanceBonus, 
+      commissionRate)
+    values (#{name,jdbcType=VARCHAR}, #{jobSubsidys,jdbcType=DOUBLE}, #{travelAllowance,jdbcType=DOUBLE}, 
+      #{airtimeSubsidy,jdbcType=DOUBLE}, #{meaSubsidy,jdbcType=DOUBLE}, #{attendanceBonus,jdbcType=DOUBLE}, 
+      #{commissionRate,jdbcType=DOUBLE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Position" >
+    update position
+    set name = #{name,jdbcType=VARCHAR},
+      jobSubsidys = #{jobSubsidys,jdbcType=DOUBLE},
+      travelAllowance = #{travelAllowance,jdbcType=DOUBLE},
+      airtimeSubsidy = #{airtimeSubsidy,jdbcType=DOUBLE},
+      meaSubsidy = #{meaSubsidy,jdbcType=DOUBLE},
+      attendanceBonus = #{attendanceBonus,jdbcType=DOUBLE},
+      commissionRate = #{commissionRate,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, jobSubsidys, travelAllowance, airtimeSubsidy, meaSubsidy, attendanceBonus, 
+    commissionRate
+    from position
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, jobSubsidys, travelAllowance, airtimeSubsidy, meaSubsidy, attendanceBonus, 
+    commissionRate
+    from position
+  </select>
+</mapper>
