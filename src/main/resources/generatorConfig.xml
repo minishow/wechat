@@ -56,7 +56,6 @@
 
 			<!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
 			<property name="trimStrings" value="true" />
-			<property name="rootClass" value="com._520it.crm.domain.BaseDomain"/>
 		</javaModelGenerator>
 
 		<!-- 生成SQL map的XML文件生成器， 注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口）， 
