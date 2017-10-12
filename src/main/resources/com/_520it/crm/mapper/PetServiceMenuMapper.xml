@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.PetservicemenuMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Petservicemenu" >
+<mapper namespace="com._520it.crm.mapper.PetServiceMenuMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetServiceMenu" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="minPrice" property="minprice" jdbcType="INTEGER" />
@@ -16,15 +16,15 @@
     delete from petservicemenu
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.Petservicemenu" useGeneratedKeys="true" keyProperty="id" >
-    insert into petservicemenu (name, minPrice, maxPrice, 
-      unit, remark, isDiscount, 
+  <insert id="insert" parameterType="com._520it.crm.domain.PetServiceMenu" useGeneratedKeys="true" keyProperty="id" >
+    insert into petservicemenu (name, minPrice, maxPrice,
+      unit, remark, isDiscount,
       discount, parent_id)
-    values (#{name,jdbcType=VARCHAR}, #{minprice,jdbcType=INTEGER}, #{maxprice,jdbcType=INTEGER}, 
-      #{unit,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{isdiscount,jdbcType=INTEGER}, 
+    values (#{name,jdbcType=VARCHAR}, #{minprice,jdbcType=INTEGER}, #{maxprice,jdbcType=INTEGER},
+      #{unit,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{isdiscount,jdbcType=INTEGER},
       #{discount,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Petservicemenu" >
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetServiceMenu" >
     update petservicemenu
     set name = #{name,jdbcType=VARCHAR},
       minPrice = #{minprice,jdbcType=INTEGER},

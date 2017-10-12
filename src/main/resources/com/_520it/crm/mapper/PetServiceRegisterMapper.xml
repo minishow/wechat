@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.PetServiceRegisterMapper" >
+<mapper namespace="com._520it.crm.mapper.PetserviceregisterMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetServiceRegister" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="petName" property="petname" jdbcType="VARCHAR" />
