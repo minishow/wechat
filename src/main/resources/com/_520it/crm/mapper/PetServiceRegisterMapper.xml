@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.PetServiceRegisterMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetServiceRegister" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="petName" property="petname" jdbcType="VARCHAR" />
+    <result column="masterName" property="mastername" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="itemFirst" property="itemfirst" jdbcType="VARCHAR" />
+    <result column="itemSecond" property="itemsecond" jdbcType="VARCHAR" />
+    <result column="startTime" property="starttime" jdbcType="DATE" />
+    <result column="endTime" property="endtime" jdbcType="DATE" />
+    <result column="petAge" property="petage" jdbcType="INTEGER" />
+    <result column="petGender" property="petgender" jdbcType="INTEGER" />
+    <result column="selfGood" property="selfgood" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="payment" property="payment" jdbcType="INTEGER" />
+    <result column="sevPrice" property="sevprice" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from petserviceregister
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.PetServiceRegister" useGeneratedKeys="true" keyProperty="id" >
+    insert into petserviceregister (petName, masterName, tel, 
+      itemFirst, itemSecond, startTime, 
+      endTime, petAge, petGender, 
+      selfGood, remark, times, 
+      state, payment, sevPrice
+      )
+    values (#{petname,jdbcType=VARCHAR}, #{mastername,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{itemfirst,jdbcType=VARCHAR}, #{itemsecond,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE}, 
+      #{endtime,jdbcType=DATE}, #{petage,jdbcType=INTEGER}, #{petgender,jdbcType=INTEGER}, 
+      #{selfgood,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{payment,jdbcType=INTEGER}, #{sevprice,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetServiceRegister" >
+    update petserviceregister
+    set petName = #{petname,jdbcType=VARCHAR},
+      masterName = #{mastername,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      itemFirst = #{itemfirst,jdbcType=VARCHAR},
+      itemSecond = #{itemsecond,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=DATE},
+      petAge = #{petage,jdbcType=INTEGER},
+      petGender = #{petgender,jdbcType=INTEGER},
+      selfGood = #{selfgood,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      times = #{times,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      payment = #{payment,jdbcType=INTEGER},
+      sevPrice = #{sevprice,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
+    petGender, selfGood, remark, times, state, payment, sevPrice
+    from petserviceregister
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
+    petGender, selfGood, remark, times, state, payment, sevPrice
+    from petserviceregister
+  </select>
+</mapper>
