@@ -1,9 +1,11 @@
-package com._520it.crm.mapper;
+package com._520it.crm.service;
 
 import com._520it.crm.domain.PetServiceRegister;
+
 import java.util.List;
 
-public interface PetserviceregisterMapper {
+public interface IPetServiceRegisterService {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(PetServiceRegister record);

@@ -1,9 +1,11 @@
-package com._520it.crm.mapper;
+package com._520it.crm.service;
 
 import com._520it.crm.domain.PetServiceMenu;
+
 import java.util.List;
 
-public interface PetServiceMenuMapper {
+public interface IPetServiceMenuService {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(PetServiceMenu record);

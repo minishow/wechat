@@ -4,12 +4,12 @@ public class PetServiceMenu {
 
     private Long id;
     private String name;
-    private Integer minprice;
-    private Integer maxprice;
+    private Integer minPrice;
+    private Integer maxPrice;
     private Long unit;
     private String remark;
-    private Integer isdiscount;
+    private Integer isDiscount;
     private String discount;
-    private Long parentId;
+    private Long parent_id;
 
 }
