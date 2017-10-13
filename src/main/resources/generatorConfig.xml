@@ -30,7 +30,7 @@
 
 		<!-- 必须要有的，使用这个配置链接数据库 @TODO:是否可以扩展 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///crm" userId="root" password="admin">
+			connectionURL="jdbc:mysql:///byiaacrm" userId="root" password="root">
 			<!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
 		</jdbcConnection>
 
@@ -81,7 +81,17 @@
 				value=""/> -->
 		</javaClientGenerator>
 
-		<table tableName="">
+		<table tableName="stockouttypexx">
+			<!-- 参考 javaModelGenerator 的 constructorBased属性 -->
+			<property name="constructorBased" value="false" />
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table>
+		<table tableName="supplierxx">
+			<!-- 参考 javaModelGenerator 的 constructorBased属性 -->
+			<property name="constructorBased" value="false" />
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table>
+		<table tableName="petkindxx">
 			<!-- 参考 javaModelGenerator 的 constructorBased属性 -->
 			<property name="constructorBased" value="false" />
 			<generatedKey column="id" sqlStatement="JDBC" />
