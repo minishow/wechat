@@ -12,29 +12,29 @@ import java.util.List;
 public class PositionServiceImpl implements IPositionService {
 
     @Autowired
-    private PositionMapper employeeMapper;
+    private PositionMapper positionMapper;
 
     public int deleteByPrimaryKey(Long id) {
-        return employeeMapper.deleteByPrimaryKey(id);
+        return positionMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public int insert(Position record) {
-        return employeeMapper.insert(record);
+        return positionMapper.insert(record);
     }
 
     @Override
     public Position selectByPrimaryKey(Long id) {
-        return employeeMapper.selectByPrimaryKey(id);
+        return positionMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List<Position> selectAll() {
-        return employeeMapper.selectAll();
+        return positionMapper.selectAll();
     }
 
     @Override
     public int updateByPrimaryKey(Position record) {
-        return employeeMapper.updateByPrimaryKey(record);
+        return positionMapper.updateByPrimaryKey(record);
     }
 }
