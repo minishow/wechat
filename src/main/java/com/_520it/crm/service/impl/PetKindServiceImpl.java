@@ -2,34 +2,39 @@ package com._520it.crm.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com._520it.crm.domain.PetKind;
+import com._520it.crm.mapper.PetKindMapper;
 import com._520it.crm.service.IPetKindService;
-
+@Service
 public class PetKindServiceImpl implements IPetKindService {
-
+	@Autowired
+	private PetKindMapper petKindMapper;
 	@Override
 	public int deleteByPrimaryKey(Long id) {
-		return 0;
+		return petKindMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public int insert(PetKind petKind) {
-		return 0;
+		return petKindMapper.insert(petKind);
 	}
 
 	@Override
 	public PetKind selectByPrimaryKey(Long id) {
-		return null;
+		return petKindMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public List<PetKind> selectAll() {
-		return null;
+		return petKindMapper.selectAll();
 	}
 
 	@Override
 	public int updateByPrimaryKey(PetKind petKind) {
-		return 0;
+		return petKindMapper.updateByPrimaryKey(petKind);
 	}
 
 }
