@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.StockOprationBillMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.StockOprationBill" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="productInfo_id" property="productInfoId" jdbcType="BIGINT" />
+    <result column="stockIncome_id" property="stockIncomeId" jdbcType="BIGINT" />
+    <result column="inputTime" property="inputTime" jdbcType="TIMESTAMP" />
+    <result column="specific_id" property="specificId" jdbcType="BIGINT" />
+    <result column="productionPrice" property="productionPrice" jdbcType="DECIMAL" />
+    <result column="costPrice" property="costPrice" jdbcType="DECIMAL" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="memberPrice" property="memberPrice" jdbcType="DECIMAL" />
+    <result column="productionDate" property="productionDate" jdbcType="TIMESTAMP" />
+    <result column="survivalTime" property="survivalTime" jdbcType="TIMESTAMP" />
+    <result column="warnNumber" property="warnNumber" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from stockoprationbill
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.StockOprationBill" useGeneratedKeys="true" keyProperty="id" >
+    insert into stockoprationbill (productInfo_id, stockIncome_id, inputTime, 
+      specific_id, productionPrice, costPrice, 
+      number, memberPrice, productionDate, 
+      survivalTime, warnNumber)
+    values (#{productInfoId,jdbcType=BIGINT}, #{stockIncomeId,jdbcType=BIGINT}, #{inputTime,jdbcType=TIMESTAMP}, 
+      #{specificId,jdbcType=BIGINT}, #{productionPrice,jdbcType=DECIMAL}, #{costPrice,jdbcType=DECIMAL}, 
+      #{number,jdbcType=INTEGER}, #{memberPrice,jdbcType=DECIMAL}, #{productionDate,jdbcType=TIMESTAMP}, 
+      #{survivalTime,jdbcType=TIMESTAMP}, #{warnNumber,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.StockOprationBill" >
+    update stockoprationbill
+    set productInfo_id = #{productInfoId,jdbcType=BIGINT},
+      stockIncome_id = #{stockIncomeId,jdbcType=BIGINT},
+      inputTime = #{inputTime,jdbcType=TIMESTAMP},
+      specific_id = #{specificId,jdbcType=BIGINT},
+      productionPrice = #{productionPrice,jdbcType=DECIMAL},
+      costPrice = #{costPrice,jdbcType=DECIMAL},
+      number = #{number,jdbcType=INTEGER},
+      memberPrice = #{memberPrice,jdbcType=DECIMAL},
+      productionDate = #{productionDate,jdbcType=TIMESTAMP},
+      survivalTime = #{survivalTime,jdbcType=TIMESTAMP},
+      warnNumber = #{warnNumber,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice, 
+    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber
+    from stockoprationbill
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice, 
+    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber
+    from stockoprationbill
+  </select>
+</mapper>
