@@ -20,10 +20,10 @@ public class EmployeeController {
     public String index(){
         return "employee";
     }
+
     @RequestMapping("/queryByPageList")
     @ResponseBody
     public PageResult queryByPageList(EmployeeQueryObject qo){
-
         return employeeService.queryByPageList(qo);
     }
 
