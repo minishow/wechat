@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/memberinfo")
-public class MemberinfoController {
+public class MemberInfoController {
 }

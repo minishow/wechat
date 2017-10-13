@@ -1,16 +1,19 @@
 package com._520it.crm.mapper;
 
-import com._520it.crm.domain.Memberinfo;
+import com._520it.crm.domain.MemberInfo;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface MemberinfoMapper {
+@Service
+public interface MemberInfoMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(Memberinfo record);
+    int insert(MemberInfo record);
 
-    Memberinfo selectByPrimaryKey(Long id);
+    MemberInfo selectByPrimaryKey(Long id);
 
-    List<Memberinfo> selectAll();
+    List<MemberInfo> selectAll();
 
-    int updateByPrimaryKey(Memberinfo record);
+    int updateByPrimaryKey(MemberInfo record);
 }

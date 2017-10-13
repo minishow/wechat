@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.MemberinfoMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Memberinfo" >
+<mapper namespace="com._520it.crm.mapper.MemberInfoMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.MemberInfo" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="number" property="number" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
     delete from memberinfo
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.Memberinfo" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com._520it.crm.domain.MemberInfo" useGeneratedKeys="true" keyProperty="id" >
     insert into memberinfo (number, name, vipClass, 
       balance, tel, gender, 
       birthday, adress, remark
@@ -27,7 +27,7 @@
       #{birthday,jdbcType=DATE}, #{adress,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Memberinfo" >
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.MemberInfo" >
     update memberinfo
     set number = #{number,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},

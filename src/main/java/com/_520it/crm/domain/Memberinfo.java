@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.Date;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
-public class Memberinfo {
+public class MemberInfo {
 
 
     private Long id;//会员编号

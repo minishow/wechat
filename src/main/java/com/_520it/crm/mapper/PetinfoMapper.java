@@ -1,16 +1,19 @@
 package com._520it.crm.mapper;
 
-import com._520it.crm.domain.Petinfo;
+import com._520it.crm.domain.PetInfo;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface PetinfoMapper {
+@Service
+public interface PetInfoMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(Petinfo record);
+    int insert(PetInfo record);
 
-    Petinfo selectByPrimaryKey(Long id);
+    PetInfo selectByPrimaryKey(Long id);
 
-    List<Petinfo> selectAll();
+    List<PetInfo> selectAll();
 
-    int updateByPrimaryKey(Petinfo record);
+    int updateByPrimaryKey(PetInfo record);
 }
