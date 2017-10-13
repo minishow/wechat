@@ -2,34 +2,40 @@ package com._520it.crm.service.impl;
 
 import java.util.List;
 
-import com._520it.crm.domain.ShopInfo;
-import com._520it.crm.service.IShopInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com._520it.crm.domain.ShopInfo;
+import com._520it.crm.mapper.ShopInfoMapper;
+import com._520it.crm.service.IShopInfoService;
+@Service
 public class ShopInfoServiceImpl implements IShopInfoService {
 
+	@Autowired
+	private ShopInfoMapper shopInfoMapper;
 	@Override
 	public int deleteByPrimaryKey(Long id) {
-		return 0;
+		return shopInfoMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public int insert(ShopInfo shopInfo) {
-		return 0;
+		return shopInfoMapper.insert(shopInfo);
 	}
 
 	@Override
 	public ShopInfo selectByPrimaryKey(Long id) {
-		return null;
+		return shopInfoMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public List<ShopInfo> selectAll() {
-		return null;
+		return shopInfoMapper.selectAll();
 	}
 
 	@Override
 	public int updateByPrimaryKey(ShopInfo shopInfo) {
-		return 0;
+		return shopInfoMapper.updateByPrimaryKey(shopInfo);
 	}
 
 }

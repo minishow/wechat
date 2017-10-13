@@ -17,4 +17,8 @@ public class ProductInfo {
     private Integer state;
     private String img;
     private String info;
+    /*
+     * 添加会员价格
+     */
+    private BigDecimal memberPrice;
 }
