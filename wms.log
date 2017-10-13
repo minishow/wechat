@@ -1,5 +1,0 @@
-10:28:05,374 DEBUG selectAll:132 - ==>  Preparing: select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, storeNumber, incomeDate, outcomeDate from productstock 
-10:28:05,411 DEBUG selectAll:132 - ==> Parameters: 
-10:28:05,438 TRACE selectAll:138 - <==    Columns: id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, storeNumber, incomeDate, outcomeDate
-10:28:05,447 TRACE selectAll:138 - <==        Row: 1, 1, 1, 20, 20, 5000, 2, 2, 2017-10-13 09:01:04.0, 2017-10-13 09:01:07.0
-10:28:05,452 DEBUG selectAll:132 - <==      Total: 1
