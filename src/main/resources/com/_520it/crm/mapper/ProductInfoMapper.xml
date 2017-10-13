@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.ProductInfoMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.ProductInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <!-- 关联关系处理 -->
+    <association property="productType" javaType="ProductType">
+    	<id column="pt_id" property="id" jdbcType="BIGINT" />
+    	<result column="pt_name" property="name" jdbcType="VARCHAR" />
+    </association>
+    <association property="brand" javaType="Brand">
+    	<id column="b_id" property="id" jdbcType="BIGINT" />
+    	<result column="b_name" property="name" jdbcType="VARCHAR" />
+    	<association property="location" javaType="Location">
+    		<id column="l_id" property="id" jdbcType="BIGINT" />
+    		<result column="l_name" property="name" jdbcType="VARCHAR" />
+    	</association>
+    </association>
+    <association property="harm" javaType="Harm">
+    	<id column="h_id" property="id" jdbcType="BIGINT" />
+    	<result column="h_name" property="name" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ProductInfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.ProductInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into ProductInfo (code, name, producttype_id, 
+      brand_id,
+      harm_id, price, state, 
+      img, info)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{productType.id,jdbcType=BIGINT}, 
+      #{brand.id,jdbcType=BIGINT}, 
+      #{harm.id,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, 
+      #{img,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductInfo" >
+    update ProductInfo
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      producttype_id = #{productType.id,jdbcType=BIGINT},
+      brand_id = #{brand.id,jdbcType=BIGINT},
+      harm_id = #{harmId,jdbcType=BIGINT},
+      price = #{price,jdbcType=DECIMAL},
+      state = #{state,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select pi.id, pi.code, pi.name,
+    pt.id pt_id,pt.name pt_name,
+    b.id b_id,b.name b_name,
+    l.id l_id,l.name l_name,
+    h.id h_id,h.name h_name,
+    pi.price, pi.state, pi.img, pi.info
+    from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
+    join brand b on pi.brand_id = b.id 
+    join location l on b.location_id=l.id
+    join harm h pi.harm_id = h.id
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select pi.id, pi.code, pi.name, 
+    pt.id pt_id,pt.name pt_name,
+    b.id b_id,b.name b_name,
+    l.id l_id,l.name l_name,
+    h.id h_id,h.name h_name,
+    pi.price, pi.state, pi.img, pi.info
+    from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
+    join brand b on pi.brand_id = b.id 
+    join location l on b.location_id=l.id
+    join harm h pi.harm_id = h.id
+  </select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.ShopInfoMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.ShopInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <!-- 关联员工信息 -->
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shopinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.ShopInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into shopinfo (name, fax, employee_id, 
+      location, time, img, info
+      )
+    values (#{name,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{employeeId,jdbcType=BIGINT}, 
+      #{location,jdbcType=VARCHAR}, #{time,jdbcType=DATE}, #{img,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ShopInfo" >
+    update shopinfo
+    set name = #{name,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=BIGINT},
+      location = #{location,jdbcType=VARCHAR},
+      time = #{time,jdbcType=DATE},
+      img = #{img,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, fax, employee_id, location, time, img, info
+    from shopinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, fax, employee_id, location, time, img, info
+    from shopinfo
+  </select>
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.SupplierMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Supplier" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="person" property="person" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <association property="produnctInfo" javaType="ProductInfo">
+    	<id column="pi_id" property="id" jdbcType="BIGINT" />
+    	<result column="pi_name" property="name" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from supplier
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.Supplier" useGeneratedKeys="true" keyProperty="id" >
+    insert into supplier (name, sn, person, 
+      product_id, info, day, 
+      tel, address, state
+      )
+    values (#{name,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR}, #{person,jdbcType=VARCHAR}, 
+      #{productId,jdbcType=BIGINT}, #{info,jdbcType=VARCHAR}, #{day,jdbcType=INTEGER}, 
+      #{tel,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Supplier" >
+    update supplier
+    set name = #{name,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR},
+      person = #{person,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=BIGINT},
+      info = #{info,jdbcType=VARCHAR},
+      day = #{day,jdbcType=INTEGER},
+      tel = #{tel,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,
+    pi.id pi_id,pi.name pi_name
+    from supplier join productinfo pi on s.productinfo_id = pi.id
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,
+    pi.id pi_id,pi.name pi_name
+    from supplier join productinfo pi on s.productinfo_id = pi.id
+  </select>
+</mapper>
