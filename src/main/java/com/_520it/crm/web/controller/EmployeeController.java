@@ -17,6 +17,7 @@ public class EmployeeController {
 
     @RequestMapping("")
     public String index(){
+        System.out.println("/////");
         return "employee";
     }
     @RequestMapping("/queryByPageList")
