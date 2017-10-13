@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,6 +25,8 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
 
     @Override
     public int insert(PetServiceRegister record) {
+        record.setState(0);
+        record.setPayment(0);
         return petServiceRegisterMapper.insert(record);
     }
 
@@ -53,12 +56,14 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
     }
 
     @Override
-    public void startService() {
-        petServiceRegisterMapper.startService();
+    public void startService(PetServiceRegister record) {
+        record.setStartTime(new Date());
+        petServiceRegisterMapper.startService(1,record.getId());
     }
 
     @Override
-    public void endService() {
-        petServiceRegisterMapper.endService();
+    public void endService(PetServiceRegister record) {
+        record.setEndTime(new Date());
+        petServiceRegisterMapper.endService(2,record.getId());
     }
 }

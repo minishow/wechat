@@ -2,6 +2,7 @@ package com._520it.crm.mapper;
 
 import com._520it.crm.domain.PetServiceRegister;
 import com._520it.crm.query.QueryObject;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface PetServiceRegisterMapper {
     Long queryForCount(QueryObject qo);
     List<PetServiceRegister> queryForList(QueryObject qo);
 
-    void startService();
+    void startService(@Param("state") Integer state,@Param("id") Long id);
 
-    void endService();
+    void endService(@Param("state") Integer state,@Param("id") Long id);
 }

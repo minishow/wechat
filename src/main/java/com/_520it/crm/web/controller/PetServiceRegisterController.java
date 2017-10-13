@@ -44,12 +44,12 @@ public class PetServiceRegisterController {
     }
     
     @RequestMapping("/startService")
-    public void startService(PetServiceRegister petServiceRegister){
-        petServiceRegisterService.startService();
+    public void startService(PetServiceRegister record){
+        petServiceRegisterService.startService(record);
     }
 
     @RequestMapping("/endService")
-    public void endService(PetServiceRegister petServiceRegister){
-        petServiceRegisterService.endService();
+    public void endService(PetServiceRegister record){
+        petServiceRegisterService.endService(record);
     }
 }

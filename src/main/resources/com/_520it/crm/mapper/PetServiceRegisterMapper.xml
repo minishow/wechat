@@ -37,14 +37,12 @@
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.PetServiceRegister" useGeneratedKeys="true" keyProperty="id" >
     insert into petserviceregister (petName, masterName, tel, 
-      itemFirst, itemSecond, startTime, 
-      endTime, petAge, petGender, 
+      itemFirst, itemSecond, petAge, petGender,
       selfGood, remark, times, 
       state, payment, sevPrice
       )
     values (#{petName}, #{masterName}, #{tel}, 
-      #{itemFirst}, #{itemSecond}, #{startTime}, 
-      #{endTime}, #{petAge}, #{petGender}, 
+      #{itemFirst}, #{itemSecond}, #{petAge}, #{petGender},
       #{selfGood}, #{remark}, #{times}, 
       #{state}, #{payment}, #{sevPrice}
       )
@@ -71,10 +69,13 @@
 
   <update id="startService">
     update petserviceregister
-    SET
+    SET state = #{state}
+    where id = #{id}
   </update>
   <update id="endService">
-
+    update petserviceregister
+    SET state = #{state}
+    where id = #{id}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
