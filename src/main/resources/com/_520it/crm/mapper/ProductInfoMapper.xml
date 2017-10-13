@@ -27,6 +27,10 @@
     	<id column="h_id" property="id" jdbcType="BIGINT" />
     	<result column="h_name" property="name" jdbcType="VARCHAR" />
     </association>
+    <association property="productPart" javaType="ProductPart">
+    	<id column="pp_id" property="id" jdbcType="BIGINT" />
+    	<result column="pp_name" property="name" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from ProductInfo
@@ -36,11 +40,11 @@
     insert into ProductInfo (code, name, producttype_id, 
       brand_id,
       harm_id, price, state, 
-      img, info, memberprice)
+      img, info, memberprice,productpart_id)
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{productType.id,jdbcType=BIGINT}, 
       #{brand.id,jdbcType=BIGINT}, 
       #{harm.id,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, 
-      #{img,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, #{memberPrice,jdbcType=DECIMAL})
+      #{img,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, #{memberPrice,jdbcType=DECIMAL}, #{productPart.id,jdbcType=BIGINT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductInfo" >
     update ProductInfo
@@ -49,6 +53,7 @@
       producttype_id = #{productType.id,jdbcType=BIGINT},
       brand_id = #{brand.id,jdbcType=BIGINT},
       harm_id = #{harm.id,jdbcType=BIGINT},
+      productpart_id = #{productPart.id,jdbcType=BIGINT},
       price = #{price,jdbcType=DECIMAL},
       state = #{state,jdbcType=INTEGER},
       img = #{img,jdbcType=VARCHAR},
@@ -62,11 +67,13 @@
     b.id b_id,b.name b_name,
     l.id l_id,l.name l_name,
     h.id h_id,h.name h_name,
+    pp.id pp_id,pp.name pp_name,
     pi.price, pi.state, pi.img, pi.info,pi.memberprice
     from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
     join brand b on pi.brand_id = b.id 
     join location l on b.location_id=l.id
     join harm h on pi.harm_id = h.id
+    join productpart pp on pp.id=pi.productpart_id
     where pi.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
@@ -75,10 +82,12 @@
     b.id b_id,b.name b_name,
     l.id l_id,l.name l_name,
     h.id h_id,h.name h_name,
+    pp.id pp_id,pp.name pp_name,
     pi.price, pi.state, pi.img, pi.info,pi.memberprice
     from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
     join brand b on pi.brand_id = b.id 
     join location l on b.location_id=l.id
     join harm h on pi.harm_id = h.id
+    join productpart pp on pp.id=pi.productpart_id
   </select>
 </mapper>

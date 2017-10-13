@@ -5,28 +5,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com._520it.crm.domain.Brand;
+import com._520it.crm.domain.MemberLevel;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
-import com._520it.crm.query.BrandQueryObject;
-import com._520it.crm.service.IBrandService;
+import com._520it.crm.query.MemberLevelQueryObject;
+import com._520it.crm.service.IMemberLevelService;
 
 @Controller
-@RequestMapping("/brand")
-public class BrandController {
+@RequestMapping("/memberLevel")
+public class MemberLevelController {
 	@Autowired
-	private IBrandService brandService;
+	private IMemberLevelService memberLevelService;
 	@RequestMapping("")
-	public String brand(){
+	public String memberLevel(){
 		/*跳转到web-inf下资源*/
-		return "brand";
+		return "memberLevel";
 	}
-	@RequestMapping("/list")
+	@RequestMapping("/query")
 	@ResponseBody
-	public PageResult list(BrandQueryObject qo){
+	public PageResult list(MemberLevelQueryObject qo){
 		PageResult pageResult = null;
 		try {
-			pageResult=brandService.query(qo);
+			pageResult=memberLevelService.query(qo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,7 +36,7 @@ public class BrandController {
 	@ResponseBody
 	public AjaxResult delete(Long id){
 		try {
-			brandService.changeState(id);
+			memberLevelService.changeState(id);
 			return new AjaxResult(true,"更改成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,9 +45,9 @@ public class BrandController {
 	}
 	@RequestMapping("/save")
 	@ResponseBody
-	public AjaxResult save(Brand brand){
+	public AjaxResult save(MemberLevel memberLevel){
 		try {
-			brandService.insert(brand);
+			memberLevelService.insert(memberLevel);
 			return new AjaxResult(true,"添加成功!");
 		} catch (Exception e) {
 			e.printStackTrace();

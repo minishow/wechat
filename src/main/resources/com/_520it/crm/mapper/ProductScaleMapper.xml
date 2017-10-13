@@ -1,66 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.BrandMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Brand" >
+<mapper namespace="com._520it.crm.mapper.ProductScaleMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.ProductScale" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
-    <association property="location" javaType="Location">
-    	<id column="l_id" property="id" jdbcType="BIGINT" />
-    	<result column="l_name" property="name" jdbcType="VARCHAR" />
-    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from brand
+    delete from productscale
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.Brand" useGeneratedKeys="true" keyProperty="id" >
-    insert into brand (name, location_id, state
-      )
-    values (#{name,jdbcType=VARCHAR}, #{location.id,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="com._520it.crm.domain.ProductScale" useGeneratedKeys="true" keyProperty="id" >
+    insert into productscale (name, state)
+    values (#{name,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Brand" >
-    update brand
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductScale" >
+    update productscale
     set name = #{name,jdbcType=VARCHAR},
-      location_id = #{location.id,jdbcType=BIGINT},
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select b.id, b.name, b.state,
-    l.id l_id, l.name l_name
-    from brand b join location on b.location_id=l.id
+    select id, name, state
+    from productscale
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select b.id, b.name, b.state,
-    l.id l_id, l.name l_name
-    from brand b join location l on b.location_id=l.id
+    select id, name, state
+    from productscale
   </select>
+  
   <!-- 高级查询 -->
   <sql id="base_where">
   	<where>
 	  	<if test="keyword!=null">
-	  		and b.name like concat('%',#{keyword},'%')
+	  		and name like concat('%',#{keyword},'%')
 	  	</if>
   	</where>
   </sql>
   <select id="queryForCount" resultType="long">
-  	select count(b.id) from brand b
+  	select count(id) from productscale
   	<include refid="base_where"/>
   </select>
   <select id="queryForList" resultMap="BaseResultMap">
-  	select b.id, b.name, b.state,
-    l.id l_id, l.name l_name
-    from brand b join location l on b.location_id=l.id
+    select id, name, state
+    from productscale
     <include refid="base_where"/>
     limit #{start},#{rows}
   </select>
+  
   <update id="changeState">
-  	update brand
+  	update productscale
   	   set 
   	   state=0
   	where id=#{id}
   </update>
+  
+  
 </mapper>

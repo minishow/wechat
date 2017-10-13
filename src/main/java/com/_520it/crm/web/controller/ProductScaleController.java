@@ -1,32 +1,42 @@
 package com._520it.crm.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com._520it.crm.domain.Brand;
+import com._520it.crm.domain.ProductScale;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
-import com._520it.crm.query.BrandQueryObject;
-import com._520it.crm.service.IBrandService;
+import com._520it.crm.query.ProductScaleQueryObject;
+import com._520it.crm.service.IProductScaleService;
 
 @Controller
-@RequestMapping("/brand")
-public class BrandController {
+@RequestMapping("/productScale")
+public class ProductScaleController {
 	@Autowired
-	private IBrandService brandService;
-	@RequestMapping("")
-	public String brand(){
-		/*跳转到web-inf下资源*/
-		return "brand";
-	}
+	private IProductScaleService productScaleService;
 	@RequestMapping("/list")
 	@ResponseBody
-	public PageResult list(BrandQueryObject qo){
+	public List<ProductScale> list(){
+		/*
+		 * 查询全部的地址信息,给添加品牌的时候下来选择
+		 */
+		return productScaleService.selectAll();
+	}
+	@RequestMapping("")
+	public String productScale(){
+		/*跳转到web-inf下资源*/
+		return "productScale";
+	}
+	@RequestMapping("/query")
+	@ResponseBody
+	public PageResult list(ProductScaleQueryObject qo){
 		PageResult pageResult = null;
 		try {
-			pageResult=brandService.query(qo);
+			pageResult=productScaleService.query(qo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,7 +46,7 @@ public class BrandController {
 	@ResponseBody
 	public AjaxResult delete(Long id){
 		try {
-			brandService.changeState(id);
+			productScaleService.changeState(id);
 			return new AjaxResult(true,"更改成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,9 +55,9 @@ public class BrandController {
 	}
 	@RequestMapping("/save")
 	@ResponseBody
-	public AjaxResult save(Brand brand){
+	public AjaxResult save(ProductScale productScale){
 		try {
-			brandService.insert(brand);
+			productScaleService.insert(productScale);
 			return new AjaxResult(true,"添加成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
