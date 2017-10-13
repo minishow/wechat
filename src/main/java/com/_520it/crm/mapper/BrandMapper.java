@@ -1,6 +1,8 @@
 package com._520it.crm.mapper;
 
 import com._520it.crm.domain.Brand;
+import com._520it.crm.query.BrandQueryObject;
+
 import java.util.List;
 
 public interface BrandMapper {
@@ -13,4 +15,8 @@ public interface BrandMapper {
     List<Brand> selectAll();
 
     int updateByPrimaryKey(Brand brand);
+
+	Long queryForCount(BrandQueryObject qo);
+
+	List<Brand> queryForList(BrandQueryObject qo);
 }

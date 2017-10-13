@@ -3,6 +3,8 @@ package com._520it.crm.service;
 import java.util.List;
 
 import com._520it.crm.domain.Brand;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.BrandQueryObject;
 
 public interface IBrandService {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +16,6 @@ public interface IBrandService {
     List<Brand> selectAll();
 
     int updateByPrimaryKey(Brand brand);
+
+	PageResult query(BrandQueryObject qo);
 }
