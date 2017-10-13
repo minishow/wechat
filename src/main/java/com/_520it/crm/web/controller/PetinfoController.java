@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/petinfoController")
-public class PetinfoController {
+public class PetInfoController {
 
 }

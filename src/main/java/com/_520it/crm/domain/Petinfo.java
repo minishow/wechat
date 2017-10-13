@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.Date;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
-public class Petinfo {
+public class PetInfo {
     private Long id;//宠物ID
     private String petName;//宠物名称
 
@@ -27,6 +27,6 @@ public class Petinfo {
 
     private Long petvarietyId;//宠物品种ID
     private Long petclassesId;//宠物类别ID
-    private Memberinfo member;//会员ID
+    private MemberInfo member;//会员ID
 
 }
