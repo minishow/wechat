@@ -6,8 +6,8 @@ import lombok.Setter;
 import java.util.Date;
 @Getter@Setter
 public class Employee {
-    public static final Integer GENDER_MALE = 0;
-    public static final Integer GENDER_FEMALE = 1;
+    public static final Integer GENDER_MALE = 0; //男
+    public static final Integer GENDER_FEMALE = 1; //女
     private Long id;  //员工id
     private Long jobNumber;  //员工工号
     private Position position; //员工职位
