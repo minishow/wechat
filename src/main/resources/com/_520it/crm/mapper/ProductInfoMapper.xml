@@ -9,6 +9,7 @@
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="img" property="img" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="memberprice" property="memberPrice" jdbcType="DECIMAL" />
     <!-- 关联关系处理 -->
     <association property="productType" javaType="ProductType">
     	<id column="pt_id" property="id" jdbcType="BIGINT" />
@@ -35,11 +36,11 @@
     insert into ProductInfo (code, name, producttype_id, 
       brand_id,
       harm_id, price, state, 
-      img, info)
+      img, info, memberprice)
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{productType.id,jdbcType=BIGINT}, 
       #{brand.id,jdbcType=BIGINT}, 
       #{harm.id,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, 
-      #{img,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR})
+      #{img,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, #{memberPrice,jdbcType=DECIMAL})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductInfo" >
     update ProductInfo
@@ -47,11 +48,12 @@
       name = #{name,jdbcType=VARCHAR},
       producttype_id = #{productType.id,jdbcType=BIGINT},
       brand_id = #{brand.id,jdbcType=BIGINT},
-      harm_id = #{harmId,jdbcType=BIGINT},
+      harm_id = #{harm.id,jdbcType=BIGINT},
       price = #{price,jdbcType=DECIMAL},
       state = #{state,jdbcType=INTEGER},
       img = #{img,jdbcType=VARCHAR},
-      info = #{info,jdbcType=VARCHAR}
+      info = #{info,jdbcType=VARCHAR},
+      memberprice = #{memberPrice,jdbcType=DECIMAL}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -60,12 +62,12 @@
     b.id b_id,b.name b_name,
     l.id l_id,l.name l_name,
     h.id h_id,h.name h_name,
-    pi.price, pi.state, pi.img, pi.info
+    pi.price, pi.state, pi.img, pi.info,pi.memberprice
     from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
     join brand b on pi.brand_id = b.id 
     join location l on b.location_id=l.id
-    join harm h pi.harm_id = h.id
-    where id = #{id,jdbcType=BIGINT}
+    join harm h on pi.harm_id = h.id
+    where pi.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select pi.id, pi.code, pi.name, 
@@ -73,10 +75,10 @@
     b.id b_id,b.name b_name,
     l.id l_id,l.name l_name,
     h.id h_id,h.name h_name,
-    pi.price, pi.state, pi.img, pi.info
+    pi.price, pi.state, pi.img, pi.info,pi.memberprice
     from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
     join brand b on pi.brand_id = b.id 
     join location l on b.location_id=l.id
-    join harm h pi.harm_id = h.id
+    join harm h on pi.harm_id = h.id
   </select>
 </mapper>
