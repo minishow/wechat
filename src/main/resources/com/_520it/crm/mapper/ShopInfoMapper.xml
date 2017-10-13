@@ -10,6 +10,10 @@
     <result column="img" property="img" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
     <!-- 关联员工信息 -->
+    <association property="employee" javaType="Employee">
+    	<id column="e_id" property="id"></id>
+    	<result column="e_name" property="name"/>
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from shopinfo
@@ -35,12 +39,14 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, fax, employee_id, location, time, img, info
-    from shopinfo
-    where id = #{id,jdbcType=BIGINT}
+    select s.id, s.name, s.fax,s.location, s.time, s.img, s.info,
+    e.id e_id,e.name e_name
+    from shopinfo s join employee e on l.employee_id = e.id
+    where s.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, fax, employee_id, location, time, img, info
-    from shopinfo
+    select s.id, name, s.fax, s.employee_id, s.location, s.time, s.img, s.info
+    e.id e_id,e.name e_name
+    from shopinfo s join employee e on l.employee_id = e.id
   </select>
 </mapper>

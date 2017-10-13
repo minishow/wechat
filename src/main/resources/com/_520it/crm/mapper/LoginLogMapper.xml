@@ -8,6 +8,10 @@
     <result column="mac" property="mac" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <!-- 关联员工表信息 -->
+    <association property="employee" javaType="Employee">
+    	<id column="e_id" property="id"></id>
+    	<result column="e_name" property="name"/>
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from LoginLog
@@ -29,12 +33,14 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, logintime, ip, member_id, mac, state
-    from LoginLog
+    select id, logintime, ip, mac, state,
+    e.id e_id,e.name e_name
+    from LoginLog l join employee e on l.employee_id = e.id
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, logintime, ip, member_id, mac, state
-    from LoginLog
+   select id, logintime, ip, mac, state,
+    e.id e_id,e.name e_name
+    from LoginLog l join employee e on l.employee_id = e.id
   </select>
 </mapper>

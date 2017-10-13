@@ -20,7 +20,10 @@ public class LoginLog {
 	private Long id;
     private Date loginTime;
     private String ip;
-    private Long EmployeeId;
     private String mac;
     private Integer state;
+    /**
+     * 关联员工表信息
+     */
+    private Employee employee;
 }

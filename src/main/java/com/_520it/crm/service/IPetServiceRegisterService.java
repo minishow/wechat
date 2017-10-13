@@ -1,6 +1,8 @@
 package com._520it.crm.service;
 
 import com._520it.crm.domain.PetServiceRegister;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.PetServiceRegisterQueryObject;
 
 import java.util.List;
 
@@ -15,4 +17,10 @@ public interface IPetServiceRegisterService {
     List<PetServiceRegister> selectAll();
 
     int updateByPrimaryKey(PetServiceRegister record);
+
+    PageResult queryPage(PetServiceRegisterQueryObject qo);
+
+    void startService();
+
+    void endService();
 }
