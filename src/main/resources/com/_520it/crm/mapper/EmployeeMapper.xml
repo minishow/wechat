@@ -64,10 +64,11 @@
       select count(id) from employee
       <include refid="baes_where"></include>
     </select>
+
     <select id="selectByPageList" resultMap="BaseResultMap">
-        select id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, basePay, idCard
+        select *
         from employee
         <include refid="baes_where"></include>
-        limit #{page},#{start}
+        limit #{start},#{rows}
     </select>
 </mapper>
