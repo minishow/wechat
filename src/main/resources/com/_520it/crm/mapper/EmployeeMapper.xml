@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.EmployeeMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Employee" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="jobNumber" property="jobNumber" jdbcType="BIGINT" />
-    <result column="position_id" property="position.id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="INTEGER" />
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="entryTime" property="entryTime" jdbcType="DATE" />
-    <result column="resignationTime" property="resignationTime" jdbcType="DATE" />
-    <result column="basePay" property="basePay" jdbcType="DOUBLE" />
-    <result column="idCard" property="idCard" jdbcType="VARCHAR" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+<mapper namespace="com._520it.crm.mapper.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com._520it.crm.domain.Employee">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="jobNumber" property="jobNumber" jdbcType="BIGINT"/>
+        <result column="position_id" property="position.id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="entryTime" property="entryTime" jdbcType="DATE"/>
+        <result column="resignationTime" property="resignationTime" jdbcType="DATE"/>
+        <result column="basePay" property="basePay" jdbcType="DOUBLE"/>
+        <result column="idCard" property="idCard" jdbcType="VARCHAR"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from employee
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.Employee" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="com._520it.crm.domain.Employee" useGeneratedKeys="true" keyProperty="id">
     insert into employee (jobNumber, position_id, name, 
       gender, tel, entryTime, 
       resignationTime, basePay, idCard
@@ -27,7 +27,7 @@
       #{resignationTime,jdbcType=DATE}, #{basePay,jdbcType=DOUBLE}, #{idCard,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Employee" >
+    <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Employee">
     update employee
     set jobNumber = #{jobNumber,jdbcType=BIGINT},
       position_id = #{position.id,jdbcType=BIGINT},
@@ -40,15 +40,30 @@
       idCard = #{idCard,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, 
     basePay, idCard
     from employee
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+    <select id="selectAll" resultMap="BaseResultMap">
     select id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, 
     basePay, idCard
     from employee
   </select>
+    <sql id="baes_where">
+        <where>
+
+        </where>
+    </sql>
+    <select id="selectByCount" resultType="java.lang.Long">
+      select count(id) from employee
+      <include refid="baes_where"></include>
+    </select>
+    <select id="selectByPageList" resultType="com._520it.crm.domain.Employee">
+        SELECT id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, basePay, idCard
+        from employee
+        <include refid="baes_where"></include>
+        limit #{page},#{start}
+    </select>
 </mapper>
