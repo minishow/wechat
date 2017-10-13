@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.ProductStockMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.ProductStock" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="productInfo_id" property="productInfoId" jdbcType="BIGINT" />
+    <result column="supplier_id" property="supplierId" jdbcType="BIGINT" />
+    <result column="packageNumber" property="packageNumber" jdbcType="INTEGER" />
+    <result column="bulkNumber" property="bulkNumber" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="warnNumber" property="warnNumber" jdbcType="INTEGER" />
+    <result column="storeNumber" property="storeNumber" jdbcType="BIGINT" />
+    <result column="incomeDate" property="incomeDate" jdbcType="TIMESTAMP" />
+    <result column="outcomeDate" property="outcomeDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from productstock
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.ProductStock" useGeneratedKeys="true" keyProperty="id" >
+    insert into productstock (productInfo_id, supplier_id, packageNumber, 
+      bulkNumber, amount, warnNumber, 
+      storeNumber, incomeDate, outcomeDate
+      )
+    values (#{productInfoId,jdbcType=BIGINT}, #{supplierId,jdbcType=BIGINT}, #{packageNumber,jdbcType=INTEGER}, 
+      #{bulkNumber,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{warnNumber,jdbcType=INTEGER}, 
+      #{storeNumber,jdbcType=BIGINT}, #{incomeDate,jdbcType=TIMESTAMP}, #{outcomeDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductStock" >
+    update productstock
+    set productInfo_id = #{productInfoId,jdbcType=BIGINT},
+      supplier_id = #{supplierId,jdbcType=BIGINT},
+      packageNumber = #{packageNumber,jdbcType=INTEGER},
+      bulkNumber = #{bulkNumber,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      warnNumber = #{warnNumber,jdbcType=INTEGER},
+      storeNumber = #{storeNumber,jdbcType=BIGINT},
+      incomeDate = #{incomeDate,jdbcType=TIMESTAMP},
+      outcomeDate = #{outcomeDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, 
+    storeNumber, incomeDate, outcomeDate
+    from productstock
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, 
+    storeNumber, incomeDate, outcomeDate
+    from productstock
+  </select>
+
+
+
+
+
+  <select id="queryForData" resultMap="BaseResultMap" >
+    select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber,
+    storeNumber, incomeDate, outcomeDate
+    from productstock
+  </select>
+
+
+
+
+  <select id="queryForCount" resultType="long" >
+    select COUNT(id)
+    from productstock
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

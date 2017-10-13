@@ -2,44 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com._520it.crm.mapper.PetServiceMenuMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetServiceMenu" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="minPrice" property="minprice" jdbcType="INTEGER" />
-    <result column="maxPrice" property="maxprice" jdbcType="INTEGER" />
-    <result column="unit" property="unit" jdbcType="BIGINT" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="isDiscount" property="isdiscount" jdbcType="INTEGER" />
-    <result column="discount" property="discount" jdbcType="VARCHAR" />
-    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="minPrice" property="minPrice"/>
+    <result column="maxPrice" property="maxPrice"/>
+    <result column="unit" property="unit"/>
+    <result column="remark" property="remark"/>
+    <result column="isDiscount" property="isDiscount"/>
+    <result column="discount" property="discount"/>
+    <result column="parent_id" property="parent_id"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from petservicemenu
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.PetServiceMenu" useGeneratedKeys="true" keyProperty="id" >
     insert into petservicemenu (name, minPrice, maxPrice,
       unit, remark, isDiscount,
       discount, parent_id)
-    values (#{name,jdbcType=VARCHAR}, #{minprice,jdbcType=INTEGER}, #{maxprice,jdbcType=INTEGER},
-      #{unit,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{isdiscount,jdbcType=INTEGER},
-      #{discount,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT})
+    values (#{name}, #{minPrice}, #{maxPrice},
+      #{unit}, #{remark}, #{isDiscount},
+      #{discount}, #{parent_id})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetServiceMenu" >
     update petservicemenu
-    set name = #{name,jdbcType=VARCHAR},
-      minPrice = #{minprice,jdbcType=INTEGER},
-      maxPrice = #{maxprice,jdbcType=INTEGER},
-      unit = #{unit,jdbcType=BIGINT},
-      remark = #{remark,jdbcType=VARCHAR},
-      isDiscount = #{isdiscount,jdbcType=INTEGER},
-      discount = #{discount,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
+    set name = #{name},
+      minPrice = #{minPrice},
+      maxPrice = #{maxPrice},
+      unit = #{unit},
+      remark = #{remark},
+      isDiscount = #{isDiscount},
+      discount = #{discount},
+      parent_id = #{parent_id}
+    where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, name, minPrice, maxPrice, unit, remark, isDiscount, discount, parent_id
     from petservicemenu
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, name, minPrice, maxPrice, unit, remark, isDiscount, discount, parent_id

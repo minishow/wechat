@@ -1,6 +1,5 @@
 package com._520it.crm.web.controller;
 
-import com._520it.crm.mapper.EmployeeMapper;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.EmployeeQueryObject;
 import com._520it.crm.service.IEmployeeService;

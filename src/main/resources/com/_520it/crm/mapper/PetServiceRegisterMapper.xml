@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.PetserviceregisterMapper" >
+<mapper namespace="com._520it.crm.mapper.PetServiceRegisterMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetServiceRegister" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="petName" property="petname" jdbcType="VARCHAR" />
-    <result column="masterName" property="mastername" jdbcType="VARCHAR" />
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="itemFirst" property="itemfirst" jdbcType="VARCHAR" />
-    <result column="itemSecond" property="itemsecond" jdbcType="VARCHAR" />
-    <result column="startTime" property="starttime" jdbcType="DATE" />
-    <result column="endTime" property="endtime" jdbcType="DATE" />
-    <result column="petAge" property="petage" jdbcType="INTEGER" />
-    <result column="petGender" property="petgender" jdbcType="INTEGER" />
-    <result column="selfGood" property="selfgood" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="times" property="times" jdbcType="INTEGER" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="payment" property="payment" jdbcType="INTEGER" />
-    <result column="sevPrice" property="sevprice" jdbcType="INTEGER" />
+    <result column="petName" property="petName"/>
+    <result column="masterName" property="masterName"/>
+    <result column="tel" property="tel"/>
+    <result column="itemFirst" property="itemFirst"/>
+    <result column="itemSecond" property="itemSecond"/>
+    <result column="startTime" property="startTime"/>
+    <result column="endTime" property="endTime"/>
+    <result column="petAge" property="petAge"/>
+    <result column="petGender" property="petGender"/>
+    <result column="selfGood" property="selfGood"/>
+    <result column="remark" property="remark"/>
+    <result column="times" property="times"/>
+    <result column="state" property="state"/>
+    <result column="payment" property="payment"/>
+    <result column="sevPrice" property="sevPrice"/>
   </resultMap>
+
+  <sql id="base_where">
+    <where>
+      <if test="keyword_petName!=null">
+        AND petName LIKE concat('%',#{keyword_petName},'%')
+      </if>
+      <if test="keyword_tel!=null">
+        AND tel LIKE concat('%',#{keyword_tel},'%')
+      </if>
+    </where>
+  </sql>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from petserviceregister
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.PetServiceRegister" useGeneratedKeys="true" keyProperty="id" >
     insert into petserviceregister (petName, masterName, tel, 
@@ -30,41 +42,67 @@
       selfGood, remark, times, 
       state, payment, sevPrice
       )
-    values (#{petname,jdbcType=VARCHAR}, #{mastername,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
-      #{itemfirst,jdbcType=VARCHAR}, #{itemsecond,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE}, 
-      #{endtime,jdbcType=DATE}, #{petage,jdbcType=INTEGER}, #{petgender,jdbcType=INTEGER}, 
-      #{selfgood,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, 
-      #{state,jdbcType=INTEGER}, #{payment,jdbcType=INTEGER}, #{sevprice,jdbcType=INTEGER}
+    values (#{petName}, #{masterName}, #{tel}, 
+      #{itemFirst}, #{itemSecond}, #{startTime}, 
+      #{endTime}, #{petAge}, #{petGender}, 
+      #{selfGood}, #{remark}, #{times}, 
+      #{state}, #{payment}, #{sevPrice}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetServiceRegister" >
     update petserviceregister
-    set petName = #{petname,jdbcType=VARCHAR},
-      masterName = #{mastername,jdbcType=VARCHAR},
-      tel = #{tel,jdbcType=VARCHAR},
-      itemFirst = #{itemfirst,jdbcType=VARCHAR},
-      itemSecond = #{itemsecond,jdbcType=VARCHAR},
-      startTime = #{starttime,jdbcType=DATE},
-      endTime = #{endtime,jdbcType=DATE},
-      petAge = #{petage,jdbcType=INTEGER},
-      petGender = #{petgender,jdbcType=INTEGER},
-      selfGood = #{selfgood,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      times = #{times,jdbcType=INTEGER},
-      state = #{state,jdbcType=INTEGER},
-      payment = #{payment,jdbcType=INTEGER},
-      sevPrice = #{sevprice,jdbcType=INTEGER}
-    where id = #{id,jdbcType=BIGINT}
+    set petName = #{petName},
+      masterName = #{masterName},
+      tel = #{tel},
+      itemFirst = #{itemFirst},
+      itemSecond = #{itemSecond},
+      startTime = #{startTime},
+      endTime = #{endTime},
+      petAge = #{petAge},
+      petGender = #{petGender},
+      selfGood = #{selfGood},
+      remark = #{remark},
+      times = #{times},
+      state = #{state},
+      payment = #{payment},
+      sevPrice = #{sevPrice}
+    where id = #{id}
   </update>
+
+  <update id="startService">
+    update petserviceregister
+    SET
+  </update>
+  <update id="endService">
+
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
     petGender, selfGood, remark, times, state, payment, sevPrice
     from petserviceregister
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
     petGender, selfGood, remark, times, state, payment, sevPrice
     from petserviceregister
   </select>
+
+  <select id="queryForCount" resultType="long">
+
+    SELECT COUNT(id)
+    FROM petserviceregister
+    <include refid="base_where"/>
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+
+    SELECT id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge,
+    petGender, selfGood, remark, times, state, payment, sevPrice
+    FROM petserviceregister
+    <include refid="base_where"/>
+    LIMIT #{start},#{pageSize}
+  </select>
+
 </mapper>
