@@ -38,7 +38,7 @@ public class ProductStockController {
         try {
             productStockServiceImpl.deleteByPrimaryKey(id);
             return new AjaxObject(true,"删除成功");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return new AjaxObject(false,"删除失败");
         }
 
@@ -51,7 +51,7 @@ public class ProductStockController {
         try {
             productStockServiceImpl.insert(productStock);
             return new AjaxObject(true,"保存成功");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return new AjaxObject(false,e.getMessage());
         }
     }
@@ -63,7 +63,7 @@ public class ProductStockController {
         try {
             productStockServiceImpl.updateByPrimaryKey(productStock);
             return new AjaxObject(true,"编辑成功");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return new AjaxObject(false,"编辑失败");
         }
     }

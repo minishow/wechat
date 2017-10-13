@@ -8,16 +8,16 @@ $(function () {
         pagination: true,
         rownumbers: true,
         rownumbers: true,
-        url: '/employee/json',
+        url: '/productStock/json',
         striped: true,
         singleSelect: true,
         columns: [[
             {field: 'id', title: '员工编号', rowspan: 2, width: 70, align: 'center', sortable: true},
-            {field: 'username', title: '用户名', rowspan: 2, width: 70, align: 'center', sortable: true},
+            {field: 'productInfo_id', title: '用户名', rowspan: 2, width: 70, align: 'center', sortable: true},
             {title: 'Item Details', colspan: 8}
         ], [
             {
-                field: 'realname',
+                field: 'supplier_id',
                 title: '真正名',
                 width: 70,
                 align: 'right',
@@ -25,7 +25,7 @@ $(function () {
                 sortable: true
             },
             {
-                field: 'dept',
+                field: 'packageNumber',
                 title: '部门名称',
                 width: 70,
                 align: 'right',
@@ -33,20 +33,19 @@ $(function () {
                 sortable: true,
                 formatter: deptFormatter
             },
-            {field: 'password', title: '用户密码', align: 'center', width: 70},
-            {field: 'tel', title: '联系方式为', align: 'center', width: 70},
-            {field: 'email', title: 'Email', align: 'center', width: 70},
-            {field: 'inputTime', title: '入职时间', align: 'center', width: 70},
-            {field: 'state', title: '状态', align: 'center', width: 70, formatter: stateFormatter},
-            {field: 'admin', title: '是否是超级管理员', align: 'center', width: 70, formatter: adminFormatter}
+            {field: 'amount', title: '用户密码', align: 'center', width: 70},
+            {field: 'warnNumber', title: '联系方式为', align: 'center', width: 70},
+            {field: 'storeNumber', title: 'Email', align: 'center', width: 70},
+            {field: 'incomeDate', title: '入职时间', align: 'center', width: 70},
+            {field: 'outcomeDate', title: '状态', align: 'center', width: 70}
 
         ]],
         onClickRow: function () {
             var rowData = $("#myDatagrid").datagrid("getSelected");
             if (rowData.state == 1) {
-                $("#del,#editData").linkbutton("disable");
+                $("#del,#edit").linkbutton("disable");
             } else {
-                $("#del,#editData").linkbutton("enable");
+                $("#del,#edit").linkbutton("enable");
             }
         },
         toolbar: '#myTools'
@@ -95,9 +94,9 @@ function del() {
         $.messager.confirm("温馨提示", "您确定需要删除这条记录吗？", function (yes) {
             if (yes) {
                 var args = "id=" + rowData.id + "&state=1";
-                $.get("/employee/delete", args, function (data) {
+                $.get("/productStock/delete", args, function (data) {
                     if (data.success) {
-                        reloadData();
+                        reload();
                         $.messager.alert("温馨提示", data.msg, "warning", function () {
                             $("#edit_form").dialog("close");
                         });
@@ -118,19 +117,19 @@ function del() {
         $.messager.alert("温馨提示", "亲，请选择需要编辑的项", "warning");
     }
 }
-function reloadData() {
+function reload() {
 
     $("#myDatagrid").datagrid("reload");
 }
 function searchData() {
-    var keyword = $("#employee_keyword").textbox("getText");
-    var url = "/employee";
+    var keyword = $("#productStock_keyword").textbox("getText");
+    var url = "/productStock";
     var args = "keyword="+keyword;
     $.post(url, args, function (data) {
     }, "json");
-    reloadData();
+    reload();
 }
-function editData() {
+function edit() {
     var rowData = $("#myDatagrid").datagrid("getSelected");
     if (rowData) {
         $("#edit_form").dialog({
@@ -143,7 +142,7 @@ function editData() {
         $("#edit_form").form("clear");
         rowData["dept.id"] = rowData.dept.id;
         $("#edit_form").form("load", rowData);
-        $.get("/employee/queryRoles?id="+rowData.id, function (data) {
+        $.get("/productStock/queryRoles?id="+rowData.id, function (data) {
             var param=$.map(data,function(item){
                 var arr=new Array(2);
                 arr.add(item.name);
@@ -161,9 +160,9 @@ function saveInput() {
     var url;
     var eleId = $("[name='id']").val();
     if (eleId) {
-        url = "/employee/edit";
+        url = "/productStock/edit";
     } else {
-        url = "/employee/save";
+        url = "/productStock/save";
     }
     $("#edit_form").form("submit", {
         url: url,onSubmit:function (param){
@@ -175,9 +174,9 @@ function saveInput() {
         success: function (data) {
             var dataJson = eval("(" + data + ")");
             if (dataJson.success) {
-                reloadData();
+                reload();
                 if (eleId) {
-                    $.get("/employee/queryRoles?id="+eleId, function (param) {
+                    $.get("/productStock/queryRoles?id="+eleId, function (param) {
                         var newParam=$.map(param,function(item){
                             var arr=new Array(2);
                             arr.add(item.name);
