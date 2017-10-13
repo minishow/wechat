@@ -12,7 +12,6 @@
     <result column="incomeDate" property="incomeDate" jdbcType="TIMESTAMP" />
     <result column="outcomeDate" property="outcomeDate" jdbcType="TIMESTAMP" />
 
-    <result column="productInfo_id" property="productInfoId" jdbcType="BIGINT" />
     <collection property="productInfoId" ofType="ProductInfo" columnPrefix="pi_">
       <id property="id" column="id"/>
       <result property="code" column="code"/>
@@ -20,9 +19,8 @@
       <result property="price" column="price"/>
       <result property="memberPrice" column="memberPrice"/>
     </collection>
-
-
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from productstock
     where id = #{id,jdbcType=BIGINT}
