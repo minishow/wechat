@@ -11,7 +11,7 @@ import java.util.Date;
 public class ProductStock {
     private Long id;
 
-    private Long productInfoId;
+    private ProductInfo productInfoId; //商品
 
     private Long supplierId;
 
