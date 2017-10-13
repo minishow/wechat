@@ -36,6 +36,25 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select b.id, b.name, b.state,
     l.id l_id, l.name l_name
-    from brand b join location on b.location_id=l.id
+    from brand b join location l on b.location_id=l.id
+  </select>
+  <!-- 高级查询 -->
+  <sql id="base_where">
+  	<where>
+	  	<if test="keyword!=null">
+	  		and b.name like concat('%',#{keyword},'%')
+	  	</if>
+  	</where>
+  </sql>
+  <select id="queryForCount" resultType="long">
+  	select count(b.id) from brand b
+  	<include refid="base_where"/>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+  	select b.id, b.name, b.state,
+    l.id l_id, l.name l_name
+    from brand b join location l on b.location_id=l.id
+    <include refid="base_where"/>
+    limit #{start},#{rows}
   </select>
 </mapper>

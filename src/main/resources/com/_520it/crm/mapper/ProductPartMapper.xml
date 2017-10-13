@@ -9,7 +9,7 @@
     delete from productpart
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.Productpart" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com._520it.crm.domain.ProductPart" useGeneratedKeys="true" keyProperty="id" >
     insert into productpart (name)
     values (#{name,jdbcType=VARCHAR})
   </insert>
