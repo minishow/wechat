@@ -1,5 +1,6 @@
 package com._520it.crm.test;
 
+import com._520it.crm.query.ProductStockQueryObject;
 import com._520it.crm.service.IProductStockService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +18,7 @@ public class App {
    private IProductStockService productStockService;
     @Test
     public void myTest(){
-           System.out.println(productStockService.selectAll());
+           System.out.println(productStockService.queryForList(new ProductStockQueryObject()));
         System.out.println("......................");
         }
 }

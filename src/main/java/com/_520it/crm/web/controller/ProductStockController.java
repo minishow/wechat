@@ -21,14 +21,13 @@ public class ProductStockController {
     private IProductStockService productStockServiceImpl;
     @RequestMapping("")
     public String execute(ProductStockQueryObject qo) {
-
         return null;
     }
 
-    @RequestMapping("/json")
+    @RequestMapping("/list")
     @ResponseBody
-    public PageResult json() {
-            return productStockServiceImpl.queryForList(null);
+    public PageResult json(ProductStockQueryObject qo) {
+        return productStockServiceImpl.queryForList(qo);
     }
 
 

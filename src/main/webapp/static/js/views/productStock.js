@@ -8,36 +8,32 @@ $(function () {
         pagination: true,
         rownumbers: true,
         rownumbers: true,
-        url: '/productStock/json',
+        url: '/productStock/list',
         striped: true,
         singleSelect: true,
-        columns: [[
-            {field: 'id', title: '员工编号', rowspan: 2, width: 70, align: 'center', sortable: true},
-            {field: 'productInfo_id', title: '用户名', rowspan: 2, width: 70, align: 'center', sortable: true},
-            {title: 'Item Details', colspan: 8}
-        ], [
-            {
-                field: 'supplier_id',
-                title: '真正名',
-                width: 70,
+        columns: [ [
+            {field: 'id', title: '库存编号', width: '10%', align: 'center', sortable: true},
+            {field: 'productInfoId', title: '产品编号', width: '10%', align: 'center', sortable: true},
+            {   field: 'supplierId',
+                title: '供应商Id',
+                width: '10%',
                 align: 'right',
                 align: 'center',
                 sortable: true
             },
             {
                 field: 'packageNumber',
-                title: '部门名称',
-                width: 70,
+                title: '整装数量',
+                width: '10%',
                 align: 'right',
                 align: 'center',
                 sortable: true,
-                formatter: deptFormatter
             },
-            {field: 'amount', title: '用户密码', align: 'center', width: 70},
-            {field: 'warnNumber', title: '联系方式为', align: 'center', width: 70},
-            {field: 'storeNumber', title: 'Email', align: 'center', width: 70},
-            {field: 'incomeDate', title: '入职时间', align: 'center', width: 70},
-            {field: 'outcomeDate', title: '状态', align: 'center', width: 70}
+            {field: 'amount', title: '总价格', align: 'center', width: '10%'},
+            {field: 'warnNumber', title: '预警数量', align: 'center', width: '10%'},
+            {field: 'storeNumber', title: '仓库数量', align: 'center', width: '10%'},
+            {field: 'incomeDate', title: '入库时间', align: 'center', width: '10%'},
+            {field: 'outcomeDate', title: '出库时间', align: 'center', width: '10%'}
 
         ]],
         onClickRow: function () {
