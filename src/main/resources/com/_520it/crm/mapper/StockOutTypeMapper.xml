@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com._520it.crm.mapper.StockouttypeMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Stockouttype" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.StockOutType" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
@@ -10,11 +10,11 @@
     delete from stockouttype
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.Stockouttype" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com._520it.crm.domain.StockOutType" useGeneratedKeys="true" keyProperty="id" >
     insert into stockouttype (name, state)
     values (#{name,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Stockouttype" >
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.StockOutType" >
     update stockouttype
     set name = #{name,jdbcType=VARCHAR},
       state = #{state,jdbcType=INTEGER}
