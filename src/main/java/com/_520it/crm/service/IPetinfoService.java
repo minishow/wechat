@@ -18,4 +18,6 @@ public interface IPetInfoService {
     List<PetInfo> selectAll();
 
     int updateByPrimaryKey(PetInfo record);
+
+
 }

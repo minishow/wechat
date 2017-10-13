@@ -2,11 +2,14 @@ package com._520it.crm.service.impl;
 
 import com._520it.crm.domain.PetInfo;
 import com._520it.crm.mapper.PetInfoMapper;
+import com._520it.crm.page.PageResult;
 import com._520it.crm.service.IPetInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PetinfoServiceImpl implements IPetInfoService {
 
     @Autowired
@@ -41,4 +44,6 @@ public class PetinfoServiceImpl implements IPetInfoService {
 
         return petInfoMapper.updateByPrimaryKey(record);
     }
+
+
 }
