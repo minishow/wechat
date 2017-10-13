@@ -1,0 +1,20 @@
+$(function () {
+    //页面的数据表格
+    $("#cashbillitem_datagrid").datagrid({
+        singleSelect:true,
+        rownumbers:true,
+        pagination:true,
+        striped:true,
+        fitColumns:true,
+        columns:[[
+            {field:'code',title:'商品69条码',width:10,align:'center'},
+            {field:'name',title:'商品名称',width:10,align:'center'},
+            {field:'price',title:'原价格',width:10,align:'center'},
+            {field:'memberPrice',title:'会员价格',width:10,align:'center'},
+            {field:'number',title:'数量',width:10,align:'center'},
+            {field:'unit',title:'单位',width:10,align:'center'},
+            {field:'costAmount',title:'原价总价格',width:10,align:'center'},
+            {field:'memberAmount',title:'会员总价格',width:10,align:'center'}
+        ]]
+    })
+})
