@@ -19,17 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ProductStockController {
     @Autowired
     private IProductStockService productStockServiceImpl;
-    private ProductStockQueryObject qo = new ProductStockQueryObject();
     @RequestMapping("")
     public String execute(ProductStockQueryObject qo) {
-        this.qo=qo;
+
         return null;
     }
 
     @RequestMapping("/json")
     @ResponseBody
     public PageResult json() {
-            return productStockServiceImpl.queryForList(qo);
+            return productStockServiceImpl.queryForList(null);
     }
 
 
