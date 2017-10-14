@@ -8,4 +8,5 @@ public class ProductType {
     private Long id;
     private ProductType parent;
     private Integer state;
+    private String name;
 }

@@ -1,8 +1,8 @@
 package com._520it.crm.domain;
-import java.math.BigDecimal;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Setter@Getter
 public class ProductInfo {
@@ -17,4 +17,8 @@ public class ProductInfo {
     private Integer state;
     private String img;
     private String info;
+    /*
+     * 添加会员价格
+     */
+    private BigDecimal memberPrice;
 }
