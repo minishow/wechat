@@ -46,8 +46,8 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,
     pi.id pi_id,pi.name pi_name
-    from supplier join productinfo pi on s.productinfo_id = pi.id
-    where id = #{id,jdbcType=BIGINT}
+    from supplier s join productinfo pi on s.product_id = pi.id
+    where s.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,

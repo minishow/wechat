@@ -55,17 +55,17 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select pi.id, pi.code, pi.name,
+ select pi.id, pi.code, pi.name,
     pt.id pt_id,pt.name pt_name,
     b.id b_id,b.name b_name,
     l.id l_id,l.name l_name,
     h.id h_id,h.name h_name,
     pi.price, pi.state, pi.img, pi.info
-    from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
-    join brand b on pi.brand_id = b.id 
-    join location l on b.location_id=l.id
-    join harm h pi.harm_id = h.id
-    where id = #{id,jdbcType=BIGINT}
+    from ProductInfo pi LEFT join producttype pt  on pi.producttype_id=pt.id
+   LEFT join brand b on pi.brand_id = b.id
+   LEFT join location l on b.location_id=l.id
+   LEFT  join harm h on pi.harm_id = h.id
+    where pi.id= #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select pi.id, pi.code, pi.name, 

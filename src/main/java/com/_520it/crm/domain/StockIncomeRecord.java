@@ -8,7 +8,7 @@ import lombok.ToString;
 public class StockIncomeRecord {
     private Long id;
 
-    private Long stockOprationBillId;
+    private StockOprationBill stockOprationBill;
 
     private Integer number;
 

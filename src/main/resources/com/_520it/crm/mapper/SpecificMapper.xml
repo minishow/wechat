@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com._520it.crm.mapper.SpecificMapper">
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Specific">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="beforeSpecific" jdbcType="VARCHAR" property="beforeSpecific" />
+    <result column="stockSpecific" jdbcType="VARCHAR" property="stockSpecific" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from specifics
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com._520it.crm.domain.Specific" useGeneratedKeys="true">
+    insert into specifics (beforeSpecific, stockSpecific, number, 
+      price)
+    values (#{beforeSpecific,jdbcType=VARCHAR}, #{stockSpecific,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Specific">
+    update specifics
+    set beforeSpecific = #{beforeSpecific,jdbcType=VARCHAR},
+      stockSpecific = #{stockSpecific,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, beforeSpecific, stockSpecific, number, price
+    from specifics
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, beforeSpecific, stockSpecific, number, price
+    from specifics
+  </select>
+</mapper>

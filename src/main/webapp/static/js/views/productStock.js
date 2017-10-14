@@ -12,187 +12,103 @@ $(function () {
         striped: true,
         singleSelect: true,
         columns: [ [
-            {field: 'id', title: '库存编号', width: '10%', align: 'center', sortable: true},
-            {field: 'productInfoId', title: '产品编号', width: '10%', align: 'center', sortable: true},
-            {   field: 'supplierId',
-                title: '供应商Id',
+            {field: 'sn', title: '库存编码', align: 'center', width: '10%',color:'red'},
+            {field: "code", title: '商品69码', width: '10%', align: 'center', sortable: true,formatter: productCodeFormatter},
+            {field: "name", title: '商品名称', width: '10%', align: 'center', sortable: true,formatter: productNameFormatter},
+            {field: "productType", title: '商品类型', width: '10%', align: 'center', sortable: true,formatter: productTypeFormatter},
+            {field: "brand", title: '商品品牌', width: '10%', align: 'center', sortable: true,formatter: brandFormatter},
+            {   field: 'productPart',
+                title: '主要成分',
                 width: '10%',
                 align: 'right',
                 align: 'center',
-                sortable: true
+                sortable: true,
+                formatter: productPartFormatter
             },
             {
                 field: 'packageNumber',
-                title: '整装数量',
+                title: '整装库存',
                 width: '10%',
                 align: 'right',
                 align: 'center',
                 sortable: true,
             },
-            {field: 'amount', title: '总价格', align: 'center', width: '10%'},
-            {field: 'warnNumber', title: '预警数量', align: 'center', width: '10%'},
-            {field: 'storeNumber', title: '仓库数量', align: 'center', width: '10%'},
-            {field: 'incomeDate', title: '入库时间', align: 'center', width: '10%'},
-            {field: 'outcomeDate', title: '出库时间', align: 'center', width: '10%'}
+            {field: 'bulkNumber', title: '散装库存', align: 'center', width: '10%'},
+            {field: 'amount', title: '库存结余（元）', align: 'center', width: '10%'},
+            {field: 'warnNumber', title: '预警数量', align: 'center', width: '10%',color:'red',styler:stylerFormatter},
 
         ]],
         onClickRow: function () {
-            var rowData = $("#myDatagrid").datagrid("getSelected");
+            var rowData = $("#datagrip_table").datagrid("getSelected");
             if (rowData.state == 1) {
                 $("#del,#edit").linkbutton("disable");
             } else {
                 $("#del,#edit").linkbutton("enable");
             }
         },
-        toolbar: '#myTools'
+        toolbar: '#datagrip_tools'
     });
 
 
 
 });
 
-function add() {
-    $('#edit_form').dialog({
-        title: '新增',
-        width: 300,
-        height: 250,
-        closed: false,
-        modal: true
-    });
-    $("#edit_form").form("clear");
-}
-
-function deptFormatter(value, rowData, index) {
-    if (value) {
-        return value.name;
+function productCodeFormatter(value, rowData, index) {
+     if(rowData.productInfo){
+        return rowData.productInfo.code;
     }
 }
-function stateFormatter(value, rowData, index) {
-    if (value) {
-        return "<font style='color: red'>离职</font>";
-    } else {
-        return "<font style='color: green'>在职</font>";
-
+function productNameFormatter(value, rowData, index) {
+    if(rowData.productInfo){
+        return rowData.productInfo.name;
     }
 }
-function adminFormatter(value, rowData, index) {
-    if (value) {
-        return "是";
-    } else {
-        return "否";
+function productTypeFormatter(value, rowData, index) {
+    if(rowData.productInfo){
+       return rowData.productInfo.productType.name;
     }
 }
 
-
-function del() {
-    var rowData = $("#myDatagrid").datagrid("getSelected");
-    if (rowData) {
-        $.messager.confirm("温馨提示", "您确定需要删除这条记录吗？", function (yes) {
-            if (yes) {
-                var args = "id=" + rowData.id + "&state=1";
-                $.get("/productStock/delete", args, function (data) {
-                    if (data.success) {
-                        reload();
-                        $.messager.alert("温馨提示", data.msg, "warning", function () {
-                            $("#edit_form").dialog("close");
-                        });
-                    } else {
-                        $.messager.alert("温馨提示", data.msg, "warning", function () {
-                            $("#edit_form").dialog("close");
-                        });
-                    }
-                }, "json");
-            } else {
-                $.messager.alert("温馨提示", data.msg, "warning", function () {
-                    $("#edit_form").dialog("close");
-                });
-            }
-        });
-
-    } else {
-        $.messager.alert("温馨提示", "亲，请选择需要编辑的项", "warning");
+function brandFormatter(value, rowData, index) {
+    if(rowData.productInfo){
+       return rowData.productInfo.brand.name;
     }
-}
-function reload() {
-
-    $("#myDatagrid").datagrid("reload");
-}
-function searchData() {
-    var keyword = $("#productStock_keyword").textbox("getText");
-    var url = "/productStock";
-    var args = "keyword="+keyword;
-    $.post(url, args, function (data) {
-    }, "json");
-    reload();
-}
-function edit() {
-    var rowData = $("#myDatagrid").datagrid("getSelected");
-    if (rowData) {
-        $("#edit_form").dialog({
-            title: '编辑',
-            width: 300,
-            height: 250,
-            closed: false,
-            modal: true
-        });
-        $("#edit_form").form("clear");
-        rowData["dept.id"] = rowData.dept.id;
-        $("#edit_form").form("load", rowData);
-        $.get("/productStock/queryRoles?id="+rowData.id, function (data) {
-            var param=$.map(data,function(item){
-                var arr=new Array(2);
-                arr.add(item.name);
-                arr.add(item.id);
-                return arr;
-            })
-            $('#multiple_role').combobox('setValues', param);
-        });
-    } else {
-        $.messager.alert("温馨提示", "亲，请选择需要编辑的项", "warning");
+}function productPartFormatter(value, rowData, index) {
+    if(value){
+       return value.name;
     }
 }
 
-function saveInput() {
-    var url;
-    var eleId = $("[name='id']").val();
-    if (eleId) {
-        url = "/productStock/edit";
-    } else {
-        url = "/productStock/save";
+function stylerFormatter(value, rowData, index) {
+    if(value>0){
+        return  'background-color:#ffee00;color:red;';
     }
-    $("#edit_form").form("submit", {
-        url: url,onSubmit:function (param){
-            var ids=$("#multiple_role").combobox("getValues");
-            for(var i= 0;i<ids.length;i++){
-                param["roles["+i+"].id"]=ids[i];
-            }
-        },
-        success: function (data) {
-            var dataJson = eval("(" + data + ")");
-            if (dataJson.success) {
-                reload();
-                if (eleId) {
-                    $.get("/productStock/queryRoles?id="+eleId, function (param) {
-                        var newParam=$.map(param,function(item){
-                            var arr=new Array(2);
-                            arr.add(item.name);
-                            arr.add(item.id);
-                            return arr;
-                        })
-                        $('#multiple_role').combobox('setValues', newParam);
-                    });
-                }
-                $.messager.alert("温馨提示", dataJson.msg, "warning", function () {
-                    $("#edit_form").dialog("close");
-                });
-            } else {
-                $.messager.alert("温馨提示", dataJson.msg, "warning", function () {
-                    $("#edit_form").dialog("close");
-                });
-            }
+
+}
+
+$(function(){
+    $("#searchData").linkbutton({
+        width:60,
+        height:30,
+        plain:true,
+        iconCls:'icon-search',
+        onClick:function(){
+            var url="/productStock/json";
+            var keyword= $("#code_sn").textbox("getText");
+            var productName=$("#productName").textbox("getText");
+            var productType=$("#productType").textbox("getText");
+            alert(keyword);
+            var data="keyword="+keyword+"&productName="+productName+"&productType="+productType;
+            $("#datagrip_table").datagrid("load",{keyword:keyword,productName:productName,productType:productType});
+          /*  $.post(url, data, function (data) {
+                console.log(data);
+              /!*  $("#datagrip_table").datagrid("clear");*!/
+
+                alert(123);
+            }, "json");*/
         }
-    }, "json");
-}
-function closeInput() {
-    $("#edit_form").dialog("close");
-}
+    })
+})
+
+
+

@@ -1,6 +1,8 @@
 package com._520it.crm.service;
 
 import com._520it.crm.domain.StockOprationBill;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.StockOprationBillQueryObject;
 
 import java.util.List;
 
@@ -17,4 +19,6 @@ public interface IStockOprationBillService {
     List<StockOprationBill> selectAll();
 
     int updateByPrimaryKey(StockOprationBill record);
+
+    PageResult queryForList(StockOprationBillQueryObject qo);
 }

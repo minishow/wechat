@@ -1,8 +1,10 @@
 package com._520it.crm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 @Setter
@@ -11,9 +13,10 @@ import java.util.Date;
 public class ProductStock {
     private Long id;
 
-    private Long productInfoId;
+    private String sn;
+    private ProductInfo productInfo;
 
-    private Long supplierId;
+    private ProductPart productPart;
 
     private Integer packageNumber;
 
@@ -24,10 +27,10 @@ public class ProductStock {
     private Integer warnNumber;
 
     private Long storeNumber;
-
+    @DateTimeFormat(pattern = "yyy-MM-dd")
+    @JsonFormat(pattern = "yyy-MM-dd",timezone = "GTM+8")
     private Date incomeDate;
-
+    @DateTimeFormat(pattern = "yyy-MM-dd")
+    @JsonFormat(pattern = "yyy-MM-dd",timezone = "GTM+8")
     private Date outcomeDate;
-
-
 }

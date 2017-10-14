@@ -1,7 +1,10 @@
 package com._520it.crm.service.impl;
 
 import com._520it.crm.domain.StockOprationBill;
+import com._520it.crm.domain.StockOutRecord;
 import com._520it.crm.mapper.StockOprationBillMapper;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.StockOprationBillQueryObject;
 import com._520it.crm.service.IStockOprationBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +44,12 @@ public class StockOprationBillServiceImpl implements IStockOprationBillService {
     public int updateByPrimaryKey(StockOprationBill record) {
         stockOprationBillMapper.updateByPrimaryKey(record);
         return 0;
+    }
+
+    @Override
+    public PageResult queryForList(StockOprationBillQueryObject qo) {
+        List<StockOutRecord> data=stockOprationBillMapper.queryForData(qo);
+        Long count=stockOprationBillMapper.queryForCount(qo);
+        return new PageResult(count,data);
     }
 }

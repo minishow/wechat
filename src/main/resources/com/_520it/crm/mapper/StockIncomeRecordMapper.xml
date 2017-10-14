@@ -3,11 +3,12 @@
 <mapper namespace="com._520it.crm.mapper.StockIncomeRecordMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.StockIncomeRecord" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="stockOprationBill_id" property="stockOprationBillId" jdbcType="BIGINT" />
     <result column="number" property="number" jdbcType="INTEGER" />
     <result column="amount" property="amount" jdbcType="DECIMAL" />
     <result column="auditor" property="auditor" jdbcType="VARCHAR" />
-  </resultMap>
+    <association property="stockOprationBill" column="stockOprationBill_id" javaType="StockOprationBill"
+                 select="com._520it.crm.mapper.StockOprationBillMapper.selectByPrimaryKey"/>
+</resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from stockincomerecord
     where id = #{id,jdbcType=BIGINT}
@@ -35,4 +36,21 @@
     select id, stockOprationBill_id, number, amount, auditor
     from stockincomerecord
   </select>
+
+
+
+
+  <select id="queryForData" resultMap="BaseResultMap" >
+    select id, stockOprationBill_id, number, amount, auditor
+    from stockincomerecord
+  </select>
+
+
+
+
+  <select id="queryForCount" resultType="long" >
+    select COUNT(id)
+    from stockincomerecord
+  </select>
+
 </mapper>

@@ -3,10 +3,11 @@
 <mapper namespace="com._520it.crm.mapper.StockOutRecordMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.StockOutRecord" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="stockOprationBill_id" property="stockOprationBillId" jdbcType="BIGINT" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="auditor" property="auditor" jdbcType="VARCHAR" />
     <result column="details" property="details" jdbcType="VARCHAR" />
+    <association property="stockOprationBill" column="stockOprationBill_id" javaType="StockOprationBill"
+                 select="com._520it.crm.mapper.StockOprationBillMapper.selectByPrimaryKey"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from stockoutrecord
@@ -35,4 +36,19 @@
     select id, stockOprationBill_id, state, auditor, details
     from stockoutrecord
   </select>
+
+
+
+  <select id="queryForData" resultMap="BaseResultMap" >
+    select id, stockOprationBill_id, state, auditor, details
+    from stockoutrecord
+  </select>
+
+  <select id="queryForCount" resultType="long" >
+    select COUNT(id)
+    from stockoutrecord
+  </select>
+
+
+
 </mapper>
