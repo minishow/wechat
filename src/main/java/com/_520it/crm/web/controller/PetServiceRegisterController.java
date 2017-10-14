@@ -44,19 +44,22 @@ public class PetServiceRegisterController {
     }
     
     @RequestMapping("/startService")
+    @ResponseBody
     public AjaxResult startService(Long id){
         AjaxResult result = null;
         try{
-            petServiceRegisterService.startService(id);
+            int changeCount = petServiceRegisterService.startService(id);
             result = new AjaxResult(true,"开始服务成功!");
+            System.out.println(changeCount);
         }catch(Exception e){
             e.printStackTrace();
-            result = new AjaxResult("开始服务失败!");
+            result = new AjaxResult(e.getMessage());
         }
         return result;
     }
 
     @RequestMapping("/endService")
+    @ResponseBody
     public AjaxResult endService(Long id){
         AjaxResult result = null;
         try{
@@ -64,7 +67,7 @@ public class PetServiceRegisterController {
             result = new AjaxResult(true,"结束服务成功!");
         }catch(Exception e){
             e.printStackTrace();
-            result = new AjaxResult("结束服务失败!");
+            result = new AjaxResult(e.getMessage());
         }
         return result;
     }

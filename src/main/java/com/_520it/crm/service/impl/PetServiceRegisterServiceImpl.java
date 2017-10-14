@@ -56,14 +56,28 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
     }
 
     @Override
-    public void startService(Long id) {
+    public int startService(Long id) {
         PetServiceRegister record = petServiceRegisterMapper.selectByPrimaryKey(id);
-        petServiceRegisterMapper.startService(1,id,new Date());
+        if (record.getState() == 0) {
+            return petServiceRegisterMapper.startService(1,id,new Date());
+        } else if (record.getState() == 1){
+            throw new RuntimeException("服务已经开始!");
+        } else if (record.getState() == 2) {
+            throw new RuntimeException("服务已经结束!");
+        }
+        throw new RuntimeException("服务状态有问题请联系管理员!");
     }
 
     @Override
-    public void endService(Long id) {
+    public int endService(Long id) {
         PetServiceRegister record = petServiceRegisterMapper.selectByPrimaryKey(id);
-        petServiceRegisterMapper.endService(2,id,new Date());
+        if (record.getState() == 1) {
+            return petServiceRegisterMapper.endService(2,id,new Date());
+        } else if (record.getState() == 0){
+            throw new RuntimeException("服务还未开始!");
+        } else if (record.getState() == 2){
+            throw new RuntimeException("服务已经结束!");
+        }
+        throw new RuntimeException("服务状态有问题请联系管理员!");
     }
 }

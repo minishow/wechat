@@ -21,7 +21,7 @@ public interface PetServiceRegisterMapper {
     Long queryForCount(QueryObject qo);
     List<PetServiceRegister> queryForList(QueryObject qo);
 
-    void startService(@Param("state") Integer state, @Param("id") Long id, @Param("startTime")Date date);
+    int startService(@Param("state") Integer state, @Param("id") Long id, @Param("startTime")Date date);
 
-    void endService(@Param("state") Integer state,@Param("id") Long id, @Param("endTime")Date date);
+    int endService(@Param("state") Integer state,@Param("id") Long id, @Param("endTime")Date date);
 }
