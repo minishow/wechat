@@ -13,4 +13,8 @@ public interface PetServiceMenuMapper {
     List<PetServiceMenu> selectAll();
 
     int updateByPrimaryKey(PetServiceMenu record);
+
+    List<PetServiceMenu> queryTree();
+    List<PetServiceMenu> queryTopTree();
+
 }
