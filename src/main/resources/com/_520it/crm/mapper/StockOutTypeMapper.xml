@@ -29,4 +29,32 @@
     select id, name, state
     from stockouttype
   </select>
+  
+      <!-- 高级查询 -->
+  <sql id="base_where">
+  	<where>
+	  	<if test="keyword!=null">
+	  		and name like concat('%',#{keyword},'%')
+	  	</if>
+  	</where>
+  </sql>
+  <select id="queryForCount" resultType="long">
+  	select count(id) from stockOutType
+  	<include refid="base_where"/>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, name, state
+    from stockOutType
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+  
+  <update id="changeState">
+  	update stockOutType
+  	   set 
+  	   state=0
+  	where id=#{id}
+  </update>
+  
+  
 </mapper>

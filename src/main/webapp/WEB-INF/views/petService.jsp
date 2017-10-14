@@ -15,17 +15,65 @@
 	</div>
 	<div data-options="region:'center'">
 		<table id="petServiceRegister_datagrid"></table>
-		<!-- 定义对话框 -->
+		<!-- 宠物登记对话框 -->
 		<div id="petServiceRegister_dialog">
+			<!--根据会员号搜索-->
+			<div>
+				<input id="memberNo" type="text" class="easyui-textbox" data-options="label:'会员号:', width:250">
+			</div>
 			<form id="petServiceRegister_form" method="post">
-				<input type="hidden" name="id">
-				<div align="center" style="margin-top: 10px;" >
+				<div align="center" style="margin-top: 10px;height:250px;" >
+					<div id="petServiceRegister_tabs">
+						<div title="宠物" style="padding:10px">
+                            <input type="hidden" name="sevPrice" id="servicePrice">
+							<div style="margin-left: 90px">
+								<select  name="itemFirst" id="topMenu"></select>
+                                &nbsp;&nbsp;
+								<select  name="itemSecond" id="secondMenu"></select>
+                                &nbsp;&nbsp;
+								<input type="text" name="times" id="menuTime"></input>
+							</div>
+							<div style="margin-left: 90px">
+                                <input type="text" name="petName" class="easyui-textbox" data-options="label:'宠物名:', width:250">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="text" name="tel" class="easyui-textbox" data-options="label:'联系方式:', width:250">
+                            </div>
+							<div style="margin-left: 90px">
+								<input type="text" class="easyui-datebox" data-options="label:'预计开始时间:', width:250">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="text" class="easyui-datebox" data-options="label:'预计结束时间:', width:250">
+							</div>
+							<div style="margin-left: 90px">
+                                <input type="text" name="petAge" class="easyui-textbox" data-options="label:'宠物年龄:', width:250">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<select  name="petKind.id" id="petKindMenu"></select>
+								<select  name="petType.id" id="petTypeMenu"></select>
+							</div>
+							<div style="margin-left: 90px">
+								<input type="text" class="easyui-datebox" data-options="label:'上次驱虫时间:', width:250">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="text" class="easyui-datebox" data-options="label:'上次疫苗时间:', width:250">
+							</div>
+							<div style="margin-left: 90px">宠物性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="radio" name="petGender" value="0">弟弟</input>
+								<input type="radio" name="petGender" value="1">妹妹</input>
+								<input type="radio" name="petGender" value="2">不详</input>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="text" value="0" class="easyui-textbox" data-options="label:'预付款:', width:250">
+							</div>
+							<div style="margin-left: 90px">
+								<input type="text" name="selfGood" class="easyui-textbox" data-options="multiline:true,label:'自带物品:', height:40,width:250">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="text" name="remark" class="easyui-textbox" data-options="multiline:true,label:'特殊备注:', height:40,width:250">
+							</div>
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>
+		<!-- 添加宠物服务菜单对话框 -->
 		<div id="petServiceMenu_dialog">
 			<form id="petServiceMenu_form" method="post">
-				<input type="hidden" name="id">
 				<div align="center" style="margin-top: 30px;" >
 					<div><input type="text" name="text" class="easyui-textbox" data-options="label:'服务名称:', width:250"></div>
 					<div>
