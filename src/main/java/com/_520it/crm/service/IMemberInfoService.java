@@ -6,9 +6,7 @@ import com._520it.crm.query.MemberInfoQueryObject;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2017/10/12 0012.
- */
+
 public interface IMemberInfoService {
     int deleteByPrimaryKey(Long id);
 
@@ -21,4 +19,6 @@ public interface IMemberInfoService {
     int updateByPrimaryKey(MemberInfo record);
 
     PageResult queryMemberByList(MemberInfoQueryObject qo);
+
+    MemberInfo queryMemberByNumber(String number);
 }

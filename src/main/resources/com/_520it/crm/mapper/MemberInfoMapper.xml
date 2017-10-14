@@ -54,6 +54,9 @@
     from memberinfo
   </select>
 
-
+  <select id="queryMemberByNumber" resultType="MemberInfo">
+    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
+    from memberinfo where number = #{number}
+  </select>
 
 </mapper>

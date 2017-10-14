@@ -63,4 +63,9 @@ public class MemberInfoServiceImpl implements IMemberInfoService {
 
         return new PageResult(pagetotal,dataList);
     }
+
+    @Override
+    public MemberInfo queryMemberByNumber(String number) {
+        return memberInfoMapper.queryMemberByNumber(number);
+    }
 }
