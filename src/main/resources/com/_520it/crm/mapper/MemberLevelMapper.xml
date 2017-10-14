@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.MemberLevelMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.MemberLevel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="servicediscount" property="serviceDiscount" jdbcType="VARCHAR" />
+    <result column="productdiscount" property="productDiscount" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from memberlevel
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.MemberLevel" useGeneratedKeys="true" keyProperty="id" >
+    insert into memberlevel (level, servicediscount, productdiscount, 
+      state)
+    values (#{level,jdbcType=VARCHAR}, #{serviceDiscount,jdbcType=VARCHAR}, #{productDiscount,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.MemberLevel" >
+    update memberlevel
+    set level = #{level,jdbcType=VARCHAR},
+      servicediscount = #{serviceDiscount,jdbcType=VARCHAR},
+      productdiscount = #{productDiscount,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, level, servicediscount, productdiscount, state
+    from memberlevel
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, level, servicediscount, productdiscount, state
+    from memberlevel
+  </select>
+  
+    <!-- 高级查询 -->
+  <sql id="base_where">
+  	<where>
+	  	<if test="keyword!=null">
+	  		and level like concat('%',#{keyword},'%')
+	  	</if>
+  	</where>
+  </sql>
+  <select id="queryForCount" resultType="long">
+  	select count(id) from memberlevel
+  	<include refid="base_where"/>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, level, servicediscount, productdiscount, state
+    from memberlevel
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+  <update id="changeState">
+  	update memberlevel
+  	   set 
+  	   state=0
+  	where id=#{id}
+  </update>
+  
+</mapper>

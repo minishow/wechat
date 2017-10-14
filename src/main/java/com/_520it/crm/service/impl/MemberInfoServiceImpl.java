@@ -69,4 +69,8 @@ public class MemberInfoServiceImpl implements IMemberInfoService {
     public MemberInfo queryInfoByMemberId(String memberId) {
         return memberInfoMapper.queryInfoByMemberId(memberId);
     }
+    @Override
+    public MemberInfo queryMemberByNumber(String number) {
+        return memberInfoMapper.queryMemberByNumber(number);
+    }
 }
