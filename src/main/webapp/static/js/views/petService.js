@@ -2,7 +2,8 @@ $(function () {
     /*
      * 抽取所有需要用得元素.
      */
-    var petServiceMenuTree,petServiceRegisterDatagrid,petServiceRegisterDialog,petServiceMenuDialog,petServiceRegisterForm,petServiceMenuForm,petNameSearchBtn,petTelSearchBtn;
+    var petServiceMenuTree,petServiceRegisterDatagrid,petServiceRegisterDialog,petServiceMenuDialog,petServiceRegisterForm,petServiceMenuForm,petNameSearchBtn,petTelSearchBtn,
+        petServiceRegisterTabs,topMenu,secondMenu;
     petServiceMenuTree = $("#petServiceMenuTree");//菜单树
     petServiceRegisterDatagrid = $("#petServiceRegister_datagrid");//宠物登记表格
     petServiceRegisterDialog = $("#petServiceRegister_dialog");//宠物登记弹出框
@@ -11,6 +12,9 @@ $(function () {
     petServiceMenuForm = $("#petServiceMenu_form");//宠物登记表单
     petNameSearchBtn = $("#nameSearchBtn");//搜索按钮
     petTelSearchBtn = $("#telSearchBtn");//搜索按钮
+    petServiceRegisterTabs = $("#petServiceRegister_tabs");//宠物登记弹出窗内的选项卡
+    topMenu = $("#topMenu");//弹出窗一级菜单
+    secondMenu = $("#secondMenu");//弹出窗二级菜单
     //宠物登记表格
     petServiceRegisterDatagrid.datagrid({
         fit:true,
@@ -38,12 +42,39 @@ $(function () {
         onClickRow:function(rowIndex,rowData){
         }
     });
+    /**
+     * 初始化弹出窗的一二级菜单
+     */
+    topMenu.textbox({
+        width:250,
+        label:'服务项目:',
+        valueField:'id',
+        textField:'text',
+        url:'/petServiceMenu/queryTopTree',
+        onChange:function () {
+            
+        }
+    });
+    secondMenu.textbox({
+        width:250,
+        valueField:'id',
+        textField:'text',
+        url:''
+    });
+    /**
+     * 初始化宠物登记弹出窗内的选项卡
+     */
+    petServiceRegisterTabs.tabs({
+        fit:true
+    });
     //对话框
     petServiceRegisterDialog.dialog({
-        width:250,
+        width:800,
         height:380,
         buttons:'#petServiceRegister_dialog_bt',
-        closed:true
+        closed:true,
+        onOpen:function () {
+        }
     });
     petServiceMenuDialog.dialog({
         width:380,
