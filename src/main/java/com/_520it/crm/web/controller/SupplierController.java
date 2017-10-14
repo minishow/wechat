@@ -7,28 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com._520it.crm.domain.Brand;
+import com._520it.crm.domain.Supplier;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
-import com._520it.crm.query.BrandQueryObject;
-import com._520it.crm.service.IBrandService;
+import com._520it.crm.query.SupplierQueryObject;
+import com._520it.crm.service.ISupplierService;
 
 @Controller
-@RequestMapping("/brand")
-public class BrandController {
+@RequestMapping("/supplier")
+public class SupplierController {
 	@Autowired
-	private IBrandService brandService;
+	private ISupplierService supplierService;
 	@RequestMapping("")
-	public String brand(){
+	public String supplier(){
 		/*跳转到web-inf下资源*/
-		return "brand";
+		return "supplier";
 	}
 	@RequestMapping("/query")
 	@ResponseBody
-	public PageResult query(BrandQueryObject qo){
+	public PageResult query(SupplierQueryObject qo){
 		PageResult pageResult = null;
 		try {
-			pageResult=brandService.query(qo);
+			pageResult=supplierService.query(qo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,14 +36,14 @@ public class BrandController {
 	}
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<Brand> list(){
-		return brandService.selectAll();
+	public List<Supplier> list(){
+		return supplierService.selectAll();
 	}
 	@RequestMapping("/delete")
 	@ResponseBody
 	public AjaxResult delete(Long id){
 		try {
-			brandService.changeState(id);
+			supplierService.changeState(id);
 			return new AjaxResult(true,"更改成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,9 +52,9 @@ public class BrandController {
 	}
 	@RequestMapping("/save")
 	@ResponseBody
-	public AjaxResult save(Brand brand){
+	public AjaxResult save(Supplier supplier){
 		try {
-			brandService.insert(brand);
+			supplierService.insert(supplier);
 			return new AjaxResult(true,"添加成功!");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -7,28 +7,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com._520it.crm.domain.Brand;
+import com._520it.crm.domain.ProductType;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
-import com._520it.crm.query.BrandQueryObject;
-import com._520it.crm.service.IBrandService;
+import com._520it.crm.query.ProductTypeQueryObject;
+import com._520it.crm.service.IProductTypeService;
 
 @Controller
-@RequestMapping("/brand")
-public class BrandController {
+@RequestMapping("/productType")
+public class ProductTypeController {
 	@Autowired
-	private IBrandService brandService;
+	private IProductTypeService productTypeService;
 	@RequestMapping("")
-	public String brand(){
+	public String productType(){
 		/*跳转到web-inf下资源*/
-		return "brand";
+		return "productType";
 	}
 	@RequestMapping("/query")
 	@ResponseBody
-	public PageResult query(BrandQueryObject qo){
+	public PageResult query(ProductTypeQueryObject qo){
+		/*高级查询部分*/
 		PageResult pageResult = null;
 		try {
-			pageResult=brandService.query(qo);
+			pageResult=productTypeService.query(qo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,14 +37,15 @@ public class BrandController {
 	}
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<Brand> list(){
-		return brandService.selectAll();
+	public List<ProductType> list(){
+		/*列表查询部分*/
+		return productTypeService.selectAll();
 	}
 	@RequestMapping("/delete")
 	@ResponseBody
 	public AjaxResult delete(Long id){
 		try {
-			brandService.changeState(id);
+			productTypeService.changeState(id);
 			return new AjaxResult(true,"更改成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,9 +54,9 @@ public class BrandController {
 	}
 	@RequestMapping("/save")
 	@ResponseBody
-	public AjaxResult save(Brand brand){
+	public AjaxResult save(ProductType productType){
 		try {
-			brandService.insert(brand);
+			productTypeService.insert(productType);
 			return new AjaxResult(true,"添加成功!");
 		} catch (Exception e) {
 			e.printStackTrace();

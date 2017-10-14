@@ -15,8 +15,8 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.ProductType" useGeneratedKeys="true" keyProperty="id" >
-    insert into ProductType (parent_id, state,name)
-    values (#{parent.id,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}),#{name})
+    insert into ProductType (parent_id,state,name)
+    values (#{parent.id,jdbcType=BIGINT},#{state,jdbcType=INTEGER},#{name})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductType" >
     update ProductType
@@ -26,14 +26,42 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select pt.id,pt.state,
+    select pt.id,pt.state,pt.name
     p.id p_id,p.name p_name
-    from ProductType pt join producttype p on pt.parent_id=p.id
+    from ProductType pt left join producttype p on pt.parent_id=p.id
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select pt.id,pt.state,
+    select pt.id,pt.state,pt.name,
     p.id p_id,p.name p_name
-    from ProductType pt join producttype p on pt.parent_id=p.id
+    from ProductType pt left join producttype p on pt.parent_id=p.id
   </select>
+  
+  
+    <!-- 高级查询 -->
+  <sql id="base_where">
+  	<where>
+	  	<if test="keyword!=null">
+	  		and pt.name like concat('%',#{keyword},'%')
+	  	</if>
+  	</where>
+  </sql>
+  <select id="queryForCount" resultType="long">
+  	select count(pt.id) from producttype pt
+  	<include refid="base_where"/>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+	select pt.id,pt.state,pt.name,
+    p.id p_id,p.name p_name
+    from producttype pt left join producttype p on pt.parent_id=p.id
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+  <update id="changeState">
+  	update producttype
+  	   set 
+  	   state=0
+  	where id=#{id}
+  </update>
+  
 </mapper>

@@ -1,16 +1,15 @@
 $(function(){
 	$("#table_datagrid").datagrid({
-		url:"/brand/query",
+		url:"/memberLevel/query",
 		rownumbers:true,
 		pagination:true,
 		singleSelect:true,
 		fit:true,
 		fitColumns:true,
 	    columns:[[    
-	              {field:'location',title:'品牌产地信息',width:100,align:'center',formatter:function(value,row,index){
-	            	  return value.name;
-	              }},    
-	              {field:'name',title:'品牌信息',width:100,align:'center'},    
+	              {field:'level',title:'会员等级',width:100,align:'center'},    
+	              {field:'serviceDiscount',title:'服务折扣',width:100,align:'center'},    
+	              {field:'productDiscount',title:'商品折扣',width:100,align:'center'},    
 	              {field:'state',title:'是否启用',width:100,align:'center',formatter:function(value,row,index){
 	            	  if(value){
 	            		  return "是";
@@ -22,20 +21,11 @@ $(function(){
 	    toolbar:"#table_datagrid_tb"
 	});
 	$("#div_dialog").dialog({
-		title:"添加品牌",
+		title:"添加会员种类",
 		width:170,
-		height:180,
+		height:230,
 		closed:true,
 		buttons:"#div_dialog_tb"
-	});
-	$("#input_combobox").combobox({
-		/*查询全部地址信息*/
-		url:"/location/list",
-		valueField:"id",
-		textField:"name",
-		editable:false,
-		multiple:false,
-		prompt:"请选择地址信息"
 	});
 	$("#input_combobox_state").combobox({
 		valueField:"id",
@@ -73,7 +63,7 @@ function mySearch(){
 function mySave(){
 	//提交表单,进行数据保存
 	$("#div_dialog_post").form("submit",{
-		url:"/brand/save",
+		url:"/memberLevel/save",
 		success:function(myData){
 			var data=$.parseJSON(myData);
 			$("#div_dialog").dialog("close");
@@ -97,7 +87,7 @@ function myDelete(){
 	if(mySelected){
 		$.messager.confirm("温馨提示","确定要修改这条数据的状态吗?",function(flag){
 			if(flag){
-				$.get("/brand/delete?id="+mySelected.id,function(data){
+				$.get("/memberLevel/delete?id="+mySelected.id,function(data){
 					if(data.success){
 						//刷新表格
 						$("#table_datagrid").datagrid("reload");

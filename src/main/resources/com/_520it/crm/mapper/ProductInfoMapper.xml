@@ -70,10 +70,10 @@
     pp.id pp_id,pp.name pp_name,
     pi.price, pi.state, pi.img, pi.info,pi.memberprice
     from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
-    join brand b on pi.brand_id = b.id 
-    join location l on b.location_id=l.id
-    join harm h on pi.harm_id = h.id
-    join productpart pp on pp.id=pi.productpart_id
+    left join brand b on pi.brand_id = b.id 
+    left join location l on b.location_id=l.id
+    left join harm h on pi.harm_id = h.id
+    left join productpart pp on pp.id=pi.productpart_id
     where pi.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
@@ -85,9 +85,47 @@
     pp.id pp_id,pp.name pp_name,
     pi.price, pi.state, pi.img, pi.info,pi.memberprice
     from ProductInfo pi join producttype pt on pi.producttype_id=pt.id
-    join brand b on pi.brand_id = b.id 
-    join location l on b.location_id=l.id
-    join harm h on pi.harm_id = h.id
-    join productpart pp on pp.id=pi.productpart_id
+    left join brand b on pi.brand_id = b.id 
+    left join location l on b.location_id=l.id
+    left join harm h on pi.harm_id = h.id
+    left join productpart pp on pp.id=pi.productpart_id
   </select>
+  
+    <!-- 高级查询 -->
+  <sql id="base_where">
+  	<where>
+	  	<if test="keyword!=null">
+	  		and pi.name like concat('%',#{keyword},'%')
+	  	</if>
+  	</where>
+  </sql>
+  <select id="queryForCount" resultType="long">
+  	select count(pi.id) from productinfo pi
+  	<include refid="base_where"/>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+    select pi.id, pi.code, pi.name, 
+    pt.id pt_id,pt.name pt_name,
+    b.id b_id,b.name b_name,
+    l.id l_id,l.name l_name,
+    h.id h_id,h.name h_name,
+    pp.id pp_id,pp.name pp_name,
+    pi.price, pi.state, pi.img, pi.info,pi.memberprice
+    from productinfo pi 
+    left join producttype pt on pi.producttype_id=pt.id
+    left join brand b on pi.brand_id = b.id 
+    left join location l on b.location_id=l.id
+    left join harm h on pi.harm_id = h.id
+    left join productpart pp on pp.id=pi.productpart_id
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+  <update id="changeState">
+  	update productinfo
+  	   set 
+  	   state=0
+  	where id=#{id}
+  </update>
+  
+  
 </mapper>
