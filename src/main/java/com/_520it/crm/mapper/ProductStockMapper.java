@@ -19,4 +19,6 @@ public interface ProductStockMapper {
     List<ProductStock> queryForData(ProductStockQueryObject qo);
 
     Long queryForCount(ProductStockQueryObject qo);
+
+    ProductStock getProductStockByProductinfoCode(String code);
 }
