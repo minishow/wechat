@@ -61,6 +61,6 @@
     where parent_id is null
   </select>
   <select id="queryChildrenByParentId" resultMap="treeMap">
-    select id,text from petservicemenu where parent_id = #{parentId}
+    select id,text,unit,maxPrice from petservicemenu where parent_id = #{parentId}
   </select>
 </mapper>

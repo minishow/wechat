@@ -3,7 +3,7 @@ $(function () {
      * 抽取所有需要用得元素.
      */
     var petServiceMenuTree,petServiceRegisterDatagrid,petServiceRegisterDialog,petServiceMenuDialog,petServiceRegisterForm,petServiceMenuForm,petNameSearchBtn,petTelSearchBtn,
-        petServiceRegisterTabs,topMenu,secondMenu;
+        petServiceRegisterTabs,topMenu,secondMenu,petKindMenu,petTypeMenu,menuTime;
     petServiceMenuTree = $("#petServiceMenuTree");//菜单树
     petServiceRegisterDatagrid = $("#petServiceRegister_datagrid");//宠物登记表格
     petServiceRegisterDialog = $("#petServiceRegister_dialog");//宠物登记弹出框
@@ -15,6 +15,9 @@ $(function () {
     petServiceRegisterTabs = $("#petServiceRegister_tabs");//宠物登记弹出窗内的选项卡
     topMenu = $("#topMenu");//弹出窗一级菜单
     secondMenu = $("#secondMenu");//弹出窗二级菜单
+    menuTime = $("#menuTime");//菜单次数
+    petKindMenu = $("#petKindMenu");//宠物种类
+    petTypeMenu = $("#petTypeMenu");//宠物类别
     //宠物登记表格
     petServiceRegisterDatagrid.datagrid({
         fit:true,
@@ -45,21 +48,44 @@ $(function () {
     /**
      * 初始化弹出窗的一二级菜单
      */
-    topMenu.textbox({
+    topMenu.combobox({
         width:250,
         label:'服务项目:',
-        valueField:'id',
+        valueField:'text',
         textField:'text',
         url:'/petServiceMenu/queryTopTree',
-        onChange:function () {
-            
+        onSelect:function (record) {
+            secondMenu.combobox('reload','/petServiceMenu/queryChildrenByParentId?id='+record.id);
         }
     });
-    secondMenu.textbox({
-        width:250,
-        valueField:'id',
+    secondMenu.combobox({
+        width:200,
+        valueField:'text',
         textField:'text',
-        url:''
+        onSelect:function (record) {
+            menuTime.textbox('initValue',record.unit);
+            $("#servicePrice").val(record.maxPrice);
+        }
+    });
+    menuTime.textbox({
+        width:50,
+        readonly:true
+    });
+    /**
+     * 初始化弹出窗的宠物类别下拉框
+     */
+    petKindMenu.combobox({
+        width:165,
+        label:'宠物品种:',
+        valueField:'id',
+        textField:'name',
+        url:'/petService/queryPetKind'
+    });
+    petTypeMenu.combobox({
+        width:80,
+        valueField:'id',
+        textField:'name',
+        url:'/petService/queryPetType'
     });
     /**
      * 初始化宠物登记弹出窗内的选项卡
@@ -69,7 +95,7 @@ $(function () {
     });
     //对话框
     petServiceRegisterDialog.dialog({
-        width:800,
+        width:750,
         height:380,
         buttons:'#petServiceRegister_dialog_bt',
         closed:true,
@@ -137,7 +163,7 @@ $(function () {
             //1.清空表单数据
             petServiceRegisterForm.form("clear");
             //2.设置对话框的标题
-            petServiceRegisterDialog.dialog("setTitle","新增");
+            petServiceRegisterDialog.dialog("setTitle","宠物登记");
             //3.打开对话框
             petServiceRegisterDialog.dialog("open");
         },
@@ -182,7 +208,22 @@ $(function () {
         payfor:function(){
         },
         saveRegister:function(){
-
+            var url = "/petServiceRegister/save";
+            petServiceRegisterForm.form("submit",{
+                url:url,
+                success:function(data){
+                    data = $.parseJSON(data);
+                    if(data.success){
+                        //提示消息,当点确定的时候,关闭对话框,刷新数据表格
+                        $.messager.alert("温馨提示",data.msg,"info",function(){
+                            petServiceRegisterDialog.dialog("close");
+                            petServiceRegisterDatagrid.datagrid("reload");
+                        });
+                    }else{
+                        $.messager.alert("温馨提示",data.msg,"error");
+                    }
+                }
+            });
         },
         cancelRegister:function(){
             petServiceRegisterDialog.dialog("close");

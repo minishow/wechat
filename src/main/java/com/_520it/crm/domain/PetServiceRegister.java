@@ -34,7 +34,6 @@ public class PetServiceRegister {
     private Integer payment;//是否付款 0未付款 1已付款
     private Integer sevPrice;//服务价格
 
-
 }
 
 
