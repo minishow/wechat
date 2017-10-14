@@ -3,46 +3,64 @@
 <mapper namespace="com._520it.crm.mapper.PetServiceMenuMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetServiceMenu" >
     <id column="id" property="id"/>
-    <result column="name" property="name"/>
+    <result column="text" property="text"/>
     <result column="minPrice" property="minPrice"/>
     <result column="maxPrice" property="maxPrice"/>
     <result column="unit" property="unit"/>
     <result column="remark" property="remark"/>
     <result column="isDiscount" property="isDiscount"/>
     <result column="discount" property="discount"/>
-    <result column="parent_id" property="parent_id"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from petservicemenu
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.PetServiceMenu" useGeneratedKeys="true" keyProperty="id" >
-    insert into petservicemenu (name, minPrice, maxPrice,
+    insert into petservicemenu (text, minPrice, maxPrice,
       unit, remark, isDiscount,
       discount, parent_id)
-    values (#{name}, #{minPrice}, #{maxPrice},
+    values (#{text}, #{minPrice}, #{maxPrice},
       #{unit}, #{remark}, #{isDiscount},
-      #{discount}, #{parent_id})
+      #{discount}, #{parent.id})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetServiceMenu" >
     update petservicemenu
-    set name = #{name},
+    set text = #{text},
       minPrice = #{minPrice},
       maxPrice = #{maxPrice},
       unit = #{unit},
       remark = #{remark},
       isDiscount = #{isDiscount},
       discount = #{discount},
-      parent_id = #{parent_id}
+      parent_id = #{parent.id}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, minPrice, maxPrice, unit, remark, isDiscount, discount, parent_id
+    select id, text, minPrice, maxPrice, unit, remark, isDiscount, discount, parent_id
     from petservicemenu
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, minPrice, maxPrice, unit, remark, isDiscount, discount, parent_id
+    select id, text, minPrice, maxPrice, unit, remark, isDiscount, discount, parent_id
     from petservicemenu
+  </select>
+
+  <resultMap id="treeMap" type="com._520it.crm.domain.PetServiceMenu" >
+    <id column="id" property="id"/>
+    <result column="text" property="text"/>
+    <collection property="children" ofType="com._520it.crm.domain.PetServiceMenu" column="id"
+                select="com._520it.crm.mapper.PetServiceMenuMapper.queryChildrenByParentId">
+    </collection>
+  </resultMap>
+  <select id="queryTree" resultMap="treeMap">
+    select id,text from petservicemenu where parent_id is null
+  </select>
+  <select id="queryTopTree" resultMap="BaseResultMap">
+    select id, text, minPrice, maxPrice, unit, remark, isDiscount, discount, parent_id
+    from petservicemenu
+    where parent_id is null
+  </select>
+  <select id="queryChildrenByParentId" resultMap="treeMap">
+    select id,text,unit,maxPrice from petservicemenu where parent_id = #{parentId}
   </select>
 </mapper>

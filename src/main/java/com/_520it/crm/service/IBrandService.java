@@ -18,4 +18,9 @@ public interface IBrandService {
     int updateByPrimaryKey(Brand brand);
 
 	PageResult query(BrandQueryObject qo);
+	/**
+	 * 修改状态为否的方法
+	 * @param id
+	 */
+	void changeState(Long id);
 }

@@ -38,4 +38,19 @@ public class PetServiceMenuServiceImpl implements IPetServiceMenuService {
     public int updateByPrimaryKey(PetServiceMenu record) {
         return petServiceMenuMapper.updateByPrimaryKey(record);
     }
+
+    @Override
+    public List<PetServiceMenu> queryTree() {
+        return petServiceMenuMapper.queryTree();
+    }
+
+    @Override
+    public List<PetServiceMenu> queryTopTree() {
+        return petServiceMenuMapper.queryTopTree();
+    }
+
+    @Override
+    public List<PetServiceMenu> queryChildrenByParentId(Long id) {
+        return petServiceMenuMapper.queryChildrenByParentId(id);
+    }
 }

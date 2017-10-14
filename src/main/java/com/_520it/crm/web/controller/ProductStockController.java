@@ -84,4 +84,12 @@ public class ProductStockController {
             return new AjaxObject(false,"编辑失败");
         }
     }
+
+    //根据商品69条码查询 库存的商品记录
+    @RequestMapping("/getProductStockByProductinfoCode")
+    @ResponseBody
+    public ProductStock getProductStockByProductinfoCode(String code){
+        ProductStock result = productStockServiceImpl.getProductStockByProductinfoCode(code);
+        return result;
+    }
 }

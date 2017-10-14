@@ -13,8 +13,12 @@ import java.util.Date;
 public class ProductStock {
     private Long id;
 
+<<<<<<< HEAD
     private String sn;
     private ProductInfo productInfo;
+=======
+    private ProductInfo productInfoId; //商品
+>>>>>>> c7ac706ce2989c4dd962dc62ec27c55dfc6c923b
 
     private ProductPart productPart;
 

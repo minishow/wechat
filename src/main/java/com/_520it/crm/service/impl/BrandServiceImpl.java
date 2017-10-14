@@ -50,4 +50,9 @@ public class BrandServiceImpl implements IBrandService {
 		return new PageResult(total,rows);
 	}
 
+	@Override
+	public void changeState(Long id) {
+		brandMapper.changeState(id);
+	}
+
 }

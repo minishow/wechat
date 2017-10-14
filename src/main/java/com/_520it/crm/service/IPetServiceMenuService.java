@@ -15,4 +15,10 @@ public interface IPetServiceMenuService {
     List<PetServiceMenu> selectAll();
 
     int updateByPrimaryKey(PetServiceMenu record);
+
+    List<PetServiceMenu> queryTree();
+
+    List<PetServiceMenu> queryTopTree();
+
+    List<PetServiceMenu> queryChildrenByParentId(Long id);
 }

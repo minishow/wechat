@@ -3,6 +3,10 @@
 <mapper namespace="com._520it.crm.mapper.ProductStockMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.ProductStock" >
     <id column="id" property="id" jdbcType="BIGINT" />
+<<<<<<< HEAD
+=======
+    <result column="supplier_id" property="supplierId" jdbcType="BIGINT" />
+>>>>>>> c7ac706ce2989c4dd962dc62ec27c55dfc6c923b
     <result column="packageNumber" property="packageNumber" jdbcType="INTEGER" />
     <result column="bulkNumber" property="bulkNumber" jdbcType="INTEGER" />
     <result column="sn" property="sn" jdbcType="VARCHAR" />
@@ -11,11 +15,23 @@
     <result column="storeNumber" property="storeNumber" jdbcType="BIGINT" />
     <result column="incomeDate" property="incomeDate" jdbcType="TIMESTAMP" />
     <result column="outcomeDate" property="outcomeDate" jdbcType="TIMESTAMP" />
+<<<<<<< HEAD
     <association property="productInfo" column="productInfo_id" javaType="ProductInfo"
     select="com._520it.crm.mapper.ProductInfoMapper.selectByPrimaryKey"/>
     <association property="productPart" column="productPart_id" javaType="ProductPart"
     select="com._520it.crm.mapper.ProductPartMapper.selectByPrimaryKey"/>
+=======
+
+    <collection property="productInfoId" ofType="ProductInfo" columnPrefix="pi_">
+      <id property="id" column="id"/>
+      <result property="code" column="code"/>
+      <result property="name" column="name"/>
+      <result property="price" column="price"/>
+      <result property="memberPrice" column="memberPrice"/>
+    </collection>
+>>>>>>> c7ac706ce2989c4dd962dc62ec27c55dfc6c923b
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from productstock
     where id = #{id,jdbcType=BIGINT}
@@ -96,16 +112,15 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
+  <!--根据商品69条码查询 库存对象-->
+  <select id="getProductStockByProductinfoCode" resultMap="BaseResultMap">
+    select ps.id, ps.productInfo_id, ps.supplier_id, ps.packageNumber, ps.bulkNumber, ps.amount, ps.warnNumber,
+           ps.storeNumber, ps.incomeDate, ps.outcomeDate,
+       pi.id pi_id , pi.code pi_code , pi.name pi_name , pi.price pi_price ,pi.memberPrice pi_memberPrice
+    from productstock ps
+    join productinfo pi on pi.id = ps.productInfo_id
+    where pi.code = #{code}
+  </select>
 
 
 

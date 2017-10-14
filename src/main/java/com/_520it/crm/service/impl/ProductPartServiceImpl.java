@@ -1,12 +1,17 @@
 package com._520it.crm.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com._520it.crm.domain.Brand;
+import com._520it.crm.domain.Location;
 import com._520it.crm.domain.ProductPart;
 import com._520it.crm.mapper.ProductPartMapper;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.ProductPartQueryObject;
 import com._520it.crm.service.IProductPartService;
 @Service
 public class ProductPartServiceImpl implements IProductPartService {
@@ -36,6 +41,22 @@ public class ProductPartServiceImpl implements IProductPartService {
 	@Override
 	public int updateByPrimaryKey(ProductPart productPart) {
 		return productPartMapper.updateByPrimaryKey(productPart);
+	}
+
+	@Override
+	public PageResult query(ProductPartQueryObject qo) {
+		Long total=productPartMapper.queryForCount(qo);
+		if(total==0){
+			return new PageResult(new Long(0),new ArrayList<Brand>());
+		}
+		List<Location> rows=productPartMapper.queryForList(qo);
+		return new PageResult(total,rows);
+	}
+
+	@Override
+	public void changeState(Long id) {
+		productPartMapper.changeState(id);
+		
 	}
 
 }
