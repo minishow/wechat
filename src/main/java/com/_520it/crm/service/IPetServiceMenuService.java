@@ -17,4 +17,6 @@ public interface IPetServiceMenuService {
     int updateByPrimaryKey(PetServiceMenu record);
 
     List<PetServiceMenu> queryTree();
+
+    List<PetServiceMenu> queryTopTree();
 }

@@ -69,12 +69,14 @@
 
   <update id="startService">
     update petserviceregister
-    SET state = #{state}
+    SET state = #{state},
+        startTime = #{startTime}
     where id = #{id}
   </update>
   <update id="endService">
     update petserviceregister
-    SET state = #{state}
+    SET state = #{state},
+        endTime = #{endTime}
     where id = #{id}
   </update>
 
@@ -103,7 +105,7 @@
     petGender, selfGood, remark, times, state, payment, sevPrice
     FROM petserviceregister
     <include refid="base_where"/>
-    LIMIT #{start},#{pageSize}
+    LIMIT #{start},#{rows}
   </select>
 
 </mapper>

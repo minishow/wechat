@@ -56,14 +56,14 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
     }
 
     @Override
-    public void startService(PetServiceRegister record) {
-        record.setStartTime(new Date());
-        petServiceRegisterMapper.startService(1,record.getId());
+    public void startService(Long id) {
+        PetServiceRegister record = petServiceRegisterMapper.selectByPrimaryKey(id);
+        petServiceRegisterMapper.startService(1,id,new Date());
     }
 
     @Override
-    public void endService(PetServiceRegister record) {
-        record.setEndTime(new Date());
-        petServiceRegisterMapper.endService(2,record.getId());
+    public void endService(Long id) {
+        PetServiceRegister record = petServiceRegisterMapper.selectByPrimaryKey(id);
+        petServiceRegisterMapper.endService(2,id,new Date());
     }
 }

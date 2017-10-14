@@ -43,4 +43,9 @@ public class PetServiceMenuServiceImpl implements IPetServiceMenuService {
     public List<PetServiceMenu> queryTree() {
         return petServiceMenuMapper.queryTree();
     }
+
+    @Override
+    public List<PetServiceMenu> queryTopTree() {
+        return petServiceMenuMapper.queryTopTree();
+    }
 }
