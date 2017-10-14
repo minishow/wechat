@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.CashBillMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.CashBill" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="orderTime" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="totalNumber" property="totalNumber" jdbcType="DOUBLE" />
+    <result column="totalAmount" property="totalAmount" jdbcType="DOUBLE" />
+    <result column="paymentTerm" property="paymentTerm" jdbcType="VARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="BIGINT" />
+
+    <collection property="shopId" ofType="com._520it.crm.domain.ShopInfo" >
+      <id column="s.id" property="id"/>
+      <result column="s.name" property="name"/>
+    </collection>
+
+   <!-- <collection property="memberId" ofType="com._520it.crm.domain.MemberInfo">
+        <id column="m.id" property="id"/>
+        <result column="m.number" property="number"/>
+    </collection>-->
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cashbill
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.CashBill" useGeneratedKeys="true" keyProperty="id" >
+    insert into cashbill (sn, member_id, shop_id, 
+      orderTime, totalNumber, totalAmount, 
+      employee_id, paymentTerm)
+    values (#{sn,jdbcType=VARCHAR}, #{member.id,jdbcType=BIGINT}, #{shop.id,jdbcType=BIGINT}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{totalNumber,jdbcType=DOUBLE}, #{totalAmount,jdbcType=DOUBLE}, 
+      #{employeeId,jdbcType=BIGINT}, #{paymentTerm,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.CashBill" >
+    update cashbill
+    set sn = #{sn,jdbcType=VARCHAR},
+      member_id = #{member.id,jdbcType=BIGINT},
+      shop_id = #{shop.id,jdbcType=BIGINT},
+      orderTime = #{orderTime,jdbcType=TIMESTAMP},
+      totalNumber = #{totalNumber,jdbcType=DOUBLE},
+      totalAmount = #{totalAmount,jdbcType=DOUBLE},
+      employee_id = #{employeeId,jdbcType=BIGINT},
+      paymentTerm = #{paymentTerm,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, sn, member_id, shop_id, orderTime, totalNumber, totalAmount, employee_id, 
+    paymentTerm
+    from cashbill
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, sn, member_id, shop_id, orderTime, totalNumber, totalAmount, employee_id, 
+    paymentTerm
+    from cashbill
+  </select>
+
+  <sql id="base_where">
+    <where>
+
+    </where>
+  </sql>
+
+  <select id="queryCount" resultType="long">
+    select count(c.id) from cashbill
+     <include refid="base_where"/>
+  </select>
+
+  <select id="queryData" resultMap="BaseResultMap">
+    select  c.id, c.sn, c.member_id, c.shop_id, c.orderTime, c.totalNumber, c.totalAmount, c.employee_id,
+      m.id m_id , m.number m_number,
+      s.id s_id ,s.name s_mane
+    from cashbill c
+    left join memberinfo m on m.id = c.member_id
+    join shopinfo s on s.id = c.shop_id
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+
+
+
+</mapper>

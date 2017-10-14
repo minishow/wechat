@@ -17,4 +17,6 @@ public interface PetServiceMenuMapper {
     List<PetServiceMenu> queryTree();
     List<PetServiceMenu> queryTopTree();
 
+    List<PetServiceMenu> queryChildrenByParentId(Long id);
+
 }
