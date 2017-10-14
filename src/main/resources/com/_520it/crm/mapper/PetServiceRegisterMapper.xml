@@ -76,6 +76,7 @@
   <update id="endService">
     update petserviceregister
     SET state = #{state},
+        times = 0,
         endTime = #{endTime}
     where id = #{id}
   </update>

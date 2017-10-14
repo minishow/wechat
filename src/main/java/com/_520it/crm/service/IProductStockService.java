@@ -6,9 +6,7 @@ import com._520it.crm.query.ProductStockQueryObject;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2017/10/13.
- */
+
 public interface IProductStockService {
     int deleteByPrimaryKey(Long id);
 
@@ -21,4 +19,6 @@ public interface IProductStockService {
     int updateByPrimaryKey(ProductStock record);
 
     PageResult queryForList(ProductStockQueryObject qo);
+
+    ProductStock getProductStockByProductinfoCode(String code);
 }

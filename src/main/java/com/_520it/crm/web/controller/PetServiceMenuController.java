@@ -31,6 +31,13 @@ public class PetServiceMenuController {
         return result;
     }
 
+    @RequestMapping("/queryChildrenByParentId")
+    @ResponseBody
+    public List<PetServiceMenu> queryChildrenByParentId(Long id){
+        List<PetServiceMenu> result = petServiceMenuService.queryChildrenByParentId(id);
+        return result;
+    }
+
     @RequestMapping("/save")
     @ResponseBody
     public AjaxResult save(PetServiceMenu petServiceMenu){

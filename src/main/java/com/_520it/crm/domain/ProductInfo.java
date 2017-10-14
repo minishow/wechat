@@ -14,7 +14,7 @@ public class ProductInfo {
     private String name;
     private ProductType productType;
     private Brand brand;
-    private ProductInfo productInfo;
+    private ProductPart productPart;
     private Harm harm;
     private BigDecimal price;
     private Integer state;
@@ -22,6 +22,7 @@ public class ProductInfo {
     private String info;
     /*
      * 添加会员价格
+     * 把producinfo改成productpart
      */
     private BigDecimal memberPrice;
 }
