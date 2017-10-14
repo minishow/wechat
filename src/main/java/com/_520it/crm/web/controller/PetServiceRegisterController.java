@@ -71,4 +71,11 @@ public class PetServiceRegisterController {
         }
         return result;
     }
+
+    @RequestMapping("/searchById")
+    @ResponseBody
+    public PetServiceRegister searchById(Long id){
+        PetServiceRegister record = petServiceRegisterService.selectByPrimaryKey(id);
+        return record;
+    }
 }

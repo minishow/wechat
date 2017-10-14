@@ -63,4 +63,10 @@ public class MemberInfoServiceImpl implements IMemberInfoService {
 
         return new PageResult(pagetotal,dataList);
     }
+
+    //宠物服务需要的方法
+    @Override
+    public MemberInfo queryInfoByMemberId(String memberId) {
+        return memberInfoMapper.queryInfoByMemberId(memberId);
+    }
 }

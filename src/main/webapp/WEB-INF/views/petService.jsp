@@ -18,11 +18,15 @@
 		<!-- 宠物登记对话框 -->
 		<div id="petServiceRegister_dialog">
 			<!--根据会员号搜索-->
-			<div>
+			<div id="memberNoDiv" style="margin-left: 15px;margin-top: 9px">
 				<input id="memberNo" type="text" class="easyui-textbox" data-options="label:'会员号:', width:250">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a id="petBtn1" class="easyui-linkbutton" plain="true" data-cmd="addPet1"></a>
+				<a id="petBtn2" class="easyui-linkbutton" plain="true" data-cmd="addPet2"></a>
+				<a id="petBtn3" class="easyui-linkbutton" plain="true" data-cmd="addPet3"></a>
 			</div>
 			<form id="petServiceRegister_form" method="post">
-				<div align="center" style="margin-top: 10px;height:250px;" >
+				<div align="center" style="margin-top: 10px;height:280px;" >
 					<div id="petServiceRegister_tabs">
 						<div title="宠物" style="padding:10px">
                             <input type="hidden" name="sevPrice" id="servicePrice">
@@ -34,9 +38,12 @@
 								<input type="text" name="times" id="menuTime"></input>
 							</div>
 							<div style="margin-left: 90px">
-                                <input type="text" name="petName" class="easyui-textbox" data-options="label:'宠物名:', width:250">
+                                <input id="petServiceName" type="text" name="petName" class="easyui-textbox" data-options="label:'宠物名:', width:250">
+                            </div>
+							<div style="margin-left: 90px">
+                                <input id="petServiceMasterName" type="text" name="masterName" class="easyui-textbox" data-options="label:'主人名:', width:250">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="text" name="tel" class="easyui-textbox" data-options="label:'联系方式:', width:250">
+								<input id="petServiceTel" type="text" name="tel" class="easyui-textbox" data-options="label:'联系方式:', width:250">
                             </div>
 							<div style="margin-left: 90px">
 								<input type="text" class="easyui-datebox" data-options="label:'预计开始时间:', width:250">
@@ -100,6 +107,16 @@
 					<div><input type="text" name="discount" class="easyui-textbox" data-options="label:'服务指定折扣:', width:250">%</div>
 				</div>
 			</form>
+		</div>
+		<!--宠物服务日志-->
+		<div id="petServiceLog_dialog">
+			<div style="margin-top: 20px;margin-left: 120px" >
+				<div id="logPetName"></div>
+				<div id="logPetAge" style="margin-top: 30px"></div>
+				<div id="logPetService" style="margin-top: 30px"></div>
+				<div id="logPetSelfGood" style="margin-top: 30px"></div>
+				<div id="logPetRemark" style="margin-top: 30px"></div>
+			</div>
 		</div>
 		<!-- 定义顶部按钮 -->
 		<div id="petServiceRegister_datagrid_tb">

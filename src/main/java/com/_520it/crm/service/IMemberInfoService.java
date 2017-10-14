@@ -21,4 +21,7 @@ public interface IMemberInfoService {
     int updateByPrimaryKey(MemberInfo record);
 
     PageResult queryMemberByList(MemberInfoQueryObject qo);
+
+    //宠物服务需要的方法
+    MemberInfo queryInfoByMemberId(String memberId);
 }
