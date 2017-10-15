@@ -28,6 +28,27 @@
       <if test="keyword_tel!=null">
         AND tel LIKE concat('%',#{keyword_tel},'%')
       </if>
+      <if test="state==-1">
+
+      </if>
+      <if test="state==0">
+        AND state = 0
+      </if>
+      <if test="state==1">
+        AND state = 1
+      </if>
+      <if test="state==2">
+        AND state = 2
+      </if>
+      <if test="state==3">
+        AND payment = 0
+      </if>
+      <if test="state==4">
+        AND payment = 1
+      </if>
+      <if test="menuText!=null">
+        AND (itemFirst LIKE concat('%',#{menuText},'%') or itemSecond LIKE concat('%',#{menuText},'%'))
+      </if>
     </where>
   </sql>
 

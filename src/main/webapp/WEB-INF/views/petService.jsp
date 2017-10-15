@@ -122,7 +122,16 @@
 		<div id="petServiceRegister_datagrid_tb">
 			<div>
 				<input id="nameSearchBtn" type="text">&nbsp;&nbsp;
-				<input id="telSearchBtn" type="text">
+				<input id="telSearchBtn" type="text">&nbsp;&nbsp;
+				<select id="stateSearch" class="easyui-combobox" style="width:90px;">
+					<option value="-1">全部状态</option>
+					<option value="0">等待中</option>
+					<option value="1">进行中</option>
+					<option value="2">已完成</option>
+					<option value="3">未付款</option>
+					<option value="4">已付款</option>
+				</select>&nbsp;&nbsp;
+				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="search">搜索</a>
 			</div>
 			<div>
 				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="addService">添加项目</a>
