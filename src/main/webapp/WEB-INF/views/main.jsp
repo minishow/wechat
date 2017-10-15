@@ -87,15 +87,15 @@
                     <img src="/static/pics/sysicon/kcgl.png" />
                     <a class="aStyle" style="float:left;" href="#">库存管理</a>
                 </div>
-                <div id="statementNav" onclick="addtab('报表分析','statementNav','/chart/serviceChartByPie');" style="margin-top: 30px">
+                <div id="statementNav" onclick="addtab('报表分析','statementNav','/chart');" style="margin-top: 30px">
                     <img src="/static/pics/sysicon/bbgl.png" />
                     <a class="aStyle" style="float:left;" href="#">报表分析</a>
                 </div>
-                <div id="employeeNav" onclick="addtab('员工管理','employeeNav','');" style="margin-top: 30px">
+                <div id="employeeNav" onclick="addtab('员工管理','employeeNav','/employee/skip');" style="margin-top: 30px">
                     <img src="/static/pics/sysicon/yggl.png" />
                     <a class="aStyle" style="float:left;" href="#">员工管理</a>
                 </div>
-                <div id="sysNav" onclick="addtab('系统设置','sysNav','/employee/skip');" style="margin-top: 30px">
+                <div id="sysNav" onclick="addtab('系统设置','sysNav','');" style="margin-top: 30px">
                     <img src="/static/pics/sysicon/xtsz.png" />
                     <a class="aStyle" style="float:left;" href="#">系统设置</a>
                 </div>
