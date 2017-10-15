@@ -15,42 +15,43 @@
         <%--数据表格--%>
         <div>
             <%--收银明细数据表格--%>
-            <table id="cashbillitem_datagrid" style="height: 400px"></table>
+            <table id="cashbillitem_datagrid" style="height: 450px"></table>
         </div>
 
 
         <%--底部结账--%>
-        <div id="totalAmount">
+        <div >
             <div>
-               总计:4
+                总计:<span id="totalAmount">0</span>
+                                <span>元</span>
             </div>
         </div>
 
          <div>
              <table >
                  <tr>
-                    <td>会员卡号:<input type="text" id="MemberNumber" name="MemberNumber" onblur="check()"></td>
-                    <td>会员姓名: </td>
-                    <td>现有金额: </td>
-                    <td>会员等级: </td>
-                    <td>商品折扣: </td>
-                    <td>服务折扣: </td>
+                    <td>会员卡号:<input type="text" id="MemberNumber" name="Memberinfo" onblur="check()"></td>
+                    <td style="width: 150px">会员姓名:<span id="name">55</span></td>
+                    <td style="width: 150px">现有金额:<span id="memberAmount">456</span></td>
+                    <td style="width: 150px">会员等级:<span id="grade"></span>356</td>
+                    <td style="width: 150px">商品折扣:<span id="Productdiscount">252</span></td>
+                    <td style="width: 150px">服务折扣:<span id="Servicediscount">78</span></td>
                  </tr>
              </table>
          </div>
 
          <div>
+             <table>
                 <tr>
-                    <td>应收金额: </td>
-                    <td>实收金额: </td>
-                    <td>收款方式: </td>
+                    <td style="width: 120px">应收金额:<span id="receivables"></span></td>
+                    <td >实收金额:<input type="text"></td>
+                    <td >收款方式:</td>
                 </tr>
+             </table>
          </div>
-            <div>
-                现金结账:
-            </div>
-
-
+         <div>
+             现金结账
+         </div>
     </table>
 </body>
 </html>

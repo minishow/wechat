@@ -38,7 +38,7 @@ $(function () {
                     if(!value){
                         value = row.productInfoId.price;
                     }
-                    return "<span id='costAmountId'>"+value +"</span>";
+                    return "<span data-costAmount='"+row.id+"'>"+value +"</span>";
                 }
             },
             {field:'memberAmount',title:'会员总价格',width:10,align:'center',
@@ -46,7 +46,7 @@ $(function () {
                     if(!value){
                         value = row.productInfoId.memberPrice;
                     }
-                    return "<span id='memberAmountId'>"+value+"</span>";
+                    return "<span data-memberAmount='"+row.id+"'>"+value+"</span>";
                 }
             },
             {field:'ID',title:'操作',width:10,align:'center',
@@ -57,12 +57,22 @@ $(function () {
             }}
         ]],
          onAfterEdit: function (index, row, changes) {  //编辑完数量单元格触发事件
+
              row.costAmount = changes.number * row.productInfoId.price;
              row.memberAmount = changes.number * row.productInfoId.memberPrice;
+
+
              $('#cashbillitem_datagrid').datagrid("deleteRow",index);
              $('#cashbillitem_datagrid').datagrid('appendRow',row)
+             //计算全部商品的总价格
+             var  totalAmount = 0;
+             var costAmountObj = $("span[data-costAmount]");  //多个原价总价格的对象
+             for(var i = 0 ; i < costAmountObj.length ; i++){
+                 totalAmount = totalAmount + parseInt(costAmountObj[i].innerHTML,10);
+             }
+             $("#totalAmount").html(totalAmount); //设置全部商品总价格
+         }
 
-        }
 
     });
     /*开启编辑器*/
@@ -89,7 +99,18 @@ $(function () {
                     else{
                         //没有:追加新行
                         $("#cashbillitem_datagrid").datagrid("appendRow",data);
-                     }
+
+
+                        $("#cashbillitem_datagrid").datagrid("reload");
+                        //计算全部商品的总价格
+                        var  totalAmount = 0;
+                        var costAmountObj = $("span[data-costAmount]");  //多个原价总价格的对象
+                        for(var i = 0 ; i < costAmountObj.length ; i++){
+                            totalAmount = totalAmount + parseInt(costAmountObj[i].innerHTML,10);
+                        }
+                        $("#totalAmount").html(totalAmount); //设置全部商品总价格
+
+                    }
                 }
                 else{
                     $.messager.alert("温馨提示","没有查询到该库存信息","info");
@@ -108,6 +129,14 @@ function deleteRow(rowid) {
              $("#cashbillitem_datagrid").datagrid("reload")
             $.messager.alert("温馨提示","移除成功","info")
         }
+    })
+}
+
+//根据会员号码查询会员信息
+function check(){
+    var memberNumber = $("#MemberNumber").val();
+    $.get("/memberInfo/queryMemberByNumber?number="+memberNumber, function (data) {
+
     })
 }
 

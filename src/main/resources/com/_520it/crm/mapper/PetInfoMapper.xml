@@ -117,4 +117,15 @@
                      limit #{start},#{page}
   </select>
 
+
+
+  <!--宠物服务需要的方法-->
+  <select id="selectByMemberInfoId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, member_id, petName, petVariety_id, petAncestry, petColour, petBirthday,
+    petGender, petFeature, petClasses_id, petAllergyThing, petAncestryMark, petAncestryRegister,
+    petState, petPic
+    from petinfo
+    where member_id = #{memberId}
+  </select>
+
 </mapper>
