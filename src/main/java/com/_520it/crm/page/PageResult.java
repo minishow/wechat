@@ -7,8 +7,10 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter@Getter@AllArgsConstructor
+@Setter
+@Getter
+@AllArgsConstructor
 public class PageResult {
-	private Long total;
-	private List row=new ArrayList();
+    private Long total;
+    private List rows = new ArrayList();
 }
