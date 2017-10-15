@@ -18,4 +18,8 @@ public interface EmployeeMapper {
     Long selectByCount(EmployeeQueryObject qo);
 
     List<Employee> selectByPageList(EmployeeQueryObject qo);
+    /*
+     * 根据username查询出对象
+     */
+	Employee selectEmployeeByUsername(String username);
 }

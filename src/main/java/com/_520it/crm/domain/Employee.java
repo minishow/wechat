@@ -18,5 +18,8 @@ public class Employee {
     private Date resignationTime; //离职时间
     private Double basePay; //基本工资
     private String idCard; //身份证号码
-
+    /**
+     * 添加密码,登录校验使用
+     */
+    private String password;
 }

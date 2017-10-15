@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 配置shiro -->
+	<!-- 配置自定义的realm -->
+	<bean class="com._520it.crm.realm.UserRealm" id="userRealm">
+		<property name="employeeService" ref="employeeServiceImpl"></property>
+	</bean>
+	<!-- 配置核心安全管理器 -->
+	<bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
+		<!-- 注入自定义的realm信息 -->
+		<property name="realm" ref="userRealm"></property>
+	</bean>
+	<!-- 配置核心过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 注入核心安全管理器 -->
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 请求登录和登录成功跳转的页面信息 -->
+		<property name="loginUrl" value="/login"></property>
+		<property name="successUrl" value="/main"></property>
+		<!-- 把自定义的拦截器配置到核心过滤器中 -->
+		<property name="filters">
+			<!-- 替换掉原来的认证登录过滤器
+			自定义过滤器并且替换原来过滤器 -->
+			 <map>
+				<entry key="authc" value-ref="authc"></entry>
+			</map>
+		</property>
+		<!-- 配置url拦截的权限配置 -->
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- 所有的静态资源都可以匿名访问 -->
+				/static/**=anon
+				<!-- login需要shiro进行拦截 -->
+				/login=authc
+				<!-- 所有的登录和注册相关的页面都不需要登录 -->
+				/login/**=anon
+				<!-- 退出登录交给logout拦截器去执行 -->
+				/logout=logout
+				<!-- 所有的url都需要进行登录后才能访问 -->
+				/**=authc
+			</value>
+		</property>
+	</bean>
+	<!-- 配置自定义的拦截器 -->
+	<bean id="authc" class="com._520it.crm.web.filter.FormAuthenticationFilter">
+		<property name="emloyeeService" ref="employeeServiceImpl"></property>
+		<property name="loginLogHandler" ref="loginLogHandler"></property>
+	</bean>
+	<!-- 配置注解扫描器 -->
+	<!-- 配置登录日志的aop -->
+	<!--<bean class="com._520it.crm.log.LoginLogHandler" id="loginLogHandler">
+		<property name="loginLogService" ref="loginLogServiceImpl"></property>
+	</bean>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com._520it.crm.web.filter.FormAuthenticationFilter.onLoginSuccess(..))" id="loginLogHandlerPt"/>
+		<aop:aspect ref="loginLogHandler" id="loginLogHandlerAspect">
+			<aop:after method="writeLoginLog" pointcut-ref="loginLogHandlerPt"/>
+		</aop:aspect>
+	</aop:config> -->
+	
+</beans>

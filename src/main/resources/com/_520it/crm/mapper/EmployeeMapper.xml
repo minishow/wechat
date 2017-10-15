@@ -12,6 +12,7 @@
         <result column="resignationTime" property="resignationTime" jdbcType="DATE"/>
         <result column="basePay" property="basePay" jdbcType="DOUBLE"/>
         <result column="idCard" property="idCard" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from employee
@@ -20,11 +21,12 @@
     <insert id="insert" parameterType="com._520it.crm.domain.Employee" useGeneratedKeys="true" keyProperty="id">
     insert into employee (jobNumber, position_id, name, 
       gender, tel, entryTime, 
-      resignationTime, basePay, idCard
+      resignationTime, basePay, idCard,password
       )
     values (#{jobNumber,jdbcType=BIGINT}, #{position.id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
       #{gender,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{entryTime,jdbcType=DATE}, 
-      #{resignationTime,jdbcType=DATE}, #{basePay,jdbcType=DOUBLE}, #{idCard,jdbcType=VARCHAR}
+      #{resignationTime,jdbcType=DATE}, #{basePay,jdbcType=DOUBLE}, #{idCard,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}
       )
   </insert>
     <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Employee">
@@ -65,5 +67,12 @@
         from employee
         <include refid="baes_where"></include>
         limit #{page},#{start}
+    </select>
+    <!-- 根据username查询出对象信息 -->
+    <select id="selectEmployeeByUsername" resultMap="BaseResultMap">
+    select id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, 
+    	basePay, idCard,password
+    	from employee
+    where name= #{username,jdbcType=VARCHAR}
     </select>
 </mapper>

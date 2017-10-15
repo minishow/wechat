@@ -1,7 +1,9 @@
 package com._520it.crm.mapper;
 
-import com._520it.crm.domain.LoginLog;
 import java.util.List;
+
+import com._520it.crm.domain.LoginLog;
+import com._520it.crm.query.LoginLogQueryObject;
 
 public interface LoginLogMapper {
     int deleteByPrimaryKey(Long id);
@@ -13,4 +15,10 @@ public interface LoginLogMapper {
     List<LoginLog> selectAll();
 
     int updateByPrimaryKey(LoginLog loginLog);
+
+	Long queryForCount(LoginLogQueryObject qo);
+
+	List<LoginLog> queryForList(LoginLogQueryObject qo);
+
+	void changeState(Long id);
 }

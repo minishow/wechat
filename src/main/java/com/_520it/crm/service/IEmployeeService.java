@@ -20,4 +20,6 @@ public interface IEmployeeService {
      * @param qo 分页
      * */
     PageResult queryByPageList(EmployeeQueryObject qo);
+
+	Employee selectEmployeeByUsername(String username);
 }

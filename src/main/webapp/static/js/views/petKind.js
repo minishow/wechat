@@ -1,48 +1,41 @@
 $(function(){
 	$("#table_datagrid").datagrid({
-		url:"/supplier/query",
+		url:"/petKind/query",
 		rownumbers:true,
 		pagination:true,
 		singleSelect:true,
 		fit:true,
 		fitColumns:true,
 	    columns:[[    
-	              {field:'sn',title:'供应商编码',width:100,align:'center'},    
-	              {field:'name',title:'供应商名称',width:100,align:'center'},    
-	              {field:'person',title:'联系人',width:100,align:'center'},    
-	              {field:'tel',title:'联系电话',width:100,align:'center'},    
-	              {field:'info',title:'优势',width:100,align:'center'},    
-	              {field:'product',title:'主供商品',width:100,align:'center',formatter:function(value,row,index){
+	              {field:'name',title:'宠物品种',width:100,align:'center'},    
+	              {field:'petType',title:'宠物类别',width:100,align:'center',formatter:function(value,row,index){
 	            	  return value?value.name:"";
-	              }},       
+	              }},    
 	              {field:'state',title:'是否启用',width:100,align:'center',formatter:function(value,row,index){
 	            	  if(value){
 	            		  return "是";
 	            	  }else{
 	            		  return "<span style='color:red'>否</span>";
 	            	  }
-	              }},   
-	              {field:'day',title:'合作天数',width:100,align:'center'}   
+	              }}    
 	          ]] ,
 	    toolbar:"#table_datagrid_tb"
 	});
 	$("#div_dialog").dialog({
-		title:"添加品牌",
-		width:400,
-		height:300,
+		title:"添加宠物品种",
+		width:170,
+		height:180,
 		closed:true,
 		buttons:"#div_dialog_tb"
 	});
-	$("#input_combobox_product_info").combobox({
-		/*查询全部商品信息*/
-		url:"/productInfo/list",
+	$("#input_combobox").combobox({
+		/*查询全部地址信息*/
+		url:"/petType/list",
 		valueField:"id",
 		textField:"name",
-		editable:false,
+		editable:true,
 		multiple:false,
-		prompt:"请选择商品信息",
-		label:"商品信息",
-		labelPosion:"left"
+		prompt:"请选择宠物类别信息"
 	});
 	$("#input_combobox_state").combobox({
 		valueField:"id",
@@ -58,9 +51,7 @@ $(function(){
 		      ],
 		editable:false,
 		multiple:false,
-		prompt:"请选择是否启用",
-		label:"是否启用",
-		labelPosion:"left"
+		prompt:"请选择是否启用"
 	});
 	$("#div_dialog_post").form({
 		
@@ -82,7 +73,7 @@ function mySearch(){
 function mySave(){
 	//提交表单,进行数据保存
 	$("#div_dialog_post").form("submit",{
-		url:"/supplier/save",
+		url:"/petKind/save",
 		success:function(myData){
 			var data=$.parseJSON(myData);
 			$("#div_dialog").dialog("close");
@@ -106,7 +97,7 @@ function myDelete(){
 	if(mySelected){
 		$.messager.confirm("温馨提示","确定要修改这条数据的状态吗?",function(flag){
 			if(flag){
-				$.get("/supplier/delete?id="+mySelected.id,function(data){
+				$.get("/petKind/delete?id="+mySelected.id,function(data){
 					if(data.success){
 						//刷新表格
 						$("#table_datagrid").datagrid("reload");
