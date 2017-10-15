@@ -1,13 +1,10 @@
 package com._520it.crm.web.controller;
 
-import com._520it.crm.domain.Employee;
-import com._520it.crm.domain.LeaveRecord;
-import com._520it.crm.domain.Position;
+import com._520it.crm.domain.Role;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
-import com._520it.crm.query.EmployeeQueryObject;
-import com._520it.crm.service.IEmployeeService;
-import com.alibaba.druid.sql.PagerUtils;
+import com._520it.crm.query.RoleQueryObject;
+import com._520it.crm.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,30 +12,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-@RequestMapping("/employee")
 @Controller
-public class EmployeeController {
-
+@RequestMapping("/role")
+public class RoleController {
     @Autowired
-    private IEmployeeService employeeService;
+    private IRoleService roleService;
 
     @RequestMapping("")
-    public String index() {
-        return "employee";
+    public String index(){
+        return "role";
     }
 
-    @RequestMapping("/skip")
-    public String skip(){
-        return "skip";
+    @RequestMapping("/selectListByRole")
+    @ResponseBody
+    public List<Role> selectListForRoleForm() {
+        return roleService.selectAll();
     }
 
     @RequestMapping("/queryByPageList")
     @ResponseBody
-    public PageResult queryByPageList(EmployeeQueryObject qo) {
+    public PageResult queryByPageList(RoleQueryObject qo) {
         PageResult result = null;
         try {
-            result = employeeService.queryByPageList(qo);
-        }catch (Exception e){
+            result = roleService.queryByPageList(qo);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
@@ -46,9 +43,9 @@ public class EmployeeController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public AjaxResult save(Employee employee) {
+    public AjaxResult save(Role role) {
         try {
-            int insert = employeeService.insert(employee);
+            int insert = roleService.insert(role);
             return new AjaxResult(true, "添加成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,9 +55,9 @@ public class EmployeeController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public AjaxResult update(Employee employee) {
+    public AjaxResult update(Role role) {
         try {
-            employeeService.updateByPrimaryKey(employee);
+            roleService.updateByPrimaryKey(role);
             return new AjaxResult(true, "修改成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,22 +65,15 @@ public class EmployeeController {
         }
     }
 
-    @RequestMapping("/dimission")
+    @RequestMapping("/delete")
     @ResponseBody
     public AjaxResult delete(Long id) {
         try {
-            employeeService.dimissionByPrimaryKey(id);
-            return new AjaxResult(true, "离职成功");
+            roleService.deleteByPrimaryKey(id);
+            return new AjaxResult(true, "删除成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new AjaxResult("离职失败");
+            return new AjaxResult("删除失败");
         }
     }
-
-    @RequestMapping("/selectListByLeaveRecord")
-    @ResponseBody
-    public List<Employee> selectListByLeaveRecord() {
-        return employeeService.selectListByLeaveRecord();
-    }
-
 }

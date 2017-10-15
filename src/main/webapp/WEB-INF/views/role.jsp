@@ -2,13 +2,14 @@
 <html>
 <head>
     <jsp:include page="common.jsp"></jsp:include>
-    <script type="text/javascript" src="/static/js/views/employee.js"></script>
-    <title>员工界面</title>
+    <script type="text/javascript" src="/static/js/views/role.js"></script>
+    <title>角色界面</title>
 </head>
 <body>
-<table id="employee_datagrid"></table>
-<div id="employee_dialog">
-    <form id="employee_form" method="post">
+
+<table id="role_datagrid"></table>
+<div id="role_dialog">
+    <form id="role_form" method="post">
         <input type="hidden" name="id">
         <div align="center" style="margin-top: 10px;">
             <div>
@@ -60,18 +61,18 @@
     </form>
 </div>
 <!-- 定义顶部按钮 -->
-<div id="employee_datagrid_tb">
+<div id="role_datagrid_tb">
 
     <div>
-        <a class="easyui-linkbutton" plain="true" data-cmd="add">添加员工</a>
-        <a id="employee_editBtn" class="easyui-linkbutton" plain="true" data-cmd="edit">编辑</a>
-        <a id="employee_dimissionBtn" class="easyui-linkbutton" plain="true" data-cmd="dimission">离职</a>
-        <input id="selectName" type="text">
+        <a class="easyui-linkbutton" plain="true" data-cmd="add">添加角色</a>
     </div>
+
+
+
 </div>
 
-<div id="employee_dialog_bt">
-    <a class="easyui-linkbutton" plain="true" data-cmd="save">保存</a>
+<div id="role_dialog_bt">
+    <a class="easyui-linkbutton" plain="true" data-cmd="save">确定</a>
     <a class="easyui-linkbutton" plain="true" data-cmd="cancel">取消</a>
 </div>
 
