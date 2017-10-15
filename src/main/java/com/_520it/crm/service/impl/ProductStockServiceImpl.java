@@ -6,7 +6,6 @@ import com._520it.crm.page.PageResult;
 import com._520it.crm.query.ProductStockQueryObject;
 import com._520it.crm.service.IProductStockService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +53,10 @@ public class ProductStockServiceImpl implements IProductStockService {
         List<ProductStock> data=productStockMapper.queryForData(qo);
         Long count=productStockMapper.queryForCount(qo);
         return new PageResult(count,data);
+    }
+
+    @Override
+    public ProductStock getProductStockByProductinfoCode(String code) {
+        return productStockMapper.getProductStockByProductinfoCode(code);
     }
 }

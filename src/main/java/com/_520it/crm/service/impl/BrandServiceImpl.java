@@ -17,27 +17,27 @@ public class BrandServiceImpl implements IBrandService {
 	private BrandMapper brandMapper;
 	@Override
 	public int deleteByPrimaryKey(Long id) {
-		return 0;
+		return brandMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public int insert(Brand brand) {
-		return 0;
+		return brandMapper.insert(brand);
 	}
 
 	@Override
 	public Brand selectByPrimaryKey(Long id) {
-		return null;
+		return brandMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public List<Brand> selectAll() {
-		return null;
+		return brandMapper.selectAll();
 	}
 
 	@Override
 	public int updateByPrimaryKey(Brand brand) {
-		return 0;
+		return brandMapper.updateByPrimaryKey(brand);
 	}
 
 	@Override
@@ -48,6 +48,11 @@ public class BrandServiceImpl implements IBrandService {
 		}
 		List<Brand> rows=brandMapper.queryForList(qo);
 		return new PageResult(total,rows);
+	}
+
+	@Override
+	public void changeState(Long id) {
+		brandMapper.changeState(id);
 	}
 
 }

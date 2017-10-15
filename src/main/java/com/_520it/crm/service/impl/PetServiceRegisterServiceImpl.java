@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,6 +25,8 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
 
     @Override
     public int insert(PetServiceRegister record) {
+        record.setState(0);
+        record.setPayment(0);
         return petServiceRegisterMapper.insert(record);
     }
 
@@ -53,12 +56,28 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
     }
 
     @Override
-    public void startService() {
-        petServiceRegisterMapper.startService();
+    public int startService(Long id) {
+        PetServiceRegister record = petServiceRegisterMapper.selectByPrimaryKey(id);
+        if (record.getState() == 0) {
+            return petServiceRegisterMapper.startService(1,id,new Date());
+        } else if (record.getState() == 1){
+            throw new RuntimeException("服务已经开始!");
+        } else if (record.getState() == 2) {
+            throw new RuntimeException("服务已经结束!");
+        }
+        throw new RuntimeException("服务状态有问题请联系管理员!");
     }
 
     @Override
-    public void endService() {
-        petServiceRegisterMapper.endService();
+    public int endService(Long id) {
+        PetServiceRegister record = petServiceRegisterMapper.selectByPrimaryKey(id);
+        if (record.getState() == 1) {
+            return petServiceRegisterMapper.endService(2,id,new Date());
+        } else if (record.getState() == 0){
+            throw new RuntimeException("服务还未开始!");
+        } else if (record.getState() == 2){
+            throw new RuntimeException("服务已经结束!");
+        }
+        throw new RuntimeException("服务状态有问题请联系管理员!");
     }
 }

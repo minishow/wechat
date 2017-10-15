@@ -20,7 +20,7 @@ public interface IPetServiceRegisterService {
 
     PageResult queryPage(PetServiceRegisterQueryObject qo);
 
-    void startService();
+    int startService(Long id);
 
-    void endService();
+    int endService(Long id);
 }

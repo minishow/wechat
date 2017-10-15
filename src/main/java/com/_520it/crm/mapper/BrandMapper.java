@@ -19,4 +19,6 @@ public interface BrandMapper {
 	Long queryForCount(BrandQueryObject qo);
 
 	List<Brand> queryForList(BrandQueryObject qo);
+
+	void changeState(Long id);
 }

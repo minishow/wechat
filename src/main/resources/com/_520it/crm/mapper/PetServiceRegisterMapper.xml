@@ -28,6 +28,27 @@
       <if test="keyword_tel!=null">
         AND tel LIKE concat('%',#{keyword_tel},'%')
       </if>
+      <if test="state==-1">
+
+      </if>
+      <if test="state==0">
+        AND state = 0
+      </if>
+      <if test="state==1">
+        AND state = 1
+      </if>
+      <if test="state==2">
+        AND state = 2
+      </if>
+      <if test="state==3">
+        AND payment = 0
+      </if>
+      <if test="state==4">
+        AND payment = 1
+      </if>
+      <if test="menuText!=null">
+        AND (itemFirst LIKE concat('%',#{menuText},'%') or itemSecond LIKE concat('%',#{menuText},'%'))
+      </if>
     </where>
   </sql>
 
@@ -37,14 +58,12 @@
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.PetServiceRegister" useGeneratedKeys="true" keyProperty="id" >
     insert into petserviceregister (petName, masterName, tel, 
-      itemFirst, itemSecond, startTime, 
-      endTime, petAge, petGender, 
+      itemFirst, itemSecond, petAge, petGender,
       selfGood, remark, times, 
       state, payment, sevPrice
       )
     values (#{petName}, #{masterName}, #{tel}, 
-      #{itemFirst}, #{itemSecond}, #{startTime}, 
-      #{endTime}, #{petAge}, #{petGender}, 
+      #{itemFirst}, #{itemSecond}, #{petAge}, #{petGender},
       #{selfGood}, #{remark}, #{times}, 
       #{state}, #{payment}, #{sevPrice}
       )
@@ -71,10 +90,16 @@
 
   <update id="startService">
     update petserviceregister
-    SET
+    SET state = #{state},
+        startTime = #{startTime}
+    where id = #{id}
   </update>
   <update id="endService">
-
+    update petserviceregister
+    SET state = #{state},
+        times = 0,
+        endTime = #{endTime}
+    where id = #{id}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -102,7 +127,7 @@
     petGender, selfGood, remark, times, state, payment, sevPrice
     FROM petserviceregister
     <include refid="base_where"/>
-    LIMIT #{start},#{pageSize}
+    LIMIT #{start},#{rows}
   </select>
 
 </mapper>

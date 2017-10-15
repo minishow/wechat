@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.PetInfoMapper" >
+
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="petName" property="petName" jdbcType="VARCHAR" />
+    <result column="petAncestry" property="petAncestry" jdbcType="VARCHAR" />
+    <result column="petColour" property="petColour" jdbcType="VARCHAR" />
+    <result column="petBirthday" property="petBirthday" jdbcType="DATE" />
+    <result column="petGender" property="petGender" jdbcType="INTEGER" />
+    <result column="petFeature" property="petFeature" jdbcType="VARCHAR" />
+    <result column="petAllergyThing" property="petAllergyThing" jdbcType="VARCHAR" />
+    <result column="petAncestryMark" property="petAncestryMark" jdbcType="INTEGER" />
+    <result column="petAncestryRegister" property="petAncestryRegister" jdbcType="VARCHAR" />
+    <result column="petState" property="petState" jdbcType="VARCHAR" />
+    <result column="petPic" property="petPic" jdbcType="VARCHAR" />
+
+    <!--宠物品种-->
+    <association property="petType" javaType="com._520it.crm.domain.PetType">
+      <id property="id" column="t_id"/>
+      <result property="name" column="t_name"/>
+    </association>
+    <!--会员-->
+    <association property="member" javaType="com._520it.crm.domain.MemberInfo">
+      <id property="id" column="mem_id"/>
+      <result property="name" column="mem_name"/>
+      <result property="number" column="mem_number"/>
+      <result property="vipClass" column="mem_vipClass"/>
+      <result property="balance" column="mem_balance"/>
+      <result property="tel" column="mem_tel"/>
+      <result property="gender" column="mem_gender"/>
+      <result property="birthday" column="mem_birthday"/>
+      <result property="adress" column="mem_adress"/>
+      <result property="remark" column="mem_remark"/>
+    </association>
+
+    <!--宠物类别-->
+    <association property="petKind" javaType="com._520it.crm.domain.PetKind">
+      <id property="id" column="k_id"/>
+      <result property="name" column="k_name"/>
+    </association>
+
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from petinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.PetInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into petinfo (member_id, petName, petVariety_id,
+      petAncestry, petColour, petBirthday,
+      petGender, petFeature, petClasses_id,
+      petAllergyThing, petAncestryMark, petAncestryRegister,
+      petState, petPic)
+    values (#{member.id,jdbcType=BIGINT},
+    #{petName,jdbcType=VARCHAR},
+     #{petvarietyId,jdbcType=BIGINT},
+      #{petAncestry,jdbcType=VARCHAR},
+       #{petColour,jdbcType=VARCHAR}, #{petBirthday,jdbcType=DATE},
+      #{petGender,jdbcType=INTEGER},
+      #{petFeature,jdbcType=VARCHAR}, #{petclassesId,jdbcType=BIGINT},
+      #{petAllergyThing,jdbcType=VARCHAR},
+      #{petAncestryMark,jdbcType=INTEGER},
+       #{petAncestryRegister,jdbcType=VARCHAR},
+      #{petState,jdbcType=VARCHAR}, #{petPic,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetInfo" >
+    update petinfo
+    set member_id = #{memberId.id,jdbcType=BIGINT},
+      petName = #{petName,jdbcType=VARCHAR},
+      petVariety_id = #{petvarietyId,jdbcType=BIGINT},
+      petAncestry = #{petAncestry,jdbcType=VARCHAR},
+      petColour = #{petColour,jdbcType=VARCHAR},
+      petBirthday = #{petBirthday,jdbcType=DATE},
+      petGender = #{petGender,jdbcType=INTEGER},
+      petFeature = #{petFeature,jdbcType=VARCHAR},
+      petClasses_id = #{petclassesId,jdbcType=BIGINT},
+      petAllergyThing = #{petAllergyThing,jdbcType=VARCHAR},
+      petAncestryMark = #{petAncestryMark,jdbcType=INTEGER},
+      petAncestryRegister = #{petAncestryRegister,jdbcType=VARCHAR},
+      petState = #{petState,jdbcType=VARCHAR},
+      petPic = #{petPic,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, member_id, petName, petVariety_id, petAncestry, petColour, petBirthday,
+    petGender, petFeature, petClasses_id, petAllergyThing, petAncestryMark, petAncestryRegister,
+    petState, petPic
+    from petinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, member_id, petName, petVariety_id, petAncestry, petColour, petBirthday,
+    petGender, petFeature, petClasses_id, petAllergyThing, petAncestryMark, petAncestryRegister,
+    petState, petPic
+    from petinfo
+  </select>
+
+  <select id="queryMemberInfoByTotal" resultType="long">
+    SELECT COUNT(id) FROM petinfo
+
+  </select>
+  <select id="queryMemberInfoByList" resultMap="BaseResultMap">
+    select pet.member_id, pet.petName,
+      pet.petAncestry, pet.petColour, pet.petBirthday,
+      pet.petGender, pet.petFeature,
+      pet.petAllergyThing, pet.petAncestryMark, pet.petAncestryRegister,
+      pet.petState, pet.petPic,
+      t.id t_id,t.name t_name,
+      k.id k_id,k.name k_name,
+      mem.number mem_number, mem.name mem_name, mem.vipClass mem_vipClass,
+      mem.balance mem_balance, mem.tel mem_tel, mem.gender mem_gender,
+      mem.birthday mem_birthday, mem.adress mem_adress, mem.remark mem_remark
+    from petinfo pet LEFT JOIN memberinfo mem ON pet.member_id = mem.id
+                     LEFT JOIN pettype t ON pet.petVariety_id=t.id
+                     LEFT JOIN petkind k ON pet.petClasses_id=k.id
+                     limit #{start},#{page}
+  </select>
+
+
+
+  <!--宠物服务需要的方法-->
+  <select id="selectByMemberInfoId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, member_id, petName, petVariety_id, petAncestry, petColour, petBirthday,
+    petGender, petFeature, petClasses_id, petAllergyThing, petAncestryMark, petAncestryRegister,
+    petState, petPic
+    from petinfo
+    where member_id = #{memberId}
+  </select>
+
+</mapper>

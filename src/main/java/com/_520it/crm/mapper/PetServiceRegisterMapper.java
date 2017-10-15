@@ -2,7 +2,9 @@ package com._520it.crm.mapper;
 
 import com._520it.crm.domain.PetServiceRegister;
 import com._520it.crm.query.QueryObject;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface PetServiceRegisterMapper {
@@ -19,7 +21,7 @@ public interface PetServiceRegisterMapper {
     Long queryForCount(QueryObject qo);
     List<PetServiceRegister> queryForList(QueryObject qo);
 
-    void startService();
+    int startService(@Param("state") Integer state, @Param("id") Long id, @Param("startTime")Date date);
 
-    void endService();
+    int endService(@Param("state") Integer state,@Param("id") Long id, @Param("endTime")Date date);
 }
