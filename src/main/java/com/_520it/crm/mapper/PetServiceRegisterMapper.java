@@ -27,4 +27,6 @@ public interface PetServiceRegisterMapper {
     int endService(@Param("state") Integer state,@Param("id") Long id, @Param("endTime")Date date);
 
     List<PetServiceChartVO> selectServiceCountByName();
+
+    List<PetServiceChartVO> selectServiceTopCountByName();
 }

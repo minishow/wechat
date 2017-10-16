@@ -26,4 +26,6 @@ public interface IPetServiceRegisterService {
     int endService(Long id);
 
     List<PetServiceChartVO> selectServiceCountByName();
+
+    List<PetServiceChartVO> selectServiceTopCountByName();
 }
