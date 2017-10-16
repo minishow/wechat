@@ -23,8 +23,8 @@
   <insert id="insert" parameterType="com._520it.crm.domain.CashBillItem" useGeneratedKeys="true" keyProperty="id" >
     insert into cashbillitem (number, costAmount, memberAmount, 
       bill_id, product_id)
-    values (#{number,jdbcType=INTEGER}, #{costAmount,jdbcType=DOUBLE}, #{memberAmount,jdbcType=DOUBLE}, 
-      #{billId,jdbcType=BIGINT}, #{product.id,jdbcType=BIGINT})
+    values (#{number}, #{costAmount}, #{memberAmount},
+      #{billId}, #{productInfoId.id})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.CashBillItem" >
     update cashbillitem
@@ -32,7 +32,7 @@
       costAmount = #{costAmount,jdbcType=DOUBLE},
       memberAmount = #{memberAmount,jdbcType=DOUBLE},
       bill_id = #{billId,jdbcType=BIGINT},
-      product_id = #{product.id,jdbcType=BIGINT}
+      product_id = #{productInfoId.id,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >

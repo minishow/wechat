@@ -1,21 +1,24 @@
 package com._520it.crm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 //收银记录
-@Setter
-@Getter
+@Setter@Getter
 public class CashBill {
 
     private Long id; //订单id
 
     private String sn;//订单编码  自己设置
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8") //后台传到前台
+    @DateTimeFormat(pattern="yyyy-MM-dd") //前台传到后台
     private Date orderTime;//订单时间 自己设置
 
     private Integer totalNumber; //商品总数量   计算设置

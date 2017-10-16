@@ -3,8 +3,8 @@
 <mapper namespace="com._520it.crm.mapper.CashBillMapper" >
 
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.CashBill" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <id column="id" property="id" />
+    <result column="sn" property="sn" />
     <result column="orderTime" property="orderTime" />
     <result column="totalNumber" property="totalNumber"  />
     <result column="totalAmount" property="totalAmount"  />
@@ -24,17 +24,17 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.CashBill" useGeneratedKeys="true" keyProperty="id" >
-    insert into cashbill (sn, member_id, shopName, 
+    insert into cashbill (sn,member_id, shopName,
       orderTime, totalNumber, totalAmount, 
       employeeName, paymentTerm)
-    values (#{sn,jdbcType=VARCHAR}, #{member.id,jdbcType=BIGINT}, #{shopName,jdbcType=BIGINT}, 
-      #{orderTime,jdbcType=TIMESTAMP}, #{totalNumber,jdbcType=DOUBLE}, #{totalAmount,jdbcType=DOUBLE}, 
-      #{employeeName,jdbcType=BIGINT}, #{paymentTerm,jdbcType=VARCHAR})
+    values (#{sn}, #{memberId.id}, #{shopName},
+      #{orderTime}, #{totalNumber}, #{totalAmount},
+      #{employeeName}, #{paymentTerm,})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.CashBill" >
     update cashbill
     set sn = #{sn,jdbcType=VARCHAR},
-      member_id = #{member.id,jdbcType=BIGINT},
+      member_id = #{memberId.id,jdbcType=BIGINT},
       shopName = #{shopName,jdbcType=BIGINT},
       orderTime = #{orderTime,jdbcType=TIMESTAMP},
       totalNumber = #{totalNumber,jdbcType=DOUBLE},
@@ -62,12 +62,12 @@
   </sql>
 
   <select id="queryCount" resultType="long">
-    select count(c.id) from cashbill
+    select count(c.id) from cashbill c
      <include refid="base_where"/>
   </select>
 
   <select id="queryData" resultMap="BaseResultMap">
-    select  c.id, c.sn, c.member_id, c.shopName, c.orderTime, c.totalNumber, c.totalAmount, c.employeeName,
+    select c.id, c.sn, c.member_id, c.shopName, c.orderTime, c.totalNumber, c.totalAmount, c.employeeName,
       m.id m_id , m.number m_number
     from cashbill c
     left join memberinfo m on m.id = c.member_id

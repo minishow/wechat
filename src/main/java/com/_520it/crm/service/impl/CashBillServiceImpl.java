@@ -3,13 +3,12 @@ package com._520it.crm.service.impl;
 
 import com._520it.crm.domain.CashBill;
 import com._520it.crm.domain.CashBillItem;
-import com._520it.crm.domain.Employee;
+import com._520it.crm.mapper.CashBillItemMapper;
 import com._520it.crm.mapper.CashBillMapper;
 import com._520it.crm.mapper.ShopInfoMapper;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.CashBillQueryObject;
 import com._520it.crm.service.ICashBillService;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -22,6 +21,8 @@ import java.util.List;
 public class CashBillServiceImpl implements ICashBillService{
     @Autowired
     private CashBillMapper cashBillMapper;
+    @Autowired
+    private CashBillItemMapper cashBillItemMapper;
     @Autowired
     private ShopInfoMapper shopInfoMapper;
     @Override
@@ -42,20 +43,30 @@ public class CashBillServiceImpl implements ICashBillService{
         List<CashBillItem> items = cashBill.getItems();
         for (CashBillItem item : items) {
             totalNumber = totalNumber + item.getNumber();
+
         }
         cashBill.setTotalNumber(totalNumber);
          //操作人
-        Employee current = (Employee) SecurityUtils.getSubject();
-        cashBill.setEmployeeName(current.getName());
+       /* Employee current = (Employee) SecurityUtils.getSubject();*/
+        cashBill.setEmployeeName("admin");
         //店铺名称
-        String shopName =  shopInfoMapper.queryShopNameByEmployeeId(current.getId());
-        cashBill.setShopName(shopName);
+       /* String shopName =  shopInfoMapper.queryShopNameByEmployeeId(current.getId());*/
+        cashBill.setShopName("宠物店");
         //保存记录
-        int insert = cashBillMapper.insert(cashBill);
-
+        int insert = 0;
+        try {
+            insert = cashBillMapper.insert(cashBill);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //保存明细的记录id
         for (CashBillItem item : items) {
             item.setBillId(cashBill.getId());
+            cashBillItemMapper.insert(item);
+        }
+
+        if(cashBill.getPaymentTerm() == 4){
+
         }
         return insert ;
     }
