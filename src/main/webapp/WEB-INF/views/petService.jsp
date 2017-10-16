@@ -150,6 +150,21 @@
 			<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="saveMenu">保存</a>
 			<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="cancelMenu">取消</a>
 		</div>
+
+		<!--宠物服务付款-->
+		<div id="petServiceCash_dialog">
+			<div style="margin-top: 20px;margin-left: 120px" >
+				<div id="cashPetName"><h4></h4></div>
+				<div id="cashPetAge" style="margin-top: 20px"></div>
+				<div id="cashPetService" style="margin-top: 20px"></div>
+				<div id="cashPetServicePrice" style="margin-top: 20px;color: red"></div>
+			</div>
+		</div>
+		<div id="petServiceCash_dialog_bt">
+			<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="saveMenu">确认收银</a>
+			<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="cancelMenu">取消</a>
+		</div>
+
 	</div>
 </div>
 </body>
