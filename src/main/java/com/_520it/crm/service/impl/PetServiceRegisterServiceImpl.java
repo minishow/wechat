@@ -86,4 +86,9 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
     public List<PetServiceChartVO> selectServiceCountByName() {
         return petServiceRegisterMapper.selectServiceCountByName();
     }
+
+    @Override
+    public List<PetServiceChartVO> selectServiceTopCountByName() {
+        return petServiceRegisterMapper.selectServiceTopCountByName();
+    }
 }

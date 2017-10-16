@@ -18,4 +18,5 @@ public interface ICashBillService {
     int updateByPrimaryKey(CashBill record);
 
     PageResult query(CashBillQueryObject qo);
+
 }

@@ -130,12 +130,20 @@
     LIMIT #{start},#{rows}
   </select>
 
+  <!--报表查询-->
   <select id="selectServiceCountByName" resultType="com._520it.crm.vo.PetServiceChartVO">
     SELECT itemSecond groupType,
     COUNT(*) totalCount
     FROM petserviceregister
     <include refid="base_where"/>
     GROUP BY itemSecond
+  </select>
+  <select id="selectServiceTopCountByName" resultType="com._520it.crm.vo.PetServiceChartVO">
+    SELECT itemFirst groupType,
+    COUNT(*) totalCount
+    FROM petserviceregister
+    <include refid="base_where"/>
+    GROUP BY itemFirst
   </select>
 
 </mapper>

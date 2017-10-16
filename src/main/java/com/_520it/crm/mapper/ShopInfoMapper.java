@@ -17,5 +17,14 @@ public interface ShopInfoMapper {
 
     int updateByPrimaryKey(ShopInfo shopInfo);
 
+
 	void updateImg(@Param("id")Long id, @Param("imgName")String imgName);
+
+    /**
+     * 根据员工id查询店铺名称
+     * @param employeeId
+     * @return
+     */
+    String queryShopNameByEmployeeId(Long employeeId);
+
 }
