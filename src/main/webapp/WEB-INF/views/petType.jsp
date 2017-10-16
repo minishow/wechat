@@ -4,37 +4,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>宠物品种</title>
+<title>宠物类别</title>
 <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/default/easyui.css">   
 <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/icon.css">   
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.min.js"></script>  
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.easyui.min.js"></script>  
 <script type="text/javascript" src="/static/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="/static/js/views/petKind.js"></script>
+<script type="text/javascript" src="/static/js/views/petType.js"></script>
 </head>
 <body>
 	<table id="table_datagrid"></table>
 	<div id="table_datagrid_tb">
 		<table>
 			<tr>
-				<td><a class="easyui-linkbutton" data-options="text:'添加宠物品种',onClick:myAdd"></a><td>
+				<td><a class="easyui-linkbutton" data-options="text:'添加宠物类别信息',onClick:myAdd"></a><td>
 				<td><a class="easyui-linkbutton" data-options="text:'是否启用',onClick:myDelete"></a><td>
-				<td><input class="easyui-textbox" data-options="buttonText:'查询',onClickButton:mySearch,prompt:'宠物名称'"><td>
+				<td><input class="easyui-textbox" data-options="buttonText:'查询',onClickButton:mySearch,prompt:'宠物类别名称'"><td>
 			</tr>
 		</table>
 	</div>
-	
 	<div id="div_dialog">
 		<form method="post" id="div_dialog_post">
 			<table>
 				<tr>
-					<td><input name="name" id="petKindInput"
-							data-options="prompt:'请输入宠物信息'"></td>
-				</tr>
-				<tr>
-					<td>
-						<input id="input_combobox" name="petType.id"/>
-					</td>
+					<td><input class="easyui-textbox"  name="name"
+							data-options="prompt:'请输入宠物类别名称信息'"></td>
 				</tr>
 				<tr>
 					<td>

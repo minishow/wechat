@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetKind" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="state" property="state" />
     <association property="petType" javaType="PetType">
     	<id column="pt_id" property="id" jdbcType="BIGINT" />
     	<result column="pt_name" property="name" jdbcType="VARCHAR" />
@@ -14,23 +15,23 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.PetKind" useGeneratedKeys="true" keyProperty="id" >
-    insert into petkind (name,pettype_id)
-    values (#{name,jdbcType=VARCHAR},#{petType.id,jdbcType=BIGINT})
+    insert into petkind (name,pettype_id,state)
+    values (#{name,jdbcType=VARCHAR},#{petType.id,jdbcType=BIGINT},#{state,jdbcType=BIGINT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetKind" >
     update petkind
     set name = #{name,jdbcType=VARCHAR},
-    pettype_id=#{petType.id,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
+    state=#{state}
+    where id = #{id,jdbcType=BIGINT},
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select pk.id, pk.name,
+    select pk.id, pk.name,pk.state,
     pt.id pt_id,pt.name pt_name
     from petkind pk left join pettype pt
     where pk.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select pk.id, pk.name,
+    select pk.id, pk.name,pk.state,
     pt.id pt_id,pt.name pt_name
     from petkind pk left join pettype pt
   </select>
@@ -47,7 +48,7 @@
   	<include refid="base_where"/>
   </select>
   <select id="queryForList" resultMap="BaseResultMap">
-    select pk.id, pk.name,
+    select pk.id, pk.name,pk.state,
     pt.id pt_id,pt.name pt_name
     from petkind pk left join pettype pt on pk.pettype_id=pt.id
     <include refid="base_where"/>

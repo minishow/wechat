@@ -29,5 +29,8 @@ public interface IEmployeeService {
 
     List<Employee> selectListByLeaveRecord();
 
+	Boolean checkPassword(String oldPassword);
+
+	void changePassword(String newPassword);
 
 }

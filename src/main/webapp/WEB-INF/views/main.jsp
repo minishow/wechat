@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -58,11 +59,11 @@
         <div data-options="region:'north'" style="background-color: #393939;height: 47px;border: 0px">
             <img style="float: left;margin-left: 20px" src="/static/pics/sysicon/logo_gl.png" />
             <div style="float: right;margin-top: 20px;margin-right: 15px;color: white">
-                <a class="aStyle" href="#" onclick="">唐笑笑</a>
+                <a class="aStyle" href="/employee/changePassword" onclick="">唐笑笑</a>
                 <span>|</span>&nbsp;&nbsp;
                 <span style="position: relative"><a id="warning" onclick="">库存预警</a><span id="tip" class="tip"></span><span id="tipone" class="tip"></span></span>&nbsp;&nbsp;
                 <span>|</span>&nbsp;&nbsp;
-                <a class="aStyle" href="" onclick="return confirm('确定退出系统吗？');">退出</a>&nbsp;&nbsp;
+                <a class="aStyle" href="/logout" onclick="return confirm('确定退出系统吗？');">退出</a>&nbsp;&nbsp;
                 <span class="wc">|</span>&nbsp;&nbsp;
                 <span id="weixin" style="cursor: pointer">微信二维码</span><span id="tip1" class="tip1">
                     <img style="position: absolute; top: -8px; left: 60px; width: 15px;" src="/static/pics/sysicon/jj.png">
@@ -71,34 +72,40 @@
         </div>
         <div data-options="region:'west',width:80" style="background-color: #393939;border: 0px;">
             <div id="navDiv" style="margin-left: 15px;margin-right: 15px;margin-top: 30px">
-                <div id="memberNav" onclick="addtab('会员管理','memberNav','');">
-                    <img src="/static/pics/sysicon/cwgl.png" />
-                    <a class="aStyle" style="float:left;" href="#">会员管理</a>
-                </div>
-                <div id="payNav" onclick="addtab('收银管理','payNav','cashbillitem');" style="margin-top: 30px">
-                    <img src="/static/pics/sysicon/sygl.png" />
-                    <a class="aStyle" style="float:left;" href="#">收银管理</a>
-                </div>
-                <div id="serviceNav" onclick="addtab('宠物服务','serviceNav','/petService');" style="margin-top: 30px">
-                    <img src="/static/pics/sysicon/fw.png" />
-                    <a class="aStyle" style="float:left;" href="#">宠物服务</a>
-                </div>
-                <div id="repertoryNav" onclick="addtab('库存管理','repertoryNav','');" style="margin-top: 30px">
-                    <img src="/static/pics/sysicon/kcgl.png" />
-                    <a class="aStyle" style="float:left;" href="#">库存管理</a>
-                </div>
-                <div id="statementNav" onclick="addtab('报表分析','statementNav','/chart');" style="margin-top: 30px">
-                    <img src="/static/pics/sysicon/bbgl.png" />
-                    <a class="aStyle" style="float:left;" href="#">报表分析</a>
-                </div>
-                <div id="employeeNav" onclick="addtab('员工管理','employeeNav','/employee/skip');" style="margin-top: 30px">
-                    <img src="/static/pics/sysicon/yggl.png" />
-                    <a class="aStyle" style="float:left;" href="#">员工管理</a>
-                </div>
-                <div id="sysNav" onclick="addtab('系统设置','sysNav','');" style="margin-top: 30px">
-                    <img src="/static/pics/sysicon/xtsz.png" />
-                    <a class="aStyle" style="float:left;" href="#">系统设置</a>
-                </div>
+                <shiro:hasRole name="shoper">
+	                <div id="memberNav" onclick="addtab('会员管理','memberNav','');">
+	                    <img src="/static/pics/sysicon/cwgl.png" />
+	                    <a class="aStyle" style="float:left;" href="#">会员管理</a>
+	                </div>
+                </shiro:hasRole>
+                <shiro:hasRole name="pay">
+	                <div id="payNav" onclick="addtab('收银管理','payNav','cashbillitem');" style="margin-top: 30px">
+	                    <img src="/static/pics/sysicon/sygl.png" />
+	                    <a class="aStyle" style="float:left;" href="#">收银管理</a>
+	                </div>
+                </shiro:hasRole>
+                <shiro:hasRole name="shoper">
+	                <div id="serviceNav" onclick="addtab('宠物服务','serviceNav','/petService');" style="margin-top: 30px">
+	                    <img src="/static/pics/sysicon/fw.png" />
+	                    <a class="aStyle" style="float:left;" href="#">宠物服务</a>
+	                </div>
+	                <div id="repertoryNav" onclick="addtab('库存管理','repertoryNav','');" style="margin-top: 30px">
+	                    <img src="/static/pics/sysicon/kcgl.png" />
+	                    <a class="aStyle" style="float:left;" href="#">库存管理</a>
+	                </div>
+	                <div id="statementNav" onclick="addtab('报表分析','statementNav','/chart');" style="margin-top: 30px">
+	                    <img src="/static/pics/sysicon/bbgl.png" />
+	                    <a class="aStyle" style="float:left;" href="#">报表分析</a>
+	                </div>
+	                <div id="employeeNav" onclick="addtab('员工管理','employeeNav','/employee/skip');" style="margin-top: 30px">
+	                    <img src="/static/pics/sysicon/yggl.png" />
+	                    <a class="aStyle" style="float:left;" href="#">员工管理</a>
+	                </div>
+	                <div id="sysNav" onclick="addtab('系统设置','sysNav','');" style="margin-top: 30px">
+	                    <img src="/static/pics/sysicon/xtsz.png" />
+	                    <a class="aStyle" style="float:left;" href="#">系统设置</a>
+	                </div>
+                </shiro:hasRole>
             </div>
         </div>
         <div data-options="region:'center'">

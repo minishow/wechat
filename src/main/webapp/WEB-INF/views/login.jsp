@@ -27,6 +27,7 @@
 				url:"/login",
 				success:function(myData){
 					var data=$.parseJSON(myData);
+					console.log(data);
 					if(data.success){
 						window.location.href="/main"; 
 					}else{

@@ -96,7 +96,12 @@
     <select id="selectListByLeaveRecord" resultType="com._520it.crm.domain.Employee">
         select e.id,e.jobNumber,e.name from employee e
     </select>
-
+	<!-- 修改密码的方法 -->
+	<update id="updatePasswordByEmployeeId">
+		update employee 
+		set password=#{newPassword}
+		where id=#{employeeId}
+	</update>
 
 
 </mapper>

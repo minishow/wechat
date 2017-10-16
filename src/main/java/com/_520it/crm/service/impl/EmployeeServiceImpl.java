@@ -3,6 +3,7 @@ package com._520it.crm.service.impl;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,6 +76,23 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public List<Employee> selectListByLeaveRecord() {
         return employeeMapper.selectListByLeaveRecord();
     }
+
+	@Override
+	public Boolean checkPassword(String oldPassword) {
+		/*修改密码之前先判断原先密码是否正确*/
+		String passwordDB = ((Employee)SecurityUtils.getSubject().getPrincipal()).getPassword();
+		if(passwordDB.equals(oldPassword)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public void changePassword(String newPassword) {
+		Long id = ((Employee)SecurityUtils.getSubject().getPrincipal()).getId();
+		employeeMapper.updatePasswordByEmployeeId(newPassword,id);
+	}
 
 
 

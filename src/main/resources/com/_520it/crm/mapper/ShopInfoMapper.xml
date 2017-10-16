@@ -49,4 +49,10 @@
     e.id e_id,e.name e_name,e.tel e_tel
     from shopinfo s join employee e on s.employee_id = e.id
   </select>
+  <!-- 更新图片操作 -->
+  <update id="updateImg">
+  	update shopinfo
+  		set img = #{imgName}
+  	where id=#{id}
+  </update>
 </mapper>

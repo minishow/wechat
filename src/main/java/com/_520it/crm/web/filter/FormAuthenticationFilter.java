@@ -41,7 +41,7 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
     	 */
     	response.setContentType("text/json;charset=utf-8");
     	Map<String,Object> map=new HashMap<>();
-    	map.put("flag",true);
+    	map.put("success",true);
     	map.put("msg","登录成功");
     	ObjectMapper objectMapper=new ObjectMapper();
     	response.getWriter().write(objectMapper.writeValueAsString(map));
@@ -62,7 +62,7 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 	            ServletRequest request, ServletResponse response) {
 		response.setContentType("text/json;charset=utf-8");
 				Map<String,Object> map=new HashMap<>();
-				map.put("flag",false);
+				map.put("success",false);
 				map.put("msg","登录失败");
 				ObjectMapper objectMapper=new ObjectMapper();
 				try {

@@ -27,6 +27,7 @@
 		<div id="productPart" data-options="title:'商品成分'"></div>
 		<div id="productInfo" data-options="title:'商品信息'"></div>
 		<div id="petKind" data-options="title:'宠物种类'"></div>
+		<div id="petType" data-options="title:'宠物类别'"></div>
 		<div id="supplier" data-options="title:'供应商管理'"></div>
 		<div id="stockOutType" data-options="title:'出入库管理'"></div>
 	</div>

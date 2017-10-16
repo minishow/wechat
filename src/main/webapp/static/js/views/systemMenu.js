@@ -28,6 +28,9 @@ $(function(){
 	$("#petKind").panel({
 		content:"<iframe src='/petKind'></iframe>"
 	});
+	$("#petType").panel({
+		content:"<iframe src='/petType'></iframe>"
+	});
 	$("#supplier").panel({
 		content:"<iframe src='/supplier'></iframe>"
 	});

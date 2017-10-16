@@ -29,4 +29,6 @@ public interface EmployeeMapper {
 
     List<Employee> selectListByLeaveRecord();
 
+	void updatePasswordByEmployeeId(@Param("newPassword")String newPassword, @Param("employeeId")Long id);
+
 }

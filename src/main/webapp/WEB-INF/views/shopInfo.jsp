@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -11,35 +13,70 @@
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.easyui.min.js"></script>  
 <script type="text/javascript" src="/static/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/static/js/views/shopInfo.js"></script>
+<script type="text/javascript">
+	/* 点击图片的实现进行js点击input,然后判断input的value变化,绑定onchange事件 */
+	$(function(){
+		$("#imgForm").form({
+			
+		});
+		$("#img").click(function(){
+			/* 点击input框 */
+			$("#shopImg").click();
+			$("#shopImg").change(function(){
+				$("#imgForm").form("submit",{
+					url:"/shopInfo/changeImg",
+					success:function(myData){
+						/* 保存图片,并且更改img src的属性内容 */
+						var data=$.parseJSON(myData);
+						if(data.success){
+							$("img").prop("src","/static/img/shopInfo/"+data.msg);
+						}else{
+							$.messager.alert("温馨提示",data.msg,"info");
+						}
+					}
+				});
+			});
+		});		
+	});
+</script>
 </head>
 <body>
-	<div style="float: left">
+	<div style="float: left;height: 40%;width: 40%;margin-left: 5%;margin-top: 1%;">
 		<table>
 			<tr>
-				<td><img src="/static/img/shopInfo/${shopInfo.img}"></td>
+				<td>
+					<img style="height: 480;width: 380" src="/static/img/shopInfo/${shopInfo.img}" id="img">
+				</td>
 			</tr>
 			<tr>
-				<td><a href="#">修改图片</a></td>
+				<td>
+					<form method="post" id="imgForm" enctype="multipart/form-data">
+						<input type="hidden" name="id" value="${shopInfo.id}">
+						<input type="file" name="file" id="shopImg" style="display: none;">
+					</form>
+				</td>
 			</tr>
 		</table>
 	</div>
-	<div>
+	<div style="float: left;margin-left: 10px;margin-top: 1%;height: 40%;width: 40%;">
 		<table>
 			<tr>
-				<td>${shopInfo.name}</td>
-				<td><span id="span" style="color: blue;">修改</span></td>
+				<th>
+					<span>${shopInfo.name}</span>
+					<span id="span" style="color: blue;margin-left: 1px;">修改</span>
+				</th>
 			</tr>
 			<tr>
-				<td>负责人:${shopInfo.employee.name}</td>
+				<td>负责人 : ${shopInfo.employee.name}</td>
 			</tr>
 			<tr>
-				<td>联系电话:${shopInfo.employee.tel}</td>
+				<td>联系电话 : ${shopInfo.employee.tel}</td>
 			</tr>
 			<tr>
-				<td>店铺地址:${shopInfo.location}</td>
+				<td>店铺地址 : ${shopInfo.location}</td>
 			</tr>
 			<tr>
-				<td>成立时间:${shopInfo.time}</td>
+				<td>成立时间 : <fmt:formatDate value="${shopInfo.time}" pattern="yyyy年MM月dd日"/></td>
 			</tr>
 		</table>
 	</div>

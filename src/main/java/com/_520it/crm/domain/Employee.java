@@ -32,8 +32,9 @@ public class Employee {
     private String password;
 
     private Integer state; //状态
-
-
-
+    /*
+     * 关联老板的id,自查询
+     */
+    private Employee boss;
 
 }
