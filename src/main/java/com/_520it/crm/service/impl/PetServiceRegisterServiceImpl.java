@@ -5,6 +5,7 @@ import com._520it.crm.mapper.PetServiceRegisterMapper;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.PetServiceRegisterQueryObject;
 import com._520it.crm.service.IPetServiceRegisterService;
+import com._520it.crm.vo.PetServiceChartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,5 +80,10 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
             throw new RuntimeException("服务已经结束!");
         }
         throw new RuntimeException("服务状态有问题请联系管理员!");
+    }
+
+    @Override
+    public List<PetServiceChartVO> selectServiceCountByName() {
+        return petServiceRegisterMapper.selectServiceCountByName();
     }
 }

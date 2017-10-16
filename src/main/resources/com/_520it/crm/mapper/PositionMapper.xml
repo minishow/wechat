@@ -45,4 +45,19 @@
     commissionRate
     from position
   </select>
+  <sql id="baes_where">
+    <where>
+
+    </where>
+  </sql>
+    <select id="selectByCount" resultType="java.lang.Long">
+      select count(p.id) from position p
+      <include refid="baes_where"></include>
+    </select>
+  <select id="selectByPageList" resultType="com._520it.crm.domain.Position">
+      select p.id, p.name, p.jobSubsidys, p.travelAllowance, p.airtimeSubsidy, p.meaSubsidy, p.attendanceBonus,p.commissionRate
+      from position p
+      <include refid="baes_where"></include>
+      limit #{start},#{rows}
+  </select>
 </mapper>

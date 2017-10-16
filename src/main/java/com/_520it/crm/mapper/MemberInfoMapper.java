@@ -22,6 +22,8 @@ public interface MemberInfoMapper {
 
     List<MemberInfo> queryMemberInfoByList(MemberInfoQueryObject qo);
 
+    //宠物服务需要的方法
+    MemberInfo queryInfoByMemberId(String memberId);
     /**
      * 收银管理:根据会员号码查询 会员信息
      * @param number
