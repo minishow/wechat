@@ -14,7 +14,7 @@
 
         $(document).ready(function () {
             $(".main_box div").click(function () {
-                $(".main_box div").removeClass("now")
+                $(".main_box div").removeClass("now");
                 $(this).addClass("now")
             })
         });
@@ -55,21 +55,21 @@
 </head>
 <body>
 <div class="main_box">
+    <div class="imageButton" onclick="show('/chart/lineJsp')">
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/pie.png" /><p style="text-align: center; margin-top: 7px;">服务折线图</p>
+    </div>
     <div class="imageButton" onclick="show('/chart/pieJsp')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/pie.png" /><p style="text-align: center; margin-top: 7px;">数据报表</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/index.png" /><p style="text-align: center; margin-top: 7px;">服务饼图</p>
     </div>
     <div class="imageButton" onclick="show('')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/report.png" /><p style="text-align: center; margin-top: 7px;">分类销售比</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/sales.png" /><p style="text-align: center; margin-top: 7px;">消费方式表</p>
     </div>
     <div class="imageButton" onclick="show('')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/sales.png" /><p style="text-align: center; margin-top: 7px;">商品数据表</p>
-    </div>
-    <div class="imageButton" onclick="show('')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/index.png" /><p style="text-align: center; margin-top: 7px;">位置报表</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/report.png" /><p style="text-align: center; margin-top: 7px;">位置报表</p>
     </div>
 </div>
 <div>
-    <iframe id="index" style="width:100%;height:81%" frameborder="0" name="showmessage" src="/chart/pieJsp"></iframe>
+    <iframe id="index" style="width:100%;height:81%" frameborder="0" name="showmessage" src="/chart/lineJsp"></iframe>
 </div>
 </body>
 </html>
