@@ -130,4 +130,12 @@
     LIMIT #{start},#{rows}
   </select>
 
+  <select id="selectServiceCountByName" resultType="com._520it.crm.vo.PetServiceChartVO">
+    SELECT itemSecond groupType,
+    COUNT(*) totalCount
+    FROM petserviceregister
+    <include refid="base_where"/>
+    GROUP BY itemSecond
+  </select>
+
 </mapper>
