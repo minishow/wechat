@@ -251,6 +251,9 @@ $(function () {
             }
         },
         payfor:function(){
+            var rowData = petServiceRegisterDatagrid.datagrid("getSelected");
+            $.post("/petServiceRegister/sevCash",rowData,function(data){
+            },"json")
         },
         saveRegister:function(){
             var url = "/petServiceRegister/save";

@@ -19,4 +19,5 @@ public interface ICashBillService {
 
     PageResult query(CashBillQueryObject qo);
 
+    List<CashBill> selectByTypeId(Long typeId);
 }

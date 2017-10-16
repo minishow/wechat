@@ -1,9 +1,11 @@
 package com._520it.crm.web.controller;
 
+import com._520it.crm.domain.PetServiceCash;
 import com._520it.crm.domain.PetServiceRegister;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.PetServiceRegisterQueryObject;
+import com._520it.crm.service.IPetServiceCashService;
 import com._520it.crm.service.IPetServiceRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ public class PetServiceRegisterController {
 
     @Autowired
     private IPetServiceRegisterService petServiceRegisterService;
+    @Autowired
+    private IPetServiceCashService petServiceCashService;
 
     @RequestMapping("")
     public String index(){
@@ -42,7 +46,7 @@ public class PetServiceRegisterController {
         }
         return result;
     }
-    
+
     @RequestMapping("/startService")
     @ResponseBody
     public AjaxResult startService(Long id){
@@ -77,5 +81,16 @@ public class PetServiceRegisterController {
     public PetServiceRegister searchById(Long id){
         PetServiceRegister record = petServiceRegisterService.selectByPrimaryKey(id);
         return record;
+    }
+
+
+    @RequestMapping("/sevCash")
+    @ResponseBody
+    public void sevCash(PetServiceRegister record){
+        PetServiceCash pet = new PetServiceCash();
+        pet.setPrice(record.getSevPrice().doubleValue());
+        pet.setSevname(record.getItemSecond());
+        pet.setSevid(record.getId());
+        petServiceCashService.insert(pet);
     }
 }

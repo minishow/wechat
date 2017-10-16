@@ -13,7 +13,7 @@
             var data;
             var axisData;
             $("#selectMenu").combobox({
-                width:250,
+                width:200,
                 label:'服务选择:',
                 valueField:'id',
                 textField:'name',
@@ -141,7 +141,7 @@
 
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div style="height: 100%;width: 100%;margin-top: 30px">
-        <div id="main" style="height:550px; width:100%"></div>
+        <div id="main" style="height:450px; width:100%"></div>
     </div>
 
 </body>

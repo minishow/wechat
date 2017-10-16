@@ -76,5 +76,12 @@
   </select>
 
 
+  <select id="selectByTypeId" resultMap="BaseResultMap" >
+    select id, sn, member_id, shopName, orderTime, totalNumber, totalAmount, employeeName,
+    paymentTerm
+    from cashbill
+    WHERE paymentTerm = #{typeId}
+  </select>
+
 
 </mapper>
