@@ -26,12 +26,10 @@ $(function () {
             {field:'number',title:'数量',width:10,align:'center',
                 editor:'text',
                 formatter:function(value,row,index){
-                    if(value!=null) {
-                        return "<span id='number' >"+value+"</span>";
+                    if(!value) {
+                        value = 1;
                     }
-                    else {
-                        return  "<span id='number'>"+1+"</span>";
-                    }
+                    return "<span data-number='"+row.id+"'>"+value+"</span>";
                 }},
             {field:'costAmount',title:'原价总价格',width:10,align:'center',
                 formatter:function(value,row,index){
@@ -61,18 +59,27 @@ $(function () {
              row.costAmount = changes.number * row.productInfoId.price;
              row.memberAmount = changes.number * row.productInfoId.memberPrice;
 
-
              $('#cashbillitem_datagrid').datagrid("deleteRow",index);
-             $('#cashbillitem_datagrid').datagrid('appendRow',row)
-             //计算全部商品的总价格
-             var  totalAmount = 0;
+             $('#cashbillitem_datagrid').datagrid('appendRow',row);
+
+             var totalAmount = 0;//计算全部商品的原价的总价格
+             var memberAmount = 0;//计算全部商品的会员价的总价格
              var costAmountObj = $("span[data-costAmount]");  //多个原价总价格的对象
+             var memberAmountObj = $("span[data-memberAmount]");  //多个会员总价格的对象
              for(var i = 0 ; i < costAmountObj.length ; i++){
                  totalAmount = totalAmount + parseInt(costAmountObj[i].innerHTML,10);
+                 memberAmount = memberAmount + parseInt(memberAmountObj[i].innerHTML,10);
              }
-             $("#totalAmount").html(totalAmount); //设置全部商品总价格
-         }
+             $("#totalAmount").html(totalAmount); //设置全部商品原价总价格
 
+             //判断有没会员id
+             if($("input[name=id]").val() != null && $("input[name=id]").val() != ""){
+                 $("#receivables").val(memberAmount); //设置会员的总价格
+             }
+             else{
+                 $("#receivables").val(totalAmount); //设置原价的总价格
+             }
+         }
 
     });
     /*开启编辑器*/
@@ -102,14 +109,25 @@ $(function () {
 
 
                         $("#cashbillitem_datagrid").datagrid("reload");
-                        //计算全部商品的总价格
-                        var  totalAmount = 0;
+
+                        var totalAmount = 0;//计算全部商品的原价的总价格
+                        var memberAmount = 0;//计算全部商品的会员价的总价格
                         var costAmountObj = $("span[data-costAmount]");  //多个原价总价格的对象
+                        var memberAmountObj = $("span[data-memberAmount]");  //多个会员总价格的对象
                         for(var i = 0 ; i < costAmountObj.length ; i++){
                             totalAmount = totalAmount + parseInt(costAmountObj[i].innerHTML,10);
+                            memberAmount = memberAmount + parseInt(memberAmountObj[i].innerHTML,10);
                         }
-                        $("#totalAmount").html(totalAmount); //设置全部商品总价格
 
+                        $("#totalAmount").html(totalAmount); //设置全部商品原价总价格
+
+                        //判断有没会员姓名
+                        if($("input[name=id]").val() != null && $("input[name=id]").val() != ""){
+                            $("#receivables").val(memberAmount); //设置会员的总价格
+                        }
+                        else{
+                            $("#receivables").val(totalAmount); //设置原价的总价格
+                        }
                     }
                 }
                 else{
@@ -119,6 +137,55 @@ $(function () {
         }
     });
 
+    //提交表单
+    $("#accountsBtn").click(function () {
+
+        var reallyMoneyVal = $("#reallyMoney").val(); //实收金额
+        var receivablesVal = $("#receivables").val(); //应收金额
+
+        if(reallyMoneyVal != null && reallyMoneyVal !="") {  //实收金额不为null和空
+
+            if ((receivablesVal*1) <= (reallyMoneyVal*1)) { //应收金额小于实收金额
+
+                $("#cashBillForm").form("submit", {
+                    url: "/cashBill/save",
+                    onSubmit: function (param) {
+
+                        var rows = $("#cashbillitem_datagrid").datagrid("getRows"); //获取所有表格数据
+                        for (var i = 0; i < rows.length; i++) {
+                            if (rows[i].number != null && rows[i].number != '') {
+                                param["items["+i+"].number"] = rows[i].number;
+                                param["items["+i+"].costAmount"] = rows[i].productInfoId.price;
+                                param["items["+i+"].memberAmount"] = rows[i].productInfoId.memberPrice;
+                                param["items["+i+"].productInfoId.id"] = rows[i].productInfoId.id;
+                            }
+                            else {
+                                param["items["+i+"].number"] = 1;
+                                param["items["+i+"].costAmount"] = rows[i].productInfoId.price;
+                                param["items["+i+"].memberAmount"] = rows[i].productInfoId.memberPrice;
+                                param["items["+i+"].productInfoId.id"] = rows[i].productInfoId.id;
+                            }
+                        }
+                    },
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        if(data.success){
+                             alert(data.msg);
+                        }
+                        else{
+                             alert(data.msg);
+                        }
+                    }
+                },"json");
+            }
+            else {
+                $.messager.alert("温馨提示", "当前实收金额不足", "info")
+            }
+        }
+        else{
+            $.messager.alert("温馨提示","请输入实收金额","info")
+        }
+    })
 });
 
 //删除该行
@@ -126,17 +193,33 @@ function deleteRow(rowid) {
     $.messager.confirm("温馨提示","确认移除吗?", function (yes) {
         if(yes){
              $("#cashbillitem_datagrid").datagrid("deleteRow",rowid);
-             $("#cashbillitem_datagrid").datagrid("reload")
+             $("#cashbillitem_datagrid").datagrid("reload");
             $.messager.alert("温馨提示","移除成功","info")
         }
     })
-}
+};
 
 //根据会员号码查询会员信息
 function check(){
     var memberNumber = $("#MemberNumber").val();
     $.get("/memberInfo/queryMemberByNumber?number="+memberNumber, function (data) {
+        if(data.id!=null){
+            $("input[id=MemberId]").val(data.id);
+            $("#name").html(data.name);
+            $("#balance").html(data.balance);
+            $("#vipClass").html(data.vipClass);
 
+            var memberAmount = 0;//计算全部商品的会员价的总价格
+            var memberAmountObj = $("span[data-memberAmount]");  //多个会员总价格的对象
+            for(var i = 0 ; i < memberAmountObj.length ; i++){
+                memberAmount = memberAmount + parseInt(memberAmountObj[i].innerHTML,10);
+            }
+            $("#receivables").val(memberAmount); //设置会员的总价格
+        }
+        else{
+
+            $.messager.alert("温馨提示","没有该会员信息","info")
+        }
     })
 }
 
