@@ -5,12 +5,13 @@ $(function () {
         rownumbers:true, /*行号列*/
         pagination:true, /*分页*/
         fitColumns:true,
+        fit:true,
         url:"/cashbill/list",
         columns:[[
             {field:'sn',title:'订单编号',width:10,align:'center'},
             {field:'memberNumber',title:'会员卡号',width:10,align:'center',
                 formatter: function (value,row,index) {
-                return row.MemberInfo?row.MemberInfo.number:"";
+                return row.MemberInfo?row.MemberInfo.number:"非会员";
             }},
             {field:'shopName',title:'店铺名称',width:10,align:'center'},
             {field:'orderTime',title:'订单时间',width:10,align:'center'},
@@ -40,9 +41,8 @@ $(function () {
             }}
         ]]
     })
-})
 
-
+});
 
 //点击查看
 function checkItems(billId){

@@ -55,29 +55,44 @@ $(function () {
             }}
         ]],
          onAfterEdit: function (index, row, changes) {  //编辑完数量单元格触发事件
+            //判断库存数量是否足够
+             var storeNumber = row.storeNumber; //库存数量
+             var editNumber = changes.number; //填入的数量
 
-             row.costAmount = changes.number * row.productInfoId.price;
-             row.memberAmount = changes.number * row.productInfoId.memberPrice;
+             if(editNumber <= storeNumber){  //库存数量 大于等于  填入的数量
+               /*  row.costAmount = changes.number * row.productInfoId.price;
+                 row.memberAmount = changes.number * row.productInfoId.memberPrice;*/
 
-             $('#cashbillitem_datagrid').datagrid("deleteRow",index);
-             $('#cashbillitem_datagrid').datagrid('appendRow',row);
+                /* $('#cashbillitem_datagrid').datagrid("deleteRow",index);
+                 $('#cashbillitem_datagrid').datagrid('appendRow',row);*/
+                 $('#cashbillitem_datagrid').datagrid('updateRow',{  //更新指定行数据
+                        index:index,
+                        row:{
+                            costAmount:changes.number * row.productInfoId.price,
+                            memberAmount:changes.number * row.productInfoId.memberPrice
+                        }
+                 });
 
-             var totalAmount = 0;//计算全部商品的原价的总价格
-             var memberAmount = 0;//计算全部商品的会员价的总价格
-             var costAmountObj = $("span[data-costAmount]");  //多个原价总价格的对象
-             var memberAmountObj = $("span[data-memberAmount]");  //多个会员总价格的对象
-             for(var i = 0 ; i < costAmountObj.length ; i++){
-                 totalAmount = totalAmount + parseInt(costAmountObj[i].innerHTML,10);
-                 memberAmount = memberAmount + parseInt(memberAmountObj[i].innerHTML,10);
-             }
-             $("#totalAmount").html(totalAmount); //设置全部商品原价总价格
+                 var totalAmount = 0;//计算全部商品的原价的总价格
+                 var memberAmount = 0;//计算全部商品的会员价的总价格
+                 var costAmountObj = $("span[data-costAmount]");  //多个原价总价格的对象
+                 var memberAmountObj = $("span[data-memberAmount]");  //多个会员总价格的对象
+                 for(var i = 0 ; i < costAmountObj.length ; i++){
+                     totalAmount = totalAmount + parseInt(costAmountObj[i].innerHTML,10);
+                     memberAmount = memberAmount + parseInt(memberAmountObj[i].innerHTML,10);
+                 }
+                 $("#totalAmount").html(totalAmount); //设置全部商品原价总价格
 
-             //判断有没会员id
-             if($("input[name=id]").val() != null && $("input[name=id]").val() != ""){
-                 $("#receivables").val(memberAmount); //设置会员的总价格
+                 //判断有没会员id
+                 if($("input[name=id]").val() != null && $("input[name=id]").val() != ""){
+                     $("#receivables").val(memberAmount); //设置会员的总价格
+                 }
+                 else{
+                     $("#receivables").val(totalAmount); //设置原价的总价格
+                 }
              }
              else{
-                 $("#receivables").val(totalAmount); //设置原价的总价格
+                 $.messager.alert("温馨提示","当前库存数量不足","info");
              }
          }
 
@@ -106,7 +121,6 @@ $(function () {
                     else{
                         //没有:追加新行
                         $("#cashbillitem_datagrid").datagrid("appendRow",data);
-
 
                         $("#cashbillitem_datagrid").datagrid("reload");
 
@@ -137,46 +151,84 @@ $(function () {
         }
     });
 
-    //提交表单
+    //结账 提交表单
     $("#accountsBtn").click(function () {
-
+        var memberMoneyVal = $("#balance").html();    //会员余额
         var reallyMoneyVal = $("#reallyMoney").val(); //实收金额
         var receivablesVal = $("#receivables").val(); //应收金额
+        var memberId = $("#MemberId").val();
 
         if(reallyMoneyVal != null && reallyMoneyVal !="") {  //实收金额不为null和空
+            if ((receivablesVal*1) <= (reallyMoneyVal*1)) { //应收金额小于 实收金额
 
-            if ((receivablesVal*1) <= (reallyMoneyVal*1)) { //应收金额小于实收金额
+                if(memberId !=null && memberId != ""){ //有会员
+                     if((receivablesVal*1) <= (memberMoneyVal*1) ){  //应收金额小于 会员余额
+                            $("#cashBillForm").form("submit", {
+                                url: "/cashbill/save",
+                                onSubmit: function (param) {
 
-                $("#cashBillForm").form("submit", {
-                    url: "/cashBill/save",
-                    onSubmit: function (param) {
-
-                        var rows = $("#cashbillitem_datagrid").datagrid("getRows"); //获取所有表格数据
-                        for (var i = 0; i < rows.length; i++) {
-                            if (rows[i].number != null && rows[i].number != '') {
-                                param["items["+i+"].number"] = rows[i].number;
-                                param["items["+i+"].costAmount"] = rows[i].productInfoId.price;
-                                param["items["+i+"].memberAmount"] = rows[i].productInfoId.memberPrice;
-                                param["items["+i+"].productInfoId.id"] = rows[i].productInfoId.id;
-                            }
-                            else {
-                                param["items["+i+"].number"] = 1;
-                                param["items["+i+"].costAmount"] = rows[i].productInfoId.price;
-                                param["items["+i+"].memberAmount"] = rows[i].productInfoId.memberPrice;
-                                param["items["+i+"].productInfoId.id"] = rows[i].productInfoId.id;
-                            }
-                        }
-                    },
-                    success: function (data) {
-                        data = $.parseJSON(data);
-                        if(data.success){
-                             alert(data.msg);
-                        }
-                        else{
-                             alert(data.msg);
-                        }
+                                    var rows = $("#cashbillitem_datagrid").datagrid("getRows"); //获取所有表格数据
+                                    for (var i = 0; i < rows.length; i++) {
+                                        if (rows[i].number != null && rows[i].number != '') {
+                                            param["items["+i+"].number"] = rows[i].number;
+                                            param["items["+i+"].costAmount"] = rows[i].productInfoId.price;
+                                            param["items["+i+"].memberAmount"] = rows[i].productInfoId.memberPrice;
+                                            param["items["+i+"].productInfoId.id"] = rows[i].productInfoId.id;
+                                        }
+                                        else {
+                                            param["items["+i+"].number"] = 1;
+                                            param["items["+i+"].costAmount"] = rows[i].productInfoId.price;
+                                            param["items["+i+"].memberAmount"] = rows[i].productInfoId.memberPrice;
+                                            param["items["+i+"].productInfoId.id"] = rows[i].productInfoId.id;
+                                        }
+                                    }
+                                },
+                                success: function (data) {
+                                    data = $.parseJSON(data);
+                                    if(data.success){
+                                         alert(data.msg);
+                                    }
+                                    else{
+                                         alert(data.msg);
+                                    }
+                                }
+                            },"json");
                     }
-                },"json");
+                    else{
+                         $.messager.alert("温馨提示", "当前卡内余额不足,请使用其他方式付款", "info")
+                    }
+                }
+                else{  //没有会员
+                    $("#cashBillForm").form("submit", {
+                        url: "/cashbill/save",
+                        onSubmit: function (param) {
+                            var rows = $("#cashbillitem_datagrid").datagrid("getRows"); //获取所有表格数据
+                            for (var i = 0; i < rows.length; i++) {
+                                if (rows[i].number != null && rows[i].number != '') {
+                                    param["items["+i+"].number"] = rows[i].number;
+                                    param["items["+i+"].costAmount"] = rows[i].productInfoId.price;
+                                    param["items["+i+"].memberAmount"] = rows[i].productInfoId.memberPrice;
+                                    param["items["+i+"].productInfoId.id"] = rows[i].productInfoId.id;
+                                }
+                                else {
+                                    param["items["+i+"].number"] = 1;
+                                    param["items["+i+"].costAmount"] = rows[i].productInfoId.price;
+                                    param["items["+i+"].memberAmount"] = rows[i].productInfoId.memberPrice;
+                                    param["items["+i+"].productInfoId.id"] = rows[i].productInfoId.id;
+                                }
+                            }
+                        },
+                        success: function (data) {
+                            data = $.parseJSON(data);
+                            if(data.success){
+                                alert(data.msg);
+                            }
+                            else{
+                                alert(data.msg);
+                            }
+                        }
+                    },"json");
+                }
             }
             else {
                 $.messager.alert("温馨提示", "当前实收金额不足", "info")
@@ -217,6 +269,13 @@ function check(){
             $("#receivables").val(memberAmount); //设置会员的总价格
         }
         else{
+            var totalAmount = $("#totalAmount").html();
+
+            $("input[id=MemberId]").val("");
+            $("#name").html("");
+            $("#balance").html("");
+            $("#vipClass").html("");
+            $("#receivables").val(totalAmount);
 
             $.messager.alert("温馨提示","没有该会员信息","info")
         }
