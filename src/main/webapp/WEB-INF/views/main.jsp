@@ -4,7 +4,7 @@
 <html lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>小码哥客户关系管理系统</title>
+    <title>白牙宠物管理系统</title>
     <%@ include file="/WEB-INF/views/common.jsp"%>
     <script type="text/javascript" src="/static/js/views/main.js"></script>
     <style type="text/css">

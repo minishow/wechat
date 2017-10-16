@@ -1,11 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="zh-CN">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title></title>
-    <%@ include file="/WEB-INF/views/common.jsp"%>
+    <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/material/easyui.css"><!-- 样式包 -->
+    <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/icon.css"><!-- 图标的样式 -->
+    <script type="text/javascript" src="/static/js/jquery-easyui/jquery.min.js"></script><!-- jQuery核心包 -->
+    <script type="text/javascript" src="/static/js/jquery-easyui/jquery.easyui.min.js"></script><!-- EaysUI核心包 -->
+    <script type="text/javascript" src="/static/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script><!-- 中文包 -->
+    <script type="text/javascript" src="/static/js/jquery-easyui/base.js"></script><!-- 补丁包 -->
     <script type="text/javascript" src="/static/js/views/main.js"></script>
     <script>
 
@@ -28,7 +31,6 @@
 
         .main_box {
             height: 90px;
-            min-width: 1100px;
             overflow: hidden;
             width: 100%;
             margin: 5px auto 0 10px;
@@ -51,9 +53,9 @@
         }
     </style>
 </head>
-<body style="overflow-x:hidden">
+<body>
 <div class="main_box">
-    <div class="imageButton now" onclick="show('/chart/serviceChartByPie')">
+    <div class="imageButton" onclick="show('/chart/pieJsp')">
         <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/pie.png" /><p style="text-align: center; margin-top: 7px;">数据报表</p>
     </div>
     <div class="imageButton" onclick="show('')">
@@ -67,7 +69,7 @@
     </div>
 </div>
 <div>
-    <iframe id="index" style="width:100%;height:81%" frameborder="0" name="showmessage" src="/chart/serviceChartByPie"></iframe>
+    <iframe id="index" style="width:100%;height:81%" frameborder="0" name="showmessage" src="/chart/pieJsp"></iframe>
 </div>
 </body>
 </html>
