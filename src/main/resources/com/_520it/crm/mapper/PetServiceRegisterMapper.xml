@@ -101,6 +101,11 @@
         endTime = #{endTime}
     where id = #{id}
   </update>
+  <update id="updatePayfor">
+    update petserviceregister
+    SET payment = 1
+    where id = #{id}
+  </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
@@ -128,6 +133,13 @@
     FROM petserviceregister
     <include refid="base_where"/>
     LIMIT #{start},#{rows}
+  </select>
+
+  <select id="selectPayEnd" resultMap="BaseResultMap">
+
+    SELECT *
+    FROM petserviceregister
+    WHERE payment = 1
   </select>
 
   <!--报表查询-->

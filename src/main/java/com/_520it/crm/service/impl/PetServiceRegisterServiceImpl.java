@@ -91,4 +91,14 @@ public class PetServiceRegisterServiceImpl implements IPetServiceRegisterService
     public List<PetServiceChartVO> selectServiceTopCountByName() {
         return petServiceRegisterMapper.selectServiceTopCountByName();
     }
+
+    @Override
+    public void updatePayfor(Long id) {
+        petServiceRegisterMapper.updatePayfor(id);
+    }
+
+    @Override
+    public List<PetServiceRegister> selectPayEnd() {
+        return petServiceRegisterMapper.selectPayEnd();
+    }
 }

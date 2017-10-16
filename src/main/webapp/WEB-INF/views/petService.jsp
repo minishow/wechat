@@ -133,12 +133,15 @@
 				</select>&nbsp;&nbsp;
 				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="search">搜索</a>
 			</div>
-			<div>
+			<div style="float: left;margin-left: 20px">
 				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="addService">添加项目</a>
 				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="addPet">宠物登记</a>
 				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="beginService">开始宠物服务</a>
 				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="endService">结束宠物服务</a>
 				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="payfor">付款</a>
+			</div>
+			<div style="float: right;margin-right: 20px">
+				<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="payforLog">收银记录</a>
 			</div>
 		</div>
 		<!-- 对话框底部按钮 -->
@@ -153,18 +156,22 @@
 
 		<!--宠物服务付款-->
 		<div id="petServiceCash_dialog">
-			<div style="margin-top: 20px;margin-left: 120px" >
-				<div id="cashPetName"><h4></h4></div>
-				<div id="cashPetAge" style="margin-top: 20px"></div>
-				<div id="cashPetService" style="margin-top: 20px"></div>
-				<div id="cashPetServicePrice" style="margin-top: 20px;color: red"></div>
+			<div style="margin-top: 40px;margin-left: 120px" >
+				<h3><div id="cashPetName"></div></h3>
+				<h3><div id="cashPetAge" style="margin-top: 20px"></div></h3>
+				<h3><div id="cashPetService" style="margin-top: 20px"></div></h3>
+				<h2><div id="cashPetServicePrice" style="margin-top: 20px;color: red"></div></h2>
 			</div>
 		</div>
 		<div id="petServiceCash_dialog_bt">
-			<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="saveMenu">确认收银</a>
-			<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="cancelMenu">取消</a>
+			<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="sureCash">确认收银</a>
+			<a class="easyui-linkbutton" iconCls="" plain="" data-cmd="cancelCash">取消</a>
 		</div>
 
+		<!--宠物服务付款记录-->
+		<div id="petServiceCashLog_dialog">
+			<table id="petServiceCashLog_datagrid"></table>
+		</div>
 	</div>
 </div>
 </body>

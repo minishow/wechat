@@ -3,7 +3,8 @@ $(function () {
      * 抽取所有需要用得元素.
      */
     var petServiceMenuTree,petServiceRegisterDatagrid,petServiceRegisterDialog,petServiceMenuDialog,petServiceRegisterForm,petServiceMenuForm,petNameSearchBtn,petTelSearchBtn,stateSearch,
-        petServiceRegisterTabs,topMenu,secondMenu,petKindMenu,petTypeMenu,menuTime,memberNo,petServiceLogDialog,petServiceCashDialog;
+        petServiceRegisterTabs,topMenu,secondMenu,petKindMenu,petTypeMenu,menuTime,memberNo,petServiceLogDialog,petServiceCashDialog,
+        petServiceCashLogDialog,petServiceCashLogDatagrid;
     petServiceMenuTree = $("#petServiceMenuTree");//菜单树
     petServiceRegisterDatagrid = $("#petServiceRegister_datagrid");//宠物登记表格
     petServiceRegisterDialog = $("#petServiceRegister_dialog");//宠物登记弹出框
@@ -22,6 +23,8 @@ $(function () {
     petTypeMenu = $("#petTypeMenu");//宠物类别
     memberNo = $("#memberNo");//会员ID
     petServiceLogDialog = $("#petServiceLog_dialog");//宠物服务日志
+    petServiceCashLogDialog = $("#petServiceCashLog_dialog");//宠物服务收费记录
+    petServiceCashLogDatagrid = $("#petServiceCashLog_datagrid");//宠物服务收费记录
     //宠物登记表格
     petServiceRegisterDatagrid.datagrid({
         fit:true,
@@ -47,6 +50,31 @@ $(function () {
                     formatter:function(value,row,index){
                         return '<img onclick="serviceLogFun();" src="/static/pics/serviceIcons/serviceLog.bmp"/>'
                 }}
+            ]
+        ],
+        onClickRow:function(rowIndex,rowData){
+        }
+    });
+    //宠物服务日志
+    petServiceCashLogDatagrid.datagrid({
+        fit:true,
+        rownumbers:true,
+        singleSelect:true,
+        pagination:true,
+        url:'/petServiceRegister/selectPayEnd',
+        fitColumns:true,
+        columns:[
+            [
+                {field:'petName',align:'center',width:'8%',title:'宠物名'},
+                {field:'masterName',align:'center',width:'8%',title:'主人名'},
+                {field:'tel',align:'center',width:'11%',title:'联系方式'},
+                {field:'itemSecond',align:'center',width:'10%',title:'服务项目'},
+                {field:'state',align:'center',formatter:stateFormatter,width:'9%',title:'当前状态'},
+                {field:'payment',align:'center',formatter:paymentFormatter,width:'9%',title:'是否付款'},
+                {field:'startTime',align:'center',width:'13%',title:'实际开始时间'},
+                {field:'endTime',align:'center',width:'13%',title:'实际结束时间'},
+                {field:'times',align:'center',width:'12%',title:'寄养时间/剩余次数'},
+                {field:'sevPrice',align:'center',width:'8%',title:'服务价格'}
             ]
         ],
         onClickRow:function(rowIndex,rowData){
@@ -136,9 +164,10 @@ $(function () {
     });
     petServiceCashDialog.dialog({
         width:400,
-        height:300,
+        height:280,
         title:"服务付款",
-        closed:true
+        closed:true,
+        buttons:'#petServiceCash_dialog_bt'
     });
     //对话框
     petServiceRegisterDialog.dialog({
@@ -147,6 +176,15 @@ $(function () {
         buttons:'#petServiceRegister_dialog_bt',
         closed:true,
         onOpen:function () {
+        }
+    });
+    petServiceCashLogDialog.dialog({
+        width:800,
+        height:410,
+        closed:true,
+        title:"服务付款记录",
+        onOpen:function () {
+
         }
     });
     petServiceMenuDialog.dialog({
@@ -226,8 +264,9 @@ $(function () {
                     if(yes){
                         $.get("/petServiceRegister/startService?id="+rowData.id,function(data){
                             if(data.success){
-                                petServiceRegisterDatagrid.datagrid("reload");
-                                $.messager.alert("温馨提示",data.msg,"info");
+                                $.messager.alert("温馨提示",data.msg,"info",function () {
+                                    petServiceRegisterDatagrid.datagrid("reload");
+                                });
                             }else{
                                 $.messager.alert("温馨提示",data.msg,"error");
                             }
@@ -245,8 +284,9 @@ $(function () {
                     if(yes){
                         $.get("/petServiceRegister/endService?id="+rowData.id,function(data){
                             if(data.success){
-                                petServiceRegisterDatagrid.datagrid("reload");
-                                $.messager.alert("温馨提示",data.msg,"info");
+                                $.messager.alert("温馨提示",data.msg,"info",function () {
+                                    petServiceRegisterDatagrid.datagrid("reload");
+                                });
                             }else{
                                 $.messager.alert("温馨提示",data.msg,"error");
                             }
@@ -286,6 +326,22 @@ $(function () {
         cancelRegister:function(){
             petServiceRegisterDialog.dialog("close");
         },
+        sureCash:function () {
+            var rowData = petServiceRegisterDatagrid.datagrid('getSelected');
+            $.get("/petServiceRegister/sevCash?id="+rowData.id,function (data) {
+                if(data.success){
+                    $.messager.alert("温馨提示",data.msg,"info",function(){
+                        petServiceCashDialog.dialog('close');
+                        petServiceRegisterDatagrid.datagrid("reload");
+                    });
+                }else{
+                    $.messager.alert("温馨提示",data.msg,"error");
+                }
+            },"json")
+        },
+        cancelCash:function(){
+            petServiceCashDialog.dialog("close");
+        },
         saveMenu:function(){
             var url = "/petServiceMenu/save";
             petServiceMenuForm.form("submit",{
@@ -321,6 +377,10 @@ $(function () {
             $("#petServiceName").textbox('initValue',memberInfo.petinfos[2].petName);
             $("#petServiceMasterName").textbox('initValue',memberInfo.name);
             $("#petServiceTel").textbox('initValue',memberInfo.tel);
+        },
+        payforLog:function () {
+
+            petServiceCashLogDialog.dialog('open')
         }
     }
 });
