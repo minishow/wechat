@@ -13,4 +13,11 @@ public interface ShopInfoMapper {
     List<ShopInfo> selectAll();
 
     int updateByPrimaryKey(ShopInfo shopInfo);
+
+    /**
+     * 根据员工id查询店铺名称
+     * @param employeeId
+     * @return
+     */
+    String queryShopNameByEmployeeId(Long employeeId);
 }
