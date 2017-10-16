@@ -1,13 +1,12 @@
 package com._520it.crm.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com._520it.crm.domain.PetType;
 import com._520it.crm.mapper.PetTypeMapper;
 import com._520it.crm.service.IPetTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 @Service 
 public class PetTypeServiceImpl implements IPetTypeService {
 	@Autowired
@@ -29,6 +28,7 @@ public class PetTypeServiceImpl implements IPetTypeService {
 
 	@Override
 	public List<PetType> selectAll() {
+
 		return petTypeMapper.selectAll();
 	}
 
@@ -36,5 +36,7 @@ public class PetTypeServiceImpl implements IPetTypeService {
 	public int updateByPrimaryKey(PetType petType) {
 		return petTypeMapper.updateByPrimaryKey(petType);
 	}
+
+
 
 }

@@ -5,8 +5,14 @@ $(function(){
     petInfoMonryDialog=$("#petInfo_addMoney_dialog");//充值ID
     petInfoMemberDialog=$("#petInfo_addMember_dialog");//增加会员ID
     petInfoPetDialog=$("#petInfo_addPet_dialog");//增加宠物ID
-    searchBtn=$("#searchBtn");//增加按钮
-    petInfoForm=$("#petInfo_form");//
+    memberPetDialog=$("#member_addremark_dialog");//增加退卡ID
+
+    searchBtn=$("#searchBtn");//高级搜索
+
+    petInfoForm=$("#petInfo_addMoney_form");//充值Form
+    petInfo_addMember=$("#petInfo_addMember_form");//增加会员Form
+    petInfo_addPet=$("#petInfo_addPet_form");//增加宠物Form
+
     editBtnANDdeleBtn=$("#editBtn,#deleBtn");
     roleId =$("#roleId");
 
@@ -35,13 +41,22 @@ $(function(){
         ]],
 
         onClickRow:function (index,row){
-            if(row.state==1){
+            if(row.member.remark==1){
                 editBtnANDdeleBtn.linkbutton("disable");
             }else {
                 editBtnANDdeleBtn.linkbutton("enable");
             }
         }
     })
+    $("#petKindBtns").combobox({
+
+            onChange:function(){
+                $("#petTypeBtns").combobox({
+                    url:'petInfo/addPetKindList?kindID='+$("#petKindBtns").combobox("getValues")
+                })
+            }
+        }
+    )
 
     //充值对话框初始化
     petInfoMonryDialog.dialog({
@@ -49,6 +64,16 @@ $(function(){
         height:400,
         //增加保存和取消按钮
         buttons:"#petinfo_addMoney_dialog_bt",
+        //默认关闭对话框
+        closed:true
+
+    })
+    //退卡操作
+    memberPetDialog.dialog({
+        width:500,
+        height:400,
+        //增加保存和取消按钮
+        buttons:"#petinfo_addremark_dialog_bt",
         //默认关闭对话框
         closed:true
 
@@ -68,7 +93,7 @@ $(function(){
         width:700,
         height:400,
         //增加保存和取消按钮
-        buttons:"#pet_info_dialog_bt",
+        buttons:"#petInfo_pet_bt",
         //默认关闭对话框
         closed:true
 
@@ -91,12 +116,67 @@ $(function(){
     var cmdObj={
         //充值
         addMoney:function(){
-            //清空对话框
-            petInfoMonryDialog.form("clear");
-            //打开对话框
-            petInfoMonryDialog.dialog("open");
-            //设置对话框标题
-            petInfoMonryDialog.dialog("setTitle","充值");
+            //判断用户是否选中数据
+            var rowData = memberInfoDatagrid.datagrid("getSelected");
+            if (rowData && rowData.member.remark!=1) {
+                //打开对话框
+                petInfoMonryDialog.dialog("open");
+                //修改对话框的标题
+                petInfoMonryDialog.dialog("setTitle", "增加宠物");
+                //清空对话框
+                petInfoMonryDialog.form("clear");
+                var randomstr=randomString();
+                //特殊数据处理(对象类的数据)
+                if(rowData){
+
+                    rowData["member.tel"]=rowData.member.tel;
+                    rowData["member.balances"]=rowData.member.balance;
+                    $("[name='balance']").val(rowData.member.balance)
+                    $("[name='topnumber']").val(randomstr)
+                }
+                $("#vipClasses").combobox({
+                    //相当于html >> select >> onChange事件
+                    onChange:function(){
+                        if($("#vipClasses").combobox("getValues")==1){
+                            ////服务折扣
+                            $("#serviceDiscountID").text('100%');
+                            ////商品折扣
+                            $("#productDiscountID").text('100%');
+                        }else if ($("#vipClasses").combobox("getValues")==2){
+                            ////服务折扣
+                            $("#serviceDiscountID").text('90%');
+                            ////商品折扣
+                            $("#productDiscountID").text('90%');
+                        }else if ($("#vipClasses").combobox("getValues")==3){
+                            ////服务折扣
+                            $("#serviceDiscountID").text('80%');
+                            ////商品折扣
+                            $("#productDiscountID").text('80%');
+                        }else if ($("#vipClasses").combobox("getValues")==4){
+                            ////服务折扣
+                            $("#serviceDiscountID").text('70%');
+                            ////商品折扣
+                            $("#productDiscountID").text('70%');
+                        }
+                    }
+                })
+                //4.回显数据
+               // petInfoForm.form("load",rowData);//基于同名匹配规则
+               $("#moneySn").textbox('initValue',rowData.member.tel);
+                $("#moneyDalance").text(rowData.member.balance);
+
+                $("#topUpNumber").text(randomstr);
+            }else {
+
+                if(rowData!=null&&rowData.member.remark==1){
+                    //退卡会员
+                    $.messager.alert("温馨提示","退卡会员不能充值","warning");
+                }else {
+                    //没有选中数据提示
+                    $.messager.alert("温馨提示","请选择一行需要编辑的数据","warning");
+                }
+
+            }
         },
         //增加会员
         addMember:function(){
@@ -106,95 +186,153 @@ $(function(){
             petInfoMemberDialog.dialog("open");
             //设置对话框标题
             petInfoMemberDialog.dialog("setTitle","增加会员");
-        },
-        //增加宠物
-        addPet:function(){
-            //清空对话框
-            petInfoPetDialog.form("clear");
-            //打开对话框
-            petInfoPetDialog.dialog("open");
-            //设置对话框标题
-            petInfoPetDialog.dialog("setTitle","增加宠物");
+            $("#petTyoeList").combobox({
+
+                    onChange:function(){
+                        $("#petKindList").combobox({
+                                url:'petInfo/addPetKindList?kindID='+$("#petTyoeList").combobox("getValues")
+                        })
+                        alert($("#petTyoeList").combobox("getValues"));
+                    }
+            }
+            )
         },
         //保存
         save: function (){
+
             //从表单中获取ID数据判断ID是否有值
             var Idvar = $("[name=id]").val();
             console.log(Idvar);
             var url;
             if(Idvar){
-                //url="/petInfo/addMoney"
+                url="/petInfo/addPet"
             }else {
+
+                url="/memberInfo/addMemberAndPet";
             }
             //获取form表单调用submit提交
-            petInfoForm.form("submit",{
+            petInfo_addMember.form("submit",{
                 url:url,
-                onSubmit:function(param){
-                    var ids = roleId.combobox("getValues");
-                    for(var i=0;i<ids.length;i++){
-                        param["roles["+i+"].id"]=ids[i];
-                    }
-                    return true;
-                },
+
                 success:function(data){
                     data = $.parseJSON(data);
-                    console.log(data)
                     if(data.success){
                         $.messager.alert("温馨提示",data.msg,"info",function(){
                             //关闭对话框
-                            petInfoDialog.dialog("close");
+                            if(Idvar){
+                                petInfoPetDialog.dialog("close");
+                            }else {
+                                petInfoMemberDialog.dialog("close");
+                            }
                             //刷新数据
-                            petInfoDatagird.datagrid("reload");
+                            memberInfoDatagrid.datagrid("reload");
                         })
                     }else {
                         $.messager.alert("温馨提示",data.msg,"error");
                         //关闭对话框
-                        petInfoDialog.dialog("close");
+                        petInfoMemberDialog.dialog("close");
                         //刷新数据
-                        petInfoDatagird.datagrid("reload");
+                        memberInfoDatagrid.datagrid("reload");
                     }
                 }
             })
         },
-//修改
-        edit:function (){
+        //保存充值
+        saveMoney: function (){
+            //获取form表单调用submit提交
+            var url="/memberInfo/addMomberMoney";
+            petInfoForm.form("submit",{
+                url:url,
+
+                success:function(data){
+                    data = $.parseJSON(data);
+                    if(data.success){
+                        $.messager.alert("温馨提示",data.msg,"info",function(){
+                            //关闭对话框
+
+                            petInfoMonryDialog.dialog("close");
+
+                            //刷新数据
+                            memberInfoDatagrid.datagrid("reload");
+                        })
+                    }else {
+                        $.messager.alert("温馨提示",data.msg,"error");
+                        //关闭对话框
+                        petInfoMemberDialog.dialog("close");
+                        //刷新数据
+                        memberInfoDatagrid.datagrid("reload");
+                    }
+                }
+            })
+        },
+        //增加宠物
+        addPet:function (){
             //判断用户是否选中数据
-            var rowData = petInfoDatagird.datagrid("getSelected");
+            var rowData = memberInfoDatagrid.datagrid("getSelected");
             if (rowData) {
                 //打开对话框
-                petInfoDialog.dialog("open");
+                petInfoPetDialog.dialog("open");
                 //修改对话框的标题
-                petInfoDialog.dialog("setTitle", "编辑");
+                petInfoPetDialog.dialog("setTitle", "增加宠物");
                 //清空对话框
-                petInfoForm.form("clear");
+                petInfo_addPet.form("clear");
+                //宠物品种处理
+                $("#petTyoeLists").combobox({
 
+                        onChange:function(){
+                            $("#petKindLists").combobox({
+                                url:'petInfo/addPetKindList?kindID='+$("#petTyoeLists").combobox("getValues")
+                            })
+                        }
+                    }
+                )
                 //特殊数据处理(对象类的数据)
-                if(rowData.dept){
-                    rowData["dept.id"]=rowData.dept.id;
-                }
-                //自动同名匹配数据
-                petInfoForm.form("load",rowData);
-                $.get("",function(data){
+                if(rowData){
 
-                    roleId.combobox("setValues",data);
-                },"json")
+                   rowData["member.tel"]=rowData.member.tel;
+                }
+                //回显数据
+                $("#memberSn").textbox('initValue',rowData.member.tel);
+
             }else {
                 //没有选中数据提示
                 $.messager.alert("温馨提示","请选择一行需要编辑的数据","warning");
             }
         },
-        dele:function dele(){
+        //退卡操作
+        refrech:function dele(){
             //判断用户是否选中数据
-            var rowData = petInfoDatagird.datagrid("getSelected");
+            var rowData = memberInfoDatagrid.datagrid("getSelected");
+            console.log(rowData);
+            //判断用户是否选中数据
+            var rowData = memberInfoDatagrid.datagrid("getSelected");
+            if (rowData && rowData.member.remark!=1) {
+                //打开对话框
+                memberPetDialog.dialog("open");
+                //修改对话框的标题
+                memberPetDialog.dialog("setTitle", "退卡");
+                //清空对话框
+                memberPetDialog.form("clear");
+                var randomstr = randomString();
+                //特殊数据处理(对象类的数据)
+                if (rowData) {
+
+                    $("#memberBal").text(rowData.member.balance);
+                }
+            }
+        },
+
+        saveremark:function(){
             if(rowData){
-                $.messager.confirm("温馨提示","你确定需要删除这条数据吗?",function(yes){
+                $.messager.confirm("温馨提示","你确定需要给该会员退卡吗?",function(yes){
+
                     if(yes){
                         //发送请求删除数据
-                        $.get("",function(data){
+                        $.get("/memberInfo/updateRemark",function(data){
                             if(data.success){
                                 $.messager.alert("温馨提示",data.msg,"info",function(){
                                     //刷新数据表格
-                                    petInfoDatagird.datagrid("reload");
+                                    memberInfoDatagrid.datagrid("reload");
                                 })
                             }else {
                                 $.messager.alert("温馨提示",data.msg,"error");
@@ -203,28 +341,58 @@ $(function(){
                     }
                 })
             }else {
-                //没有数据提示
-                $.messager.alert("温馨提示","请选着一行需要删除的数据","warning");
-            }
-        },
-//刷新
-        refrech:function (){
-            petInfoDatagird.datagrid("reload");
-        },
-//取消
-        cencal:function (){
-            //关闭对话框,刷新数据表格
-            petInfoDialog.dialog("close");
 
-            petInfoDatagird.datagrid("reload");
+                if(rowData!=null&&rowData.member.remark==1){
+                    //退卡会员
+                    $.messager.alert("温馨提示","退卡会员不能充值","warning");
+                }else {
+                    //没有选中数据提示
+                    $.messager.alert("温馨提示","请选择一行需要编辑的数据","warning");
+                }
+            }
+
         },
+
+//刷新
+//        refrech:function (){
+//            petInfoDatagird.datagrid("reload");
+//        },
+
+
+
+//取消充值
+        cencalMoney:function (){
+            //关闭对话框,刷新数据表格
+            petInfoMonryDialog.dialog("close");
+
+            memberInfoDatagrid.datagrid("reload");
+        },
+        //取消增加宠物
+        cencalPet:function (){
+            //关闭对话框,刷新数据表格
+            petInfoPetDialog.dialog("close");
+
+            memberInfoDatagrid.datagrid("reload");
+        },
+        //取消增加会员
+        cencalMember:function (){
+            //关闭对话框,刷新数据表格
+            petInfoMemberDialog.dialog("close");
+            //刷新数据
+            memberInfoDatagrid.datagrid("reload");
+        },
+        //高级查询
             query:function (){
                 searchBtn.form("submit",{
                     //高级搜索
-                    //url:"/petInfo/list"
-
+                    url:"/petInfo/list",
+                    success:function(data){
+                        var datas = $.parseJSON(data);
+                        memberInfoDatagrid.datagrid("loadData",datas);
+                    }
                 })
-            }
+            },
+
     }
 
 
@@ -233,11 +401,36 @@ $(function(){
         cmdObj[cmd]();
     })
 
+
+
+
 })
+//生成流水号
+function randomString(len) {
+    len = len || 32;
+    var $chars = '0123456789';
+    var maxPos = $chars.length;
+    var pwd = '';
+    for (i = 0; i < len; i++) {
+        //0~32的整数
+        if(i<11){
+
+        pwd += $chars.charAt(Math.floor(Math.random() * (maxPos+1)));
+
+        }
+    }
+    return "GZ"+pwd;
+}
+//document.write(randomString(32));
+
+
+
+
+
 //会员号
 function adminNumber(value,record,index){
     if(record.member){
-        return record.member.name
+        return record.member.tel
     }else {
         return ""
     }
@@ -254,7 +447,7 @@ function adminGenber(value,record,index){
 //余额
 function adminDalance(value,record,index){
     if(record.member){
-        return record.member.dalance
+        return record.member.balance
     }else {
         return ""
     }
@@ -266,12 +459,18 @@ function adminDalance(value,record,index){
     }else {
         return ""
     }
+
+}
 //备注
-}function adminRemark(value,record,index){
-    if(record.member){
-        return record.member.remark
-    }else {
-        return ""
-    }
+function adminRemark(value,record,index){
+   if(record.member){
+       if(record.member.remark==1){
+           return "已退卡"
+       }else {
+           return ""
+       }
+
+
+   }
 
 }

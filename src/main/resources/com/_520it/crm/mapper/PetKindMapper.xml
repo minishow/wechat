@@ -23,8 +23,17 @@
     from petkind
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, name
     from petkind
   </select>
+
+  <select id="selectKindAll" resultMap="BaseResultMap" >
+    select id, name
+    from petkind
+    WHERE pettype_id=#{kindID}
+  </select>
+
+
 </mapper>

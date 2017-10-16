@@ -1,8 +1,8 @@
 package com._520it.crm.service;
 
-import java.util.List;
-
 import com._520it.crm.domain.PetType;
+
+import java.util.List;
 
 public interface IPetTypeService {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +14,6 @@ public interface IPetTypeService {
     List<PetType> selectAll();
 
     int updateByPrimaryKey(PetType petType);
+
+
 }

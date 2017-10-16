@@ -5,17 +5,23 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="number" property="number" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="vipClass" property="vipClass" jdbcType="VARCHAR" />
-    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="balance" property="balance"/>
     <result column="tel" property="tel" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="INTEGER" />
     <result column="birthday" property="birthday" jdbcType="DATE" />
     <result column="adress" property="adress" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" />
+
+    <!--<result column="vipClass" property="vipClass" jdbcType="VARCHAR" />-->
+
+    <association property="petType" javaType="com._520it.crm.domain.MemberLevel">
+      <id property="id" column="L_id"/>
+      <result property="name" column="L_name"/>
+    </association>
     <!--宠物查询-->
-    <!--<collection property="petinfos" ofType="Petinfo" column="id"-->
-      <!--select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">-->
-    <!--</collection>-->
+    <collection property="petinfos" ofType="Petinfo" column="id"
+      select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">
+    </collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from memberinfo
@@ -26,7 +32,7 @@
       balance, tel, gender,
       birthday, adress, remark
       )
-    values (#{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{vipClass,jdbcType=VARCHAR},
+    values (#{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{vipClass.id},
       #{balance,jdbcType=DOUBLE}, #{tel,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
       #{birthday,jdbcType=DATE}, #{adress,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
@@ -35,13 +41,13 @@
     update memberinfo
     set number = #{number,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
-      vipClass = #{vipClass,jdbcType=VARCHAR},
+      vipClass = #{vipClass.id,jdbcType=VARCHAR},
       balance = #{balance,jdbcType=DOUBLE},
       tel = #{tel,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=INTEGER},
       birthday = #{birthday,jdbcType=DATE},
       adress = #{adress,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -53,7 +59,16 @@
     select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
     from memberinfo
   </select>
+  <update id="updateRemark">
+    UPDATE memberinfo set remark=#{remark}
+  </update>
+  <update id="updateAddMoney">
+    UPDATE memberinfo set balance=#{infos}
+    WHERE number=#{number}
+  </update>
 
-
+  <select id="getMember" resultType="string">
+    SELECT name FROM memberinfo where number=#{number}
+  </select>
 
 </mapper>

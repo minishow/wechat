@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.MembertopMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Membertop" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="topnumber" property="topnumber" jdbcType="VARCHAR" />
+    <result column="topMemberNumber" property="topmembernumber" jdbcType="VARCHAR" />
+    <result column="topMemberName" property="topmembername" jdbcType="VARCHAR" />
+    <result column="topShopNumber" property="topshopnumber" jdbcType="VARCHAR" />
+    <result column="topShopName" property="topshopname" jdbcType="VARCHAR" />
+    <result column="topDate" property="topdate" jdbcType="DATE" />
+    <result column="topbalance" property="topbalance" jdbcType="DECIMAL" />
+    <result column="topRemark" property="topremark" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from membertop
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.Membertop" useGeneratedKeys="true" keyProperty="id" >
+    insert into membertop (topnumber, topMemberNumber, topMemberName, 
+      topShopNumber, topShopName, topDate, 
+      topbalance, topRemark)
+    values (#{topnumber,jdbcType=VARCHAR}, #{topmembernumber,jdbcType=VARCHAR}, #{topmembername,jdbcType=VARCHAR},
+      #{topshopnumber,jdbcType=VARCHAR}, #{topshopname,jdbcType=VARCHAR}, #{topdate,jdbcType=DATE}, 
+      #{topbalance,jdbcType=DECIMAL}, #{topremark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Membertop" >
+    update membertop
+    set topnumber = #{topnumber,jdbcType=VARCHAR},
+      topMemberNumber = #{topmembernumber,jdbcType=VARCHAR},
+      topMemberName = #{topmembername,jdbcType=VARCHAR},
+      topShopNumber = #{topshopnumber,jdbcType=VARCHAR},
+      topShopName = #{topshopname,jdbcType=VARCHAR},
+      topDate = #{topdate,jdbcType=DATE},
+      topbalance = #{topbalance,jdbcType=DECIMAL},
+      topRemark = #{topremark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, topnumber, topMemberNumber, topMemberName, topShopNumber, topShopName, 
+    topDate, topbalance, topRemark
+    from membertop
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, topnumber, topMemberNumber, topMemberName, topShopNumber, topShopName, 
+    topDate, topbalance, topRemark
+    from membertop
+  </select>
+
+  <sql id="beas_where">
+    <where>
+      <if test="topUpNumber!=null">
+        AND topnumber LIKE concat('%',#{topUpNumber},'%')
+      </if>
+      <if test="topMemNumber!=null">
+        AND topMemberNumber LIKE concat('%',#{topMemNumber},'%')
+      </if>
+      <if test="topMemName!=null">
+        AND topMemberName LIKE concat('%',#{topMemName},'%')
+      </if>
+    </where>
+  </sql>
+  <select id="queryMemberTopByTotal" resultType="long" >
+    SELECT COUNT(id) FROM membertop
+    <include refid="beas_where"></include>
+  </select>
+  <select id="queryMemberTopByList" resultMap="BaseResultMap" >
+    select id, topnumber, topMemberNumber, topMemberName, topShopNumber, topShopName,
+    topDate, topbalance, topRemark
+    from membertop
+    <include refid="beas_where"></include>
+     limit #{start},#{rows}
+  </select>
+</mapper>

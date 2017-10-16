@@ -14,7 +14,6 @@ public class PetInfo {
 
     private Long id;//宠物ID
     private String petName;//宠物名称
-
     private String petAncestry;//宠物血统
     private String petColour;//宠物毛色
 
@@ -25,7 +24,6 @@ public class PetInfo {
     private String petFeature;//特征
 
 
-    private String petAllergyThing;//过敏物
     private Integer petAncestryMark;//血统登记号
     private String petAncestryRegister;//血统登记处
     private String petState;//宠物状态
@@ -34,6 +32,7 @@ public class PetInfo {
     private PetType petType;//宠物品种ID
     private PetKind petKind;//宠物类别ID
 
-    private MemberInfo member;//会员ID
+    private Harm petAllergyThing;//过敏物
+    private MemberInfo member;//会员
 
 }

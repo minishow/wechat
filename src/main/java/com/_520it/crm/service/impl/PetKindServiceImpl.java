@@ -1,17 +1,21 @@
 package com._520it.crm.service.impl;
 
-import java.util.List;
-
+import com._520it.crm.domain.Harm;
+import com._520it.crm.domain.PetKind;
+import com._520it.crm.mapper.HarmMapper;
+import com._520it.crm.mapper.PetKindMapper;
+import com._520it.crm.service.IPetKindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com._520it.crm.domain.PetKind;
-import com._520it.crm.mapper.PetKindMapper;
-import com._520it.crm.service.IPetKindService;
+import java.util.List;
 @Service
 public class PetKindServiceImpl implements IPetKindService {
 	@Autowired
 	private PetKindMapper petKindMapper;
+
+	@Autowired
+	private HarmMapper harmMapper;
 	@Override
 	public int deleteByPrimaryKey(Long id) {
 		return petKindMapper.deleteByPrimaryKey(id);
@@ -37,4 +41,18 @@ public class PetKindServiceImpl implements IPetKindService {
 		return petKindMapper.updateByPrimaryKey(petKind);
 	}
 
+	@Override
+	public List<PetKind> selectKindAll(Long kindID) {
+
+		return petKindMapper.selectKindAll(kindID);
+	}
+
+	/**
+	 * 过敏物查询
+	 * @return
+     */
+	@Override
+	public List<Harm> addHarmList() {
+		return harmMapper.selectAll();
+	}
 }

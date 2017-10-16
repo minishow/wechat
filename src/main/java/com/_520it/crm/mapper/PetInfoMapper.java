@@ -1,6 +1,5 @@
 package com._520it.crm.mapper;
 
-import com._520it.crm.domain.MemberInfo;
 import com._520it.crm.domain.PetInfo;
 import com._520it.crm.query.PetInfoQueryObject;
 import org.springframework.stereotype.Service;
@@ -22,5 +21,5 @@ public interface PetInfoMapper {
 
     long queryMemberInfoByTotal(PetInfoQueryObject qo);
 
-    List<MemberInfo> queryMemberInfoByList(PetInfoQueryObject qo);
+    List<PetInfo> queryMemberInfoByList(PetInfoQueryObject qo);
 }
