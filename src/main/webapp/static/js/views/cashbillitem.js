@@ -1,11 +1,13 @@
 $(function () {
     //页面的数据表格
     var dg = $("#cashbillitem_datagrid").datagrid({
+        fit:true,
         singleSelect:true, /*只选择一个*/
         striped:true, /*斑马线*/
         rownumbers:true, /*行号列*/
         pagination:true, /*分页*/
         fitColumns:true,
+        toolbar:'#cashbillitem_datagrid_tb',
         columns:[[
             {field:'id',title:'库存编号',width:10,align:'center'},
             {field:'code',title:'商品69条码',width:10,align:'center' ,formatter: function (value,row,index) {
