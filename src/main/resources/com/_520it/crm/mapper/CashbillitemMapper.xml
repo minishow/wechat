@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com._520it.crm.mapper.CashBillItemMapper" >
+
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.CashBillItem" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="number" property="number" jdbcType="INTEGER" />
     <result column="costAmount" property="costAmount" jdbcType="DOUBLE" />
     <result column="memberAmount" property="memberAmount" jdbcType="DOUBLE" />
     <result column="bill_id" property="billId" jdbcType="BIGINT" />
-    <association property="productInfoId" javaType="ProductInfo" column="p_">
+    <association property="productInfoId" javaType="ProductInfo" columnPrefix="p_">
       <id column="id" property="id"/>
       <result column="code" property="code"/>
       <result column="name" property="name"/>
@@ -46,11 +47,31 @@
   </select>
 
   <select id="queryItemsByBillId" resultMap="BaseResultMap">
-    select c.id, c.number, c.costAmount, c.memberAmount, c.bill_id, c.product_id,
+    select i.id, i.number, i.costAmount, i.memberAmount, i.bill_id, i.product_id,
           p.id p_id , p.code p_code , p.name p_name , p.price p_price , p.memberPrice p_memberPrice
-    from cashBillItem c
-    left join productinfo p on p.id = c.product_id
-    where c.bill_id = #{billId}
+    from cashBillItem i
+    left join productinfo p on p.id = i.product_id
+    where i.bill_id = #{billId}
+  </select>
+
+  <sql id="base_where">
+    <where>
+        <if test="billId != null">
+          and i.bill_id = #{billId}
+        </if>
+        <if test="productName != null">
+          and p.name like concat ('%',#{productName},'%')
+        </if>
+
+    </where>
+  </sql>
+
+  <select id="queryAllByBillId" resultMap="BaseResultMap">
+    select i.id, i.number, i.costAmount, i.memberAmount, i.bill_id, i.product_id,
+          p.id p_id , p.code p_code , p.name p_name , p.price p_price , p.memberPrice p_memberPrice
+    from cashBillItem i
+    left join productinfo p on p.id = i.product_id
+    <include refid="base_where"/>
   </select>
 
 </mapper>

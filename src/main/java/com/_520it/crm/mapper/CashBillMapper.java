@@ -19,6 +19,4 @@ public interface CashBillMapper {
     //分页
     Long queryCount(CashBillQueryObject qo);
     List<CashBill> queryData(CashBillQueryObject qo);
-
-    List<CashBill> selectByTypeId(Long typeId);
 }

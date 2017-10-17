@@ -16,7 +16,7 @@
         <result column="number" property="number"/>
     </association>
     <collection property="items" ofType="CashBillItem" column="id"
-                select="com._520it.crm.mapper.CashBillItemMapper.queryItemsByBillId" />
+                select="com._520it.crm.mapper.CashBillItemMapper.queryItemsByBillId"/>
   </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -57,17 +57,29 @@
 
   <sql id="base_where">
     <where>
-
+      <if test="keyword !=null">
+        and m.number like concat ('%',#{keyword},'%')
+      </if>
+      <if test="beginDate != null">
+        and c.orderTime >= #{beginDate}
+      </if>
+      <if test="endDate != null">
+        and c.orderTime &lt;= #{endDate}
+      </if>
+      <if test="way > 0">
+        and c.paymentTerm = #{way}
+      </if>
     </where>
   </sql>
 
   <select id="queryCount" resultType="long">
     select count(c.id) from cashbill c
-     <include refid="base_where"/>
+    left join memberinfo m on m.id = c.member_id
+    <include refid="base_where"/>
   </select>
 
   <select id="queryData" resultMap="BaseResultMap">
-    select c.id, c.sn, c.member_id, c.shopName, c.orderTime, c.totalNumber, c.totalAmount, c.employeeName,
+    select c.id, c.sn, c.member_id, c.shopName, c.orderTime, c.totalNumber, c.totalAmount, c.employeeName,c.paymentTerm,
       m.id m_id , m.number m_number
     from cashbill c
     left join memberinfo m on m.id = c.member_id
@@ -75,6 +87,8 @@
     limit #{start},#{rows}
   </select>
 
+<<<<<<< HEAD
+=======
 
   <select id="selectByTypeId" resultMap="BaseResultMap" >
     select id, sn, member_id, shopName, orderTime, totalNumber, totalAmount, employeeName,
@@ -84,4 +98,5 @@
   </select>
 
 
+>>>>>>> dec2b6a5f90d0dab3820ccc6d2795e8f35f3ff28
 </mapper>
