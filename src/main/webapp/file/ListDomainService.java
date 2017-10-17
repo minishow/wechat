@@ -3,7 +3,6 @@ package com._520it.crm.service.impl;
 import com._520it.crm.mapper.OpenStockMapper;
 import com._520it.crm.mapper.SpecificMapper;
 import com._520it.crm.mapper.StockIncomeMapper;
-import com._520it.crm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
