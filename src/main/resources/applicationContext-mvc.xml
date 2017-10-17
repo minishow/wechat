@@ -21,5 +21,6 @@
 	</bean>
 	<!--引入其他的配置文件-->
 	<import resource="classpath:applicationContext.xml"/>
+	<import resource="classpath:applicationContext-shiro.xml"/>
 
 </beans>

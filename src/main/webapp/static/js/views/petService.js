@@ -109,18 +109,20 @@ $(function () {
     /**
      * 初始化弹出窗的宠物类别下拉框
      */
-    petKindMenu.combobox({
+    petTypeMenu.combobox({
         width:165,
         label:'宠物品种:',
-        valueField:'id',
+        valueField:'name',
         textField:'name',
-        url:'/petService/queryPetKind'
+        url:'/petService/queryPetType',
+        onSelect:function (record) {
+            petKindMenu.combobox('reload','/petService/queryKindByTypeId?id='+record.id);
+        }
     });
-    petTypeMenu.combobox({
+    petKindMenu.combobox({
         width:80,
-        valueField:'id',
-        textField:'name',
-        url:'/petService/queryPetType'
+        valueField:'name',
+        textField:'name'
     });
     /**
      * 监听会员号的改变事件

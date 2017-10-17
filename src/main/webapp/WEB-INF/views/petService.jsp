@@ -53,8 +53,8 @@
 							<div style="margin-left: 90px">
                                 <input type="text" name="petAge" class="easyui-textbox" data-options="label:'宠物年龄:', width:250">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<select  name="petKind.id" id="petKindMenu"></select>
-								<select  name="petType.id" id="petTypeMenu"></select>
+								<select  name="pettype" id="petTypeMenu"></select>
+								<select  name="petkind" id="petKindMenu"></select>
 							</div>
 							<div style="margin-left: 90px">
 								<input type="text" class="easyui-datebox" data-options="label:'上次驱虫时间:', width:250">

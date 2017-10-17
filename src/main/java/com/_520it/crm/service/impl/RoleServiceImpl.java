@@ -50,4 +50,12 @@ public class RoleServiceImpl implements IRoleService {
         List<Role> data = roleMapper.selectByPageList(qo);
         return new PageResult(count,data);
     }
+
+	@Override
+	public List<Role> queryRolesByEmployeeId(Long id) {
+		 /*
+	     * 根据员工的id查询全部的角色列表
+	     */
+		return roleMapper.queryRolesByEmployeeId(id);
+	}
 }

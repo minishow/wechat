@@ -18,6 +18,8 @@
     <result column="state" property="state"/>
     <result column="payment" property="payment"/>
     <result column="sevPrice" property="sevPrice"/>
+    <result column="pettype" property="pettype"/>
+    <result column="petkind" property="petkind"/>
   </resultMap>
 
   <sql id="base_where">
@@ -60,12 +62,12 @@
     insert into petserviceregister (petName, masterName, tel, 
       itemFirst, itemSecond, petAge, petGender,
       selfGood, remark, times, 
-      state, payment, sevPrice
+      state, payment, sevPrice,pettype,petkind
       )
     values (#{petName}, #{masterName}, #{tel}, 
       #{itemFirst}, #{itemSecond}, #{petAge}, #{petGender},
       #{selfGood}, #{remark}, #{times}, 
-      #{state}, #{payment}, #{sevPrice}
+      #{state}, #{payment}, #{sevPrice},#{pettype}, #{petkind}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetServiceRegister" >
@@ -84,7 +86,9 @@
       times = #{times},
       state = #{state},
       payment = #{payment},
-      sevPrice = #{sevPrice}
+      sevPrice = #{sevPrice},
+      pettype = #{pettype},
+      petkind = #{petkind}
     where id = #{id}
   </update>
 
@@ -109,13 +113,13 @@
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
-    petGender, selfGood, remark, times, state, payment, sevPrice
+    petGender, selfGood, remark, times, state, payment, sevPrice,pettype,petkind
     from petserviceregister
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
-    petGender, selfGood, remark, times, state, payment, sevPrice
+    petGender, selfGood, remark, times, state, payment, sevPrice,pettype,petkind
     from petserviceregister
   </select>
 
@@ -129,7 +133,7 @@
   <select id="queryForList" resultMap="BaseResultMap">
 
     SELECT id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge,
-    petGender, selfGood, remark, times, state, payment, sevPrice
+    petGender, selfGood, remark, times, state, payment, sevPrice,pettype,petkind
     FROM petserviceregister
     <include refid="base_where"/>
     LIMIT #{start},#{rows}

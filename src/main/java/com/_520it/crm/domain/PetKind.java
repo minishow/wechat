@@ -7,4 +7,6 @@ import lombok.Setter;
 public class PetKind {
     private Long id;
     private String name;
+    private PetType petType;
+    private Integer state;
 }

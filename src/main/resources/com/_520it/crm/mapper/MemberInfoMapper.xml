@@ -50,7 +50,7 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
+    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark,email
     from memberinfo
   </select>
 
