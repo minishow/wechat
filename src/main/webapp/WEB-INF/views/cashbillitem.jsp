@@ -13,6 +13,7 @@
         <%--顶部搜索查询--%>
         <div style="height: 35px">
             <input id="searchbtn" class="easyui-textbox" />
+            <a href="../cashbill" class="easyui-linkbutton"  style="color: #fdfdfd; background-color: #3c8b3c ; width: 150px;height: 30px;margin-left: 900px "  ><h2>收银记录</h2></a>
         </div>
         <%--数据表格--%>
         <div>

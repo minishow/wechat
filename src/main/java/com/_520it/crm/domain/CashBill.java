@@ -21,7 +21,7 @@ public class CashBill {
     @DateTimeFormat(pattern="yyyy-MM-dd") //前台传到后台
     private Date orderTime;//订单时间 自己设置
 
-    private Integer totalNumber; //商品总数量   计算设置
+    private Integer totalNumber; //销售商品总数量   计算设置
 
     private Double totalAmount; //消费总金额    传
 

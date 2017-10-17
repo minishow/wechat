@@ -11,7 +11,6 @@ import java.util.List;
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
 public class MemberInfo {
 
-
     private Long id;//会员ID
 
     private String number;//会员号

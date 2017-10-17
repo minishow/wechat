@@ -2,6 +2,7 @@ package com._520it.crm.mapper;
 
 import com._520it.crm.domain.MemberInfo;
 import com._520it.crm.query.MemberInfoQueryObject;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,4 +31,18 @@ public interface MemberInfoMapper {
      * @return
      */
     MemberInfo queryMemberByNumber(String number);
+
+    /**
+     * 根据会员id查询 余额
+     * @param memberId
+     * @return
+     */
+    double queryBalanceByMemberId(Long memberId);
+
+    /**
+     * 根据会员id 更新 会员余额
+     * @param balance
+     * @param memberId
+     */
+    void updateMemberBalanceByMember(@Param("balance") double balance,@Param("memberId") Long memberId);
 }

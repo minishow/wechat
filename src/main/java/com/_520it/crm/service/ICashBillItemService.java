@@ -1,11 +1,11 @@
-package com._520it.crm.mapper;
+package com._520it.crm.service;
 
 import com._520it.crm.domain.CashBillItem;
 import com._520it.crm.query.CashBillItemQueryObject;
 
 import java.util.List;
 
-public interface CashBillItemMapper {
+public interface ICashBillItemService {
     int deleteByPrimaryKey(Long id);
 
     int insert(CashBillItem record);
@@ -16,10 +16,5 @@ public interface CashBillItemMapper {
 
     int updateByPrimaryKey(CashBillItem record);
 
-    /**
-     * 根据订单id 查询所有的明细信息
-     * @param qo
-     * @return
-     */
     List<CashBillItem> queryAllByBillId(CashBillItemQueryObject qo);
 }

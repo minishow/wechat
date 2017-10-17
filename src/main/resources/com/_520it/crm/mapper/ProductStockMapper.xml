@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.ProductStockMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.ProductStock" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="supplier_id" property="supplierId" jdbcType="BIGINT" />
-    <result column="packageNumber" property="packageNumber" jdbcType="INTEGER" />
-    <result column="bulkNumber" property="bulkNumber" jdbcType="INTEGER" />
-    <result column="amount" property="amount" jdbcType="DECIMAL" />
-    <result column="warnNumber" property="warnNumber" jdbcType="INTEGER" />
-    <result column="storeNumber" property="storeNumber" jdbcType="BIGINT" />
-    <result column="incomeDate" property="incomeDate" jdbcType="TIMESTAMP" />
-    <result column="outcomeDate" property="outcomeDate" jdbcType="TIMESTAMP" />
+<mapper namespace="com._520it.crm.mapper.ProductStockMapper">
+    <resultMap id="BaseResultMap" type="com._520it.crm.domain.ProductStock">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="supplier_id" property="supplierId" jdbcType="BIGINT"/>
+        <result column="packageNumber" property="packageNumber" jdbcType="INTEGER"/>
+        <result column="bulkNumber" property="bulkNumber" jdbcType="INTEGER"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="warnNumber" property="warnNumber" jdbcType="INTEGER"/>
+        <result column="storeNumber" property="storeNumber" jdbcType="BIGINT"/>
+        <result column="incomeDate" property="incomeDate" jdbcType="TIMESTAMP"/>
+        <result column="outcomeDate" property="outcomeDate" jdbcType="TIMESTAMP"/>
 
-    <collection property="productInfoId" ofType="ProductInfo" columnPrefix="pi_">
-      <id property="id" column="id"/>
-      <result property="code" column="code"/>
-      <result property="name" column="name"/>
-      <result property="price" column="price"/>
-      <result property="memberPrice" column="memberPrice"/>
-    </collection>
-  </resultMap>
+        <collection property="productInfoId" ofType="ProductInfo" columnPrefix="pi_">
+            <id property="id" column="id"/>
+            <result property="code" column="code"/>
+            <result property="name" column="name"/>
+            <result property="price" column="price"/>
+            <result property="memberPrice" column="memberPrice"/>
+        </collection>
+    </resultMap>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from productstock
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.ProductStock" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="com._520it.crm.domain.ProductStock" useGeneratedKeys="true" keyProperty="id">
     insert into productstock (productInfo_id, supplier_id, packageNumber, 
       bulkNumber, amount, warnNumber, 
       storeNumber, incomeDate, outcomeDate
@@ -35,7 +35,7 @@
       #{storeNumber,jdbcType=BIGINT}, #{incomeDate,jdbcType=TIMESTAMP}, #{outcomeDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductStock" >
+    <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductStock">
     update productstock
     set productInfo_id = #{productInfoId,jdbcType=BIGINT},
       supplier_id = #{supplierId,jdbcType=BIGINT},
@@ -48,40 +48,34 @@
       outcomeDate = #{outcomeDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, 
     storeNumber, incomeDate, outcomeDate
     from productstock
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+    <select id="selectAll" resultMap="BaseResultMap">
     select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, 
     storeNumber, incomeDate, outcomeDate
     from productstock
   </select>
 
 
-
-
-
-  <select id="queryForData" resultMap="BaseResultMap" >
+    <select id="queryForData" resultMap="BaseResultMap">
     select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber,
     storeNumber, incomeDate, outcomeDate
     from productstock
   </select>
 
 
-
-
-  <select id="queryForCount" resultType="long" >
+    <select id="queryForCount" resultType="long">
     select COUNT(id)
     from productstock
   </select>
 
 
-
-  <!--根据商品69条码查询 库存对象-->
-  <select id="getProductStockByProductinfoCode" resultMap="BaseResultMap">
+    <!--根据商品69条码查询 库存对象-->
+    <select id="getProductStockByProductinfoCode" resultMap="BaseResultMap">
     select ps.id, ps.productInfo_id, ps.supplier_id, ps.packageNumber, ps.bulkNumber, ps.amount, ps.warnNumber,
            ps.storeNumber, ps.incomeDate, ps.outcomeDate,
        pi.id pi_id , pi.code pi_code , pi.name pi_name , pi.price pi_price ,pi.memberPrice pi_memberPrice
@@ -90,6 +84,13 @@
     where pi.code = #{code}
   </select>
 
-
+    <!--根据商品id  查询  库存的整装数量-->
+    <select id="queryPackageNumberByProductInfoId" resultType="int">
+     select packageNumber from ProductStock where productInfo_id = #{productInfoId}
+  </select>
+    <!--根据  商品id  更改 库存的 整装数量-->
+    <update id="updatePackageNumberByProductinfoId">
+      update ProductStock set packageNumber = #{packageNumber} where productInfo_id = #{productinfoId}
+    </update>
 
 </mapper>
