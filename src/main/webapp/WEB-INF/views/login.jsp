@@ -83,12 +83,25 @@
 		});
 	});
 </script>
+	<style type="text/css">
+		.mysec{
+			height:100%;
+			width:100%;
+			background-image:url("/static/pics/serviceIcons/loginPic.jpg"); /*图片地址*/
+			background-origin: content-box;   /*从content区域开始显示背景*/
+			background-position:50% 50%; /*             图片上下左右居中  */
+			background-size:contain;       /*           保持图像本身的宽高比例，将图片缩放到宽度或高度正好适应定义背景的区域  */
+			background-repeat: repeat;     /*         图像不重复显示  */
+		}
+	</style>
 </head>
 <body>
-	<div style="margin-top: 20px;margin-left: 20px;">
+<div class="mysec">
+	<div style="position:fixed;bottom:150px;right:400px">
 		<form method="post" id="form">
 			<table>
 				<tr><td><span style="font-size: 20px;font-style: italic;">白牙宠物店云管理系统平台</span></td></tr>
+				<%--<tr><td><span style="font-size: 10px;font-style: italic;">白牙宠物店云管理系统平台</span></td></tr>--%>
 				<tr><td><input type="text" placeholder="用户名" name="username" value="李白"/></td></tr>
 				<tr><td><input type="password" placeholder="密码" name="password" value="libai"/></td></tr>
 				<tr>
@@ -108,5 +121,6 @@
 			</table>
 		</form>
 	</div>
+</div>
 </body>
 </html>

@@ -38,11 +38,24 @@
 		}); 
 	});
 </script>
+	<style type="text/css">
+		.mysec{
+			height:100%;
+			width:100%;
+			background-image:url("/static/pics/serviceIcons/regist.jpg"); /*图片地址*/
+			background-origin: content-box;   /*从content区域开始显示背景*/
+			background-position:50% 50%; /*             图片上下左右居中  */
+			background-size:contain;       /*           保持图像本身的宽高比例，将图片缩放到宽度或高度正好适应定义背景的区域  */
+			background-repeat: repeat;     /*         图像不重复显示  */
+		}
+	</style>
 </head>
 <body>
+<div class="mysec">
+	<div style="position:fixed;bottom:50px;right:300px">
 	<form method="post" id="form">
-		<div style="float: left">
-			<table>
+		<div>
+			<table style="color: white">
 				<tr>
 					<td><span>手机号码:</span></td>
 					<td><input type="text" name="tel" placeholder="请输入11位手机号码"></td>
@@ -68,7 +81,7 @@
 			</table>
 		</div>
 		<div style="float: left">
-			<table>
+			<table style="color: white">
 				<tr>
 					<td><span>性别:</span></td>
 					<td>
@@ -79,7 +92,7 @@
 			</table>
 		</div>
 		<div style="clear: both;">
-			<table>
+			<table style="color: white">
 				<tr>
 					<td>
 						<input type="button" value="提交" id="submit_btn">
@@ -91,5 +104,7 @@
 			</table>
 		</div>
 	</form>
+	</div>
+</div>
 </body>
 </html>

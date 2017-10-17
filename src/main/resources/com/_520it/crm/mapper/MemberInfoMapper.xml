@@ -50,7 +50,7 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
+    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark,email
     from memberinfo
   </select>
 
@@ -82,5 +82,14 @@
     from memberinfo
     where number = #{memberId}
   </select>
+
+  <!--根据会员id查询 余额-->
+  <select id="queryBalanceByMemberId" resultType="double">
+    select balance from MemberInfo where id = #{memberId}
+  </select>
+
+  <update id="updateMemberBalanceByMember" >
+    update MemberInfo set balance = #{balance} where id = #{memberId}
+  </update>
 
 </mapper>

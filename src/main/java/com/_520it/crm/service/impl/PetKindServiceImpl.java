@@ -1,17 +1,16 @@
 package com._520it.crm.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com._520it.crm.domain.Brand;
 import com._520it.crm.domain.PetKind;
 import com._520it.crm.mapper.PetKindMapper;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.PetKindQueryObject;
 import com._520it.crm.service.IPetKindService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 @Service
 public class PetKindServiceImpl implements IPetKindService {
 	@Autowired
@@ -54,6 +53,11 @@ public class PetKindServiceImpl implements IPetKindService {
 	@Override
 	public void changeState(Long id) {
 		petKindMapper.changeState(id);
+	}
+
+	@Override
+	public List<PetKind> queryKindByTypeId(Long id) {
+		return petKindMapper.queryKindByTypeId(id);
 	}
 
 }

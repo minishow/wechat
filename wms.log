@@ -1,0 +1,8 @@
+22:40:30,718 DEBUG selectAll:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@79b8e347]
+22:40:30,725 DEBUG selectAll:132 - ==>  Preparing: select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, storeNumber, incomeDate, outcomeDate from productstock 
+22:40:30,760 DEBUG selectAll:132 - ==> Parameters: 
+22:40:30,781 TRACE selectAll:138 - <==    Columns: id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, storeNumber, incomeDate, outcomeDate
+22:40:30,783 TRACE selectAll:138 - <==        Row: 1, 1, 1, 1, 1, 11, 1, 5, null, null
+22:40:30,793 TRACE selectAll:138 - <==        Row: 2, 2, 2, 2, 2, 2, 2, 5, 2017-10-11 16:52:07.0, 2017-10-13 16:52:37.0
+22:40:30,794 TRACE selectAll:138 - <==        Row: 3, 3, 2, 3, 4, 5, 6, 7, null, null
+22:40:30,795 DEBUG selectAll:132 - <==      Total: 3

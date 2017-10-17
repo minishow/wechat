@@ -5,10 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>系统管理</title>
-<link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/default/easyui.css">   
-<link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/icon.css">   
-<script type="text/javascript" src="/static/js/jquery-easyui/jquery.min.js"></script>  
-<script type="text/javascript" src="/static/js/jquery-easyui/jquery.easyui.min.js"></script>  
+	<%@include file="common.jsp" %>
 <script type="text/javascript" src="/static/js/views/systemMenu.js"></script>
 <style type="text/css">
 	iframe{

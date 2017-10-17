@@ -29,10 +29,10 @@ public class PetServiceController {
         return "petService";
     }
 
-    @RequestMapping("/queryPetKind")
+    @RequestMapping("/queryKindByTypeId")
     @ResponseBody
-    public List<PetKind> queryPetKind(){
-        List<PetKind> result = petKindService.selectAll();
+    public List<PetKind> queryKindByTypeId(Long id){
+        List<PetKind> result = petKindService.queryKindByTypeId(id);
         return result;
     }
     @RequestMapping("/queryPetType")

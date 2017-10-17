@@ -22,4 +22,6 @@ public interface PetKindMapper {
 	List<Brand> queryForList(PetKindQueryObject qo);
 
 	void changeState(Long id);
+
+    List<PetKind> queryKindByTypeId(Long id);
 }

@@ -93,6 +93,10 @@
 	                    <img src="/static/pics/sysicon/kcgl.png" />
 	                    <a class="aStyle" style="float:left;" href="#">库存管理</a>
 	                </div>
+	                <div id="mailNav" onclick="addtab('邮件平台','mailNav','/mailPlatform');" style="margin-top: 30px">
+	                    <img src="/static/pics/sysicon/weixin.png" />
+	                    <a class="aStyle" style="float:left;" href="#">邮件平台</a>
+	                </div>
 	                <div id="statementNav" onclick="addtab('报表分析','statementNav','/chart');" style="margin-top: 30px">
 	                    <img src="/static/pics/sysicon/bbgl.png" />
 	                    <a class="aStyle" style="float:left;" href="#">报表分析</a>
@@ -101,7 +105,7 @@
 	                    <img src="/static/pics/sysicon/yggl.png" />
 	                    <a class="aStyle" style="float:left;" href="#">员工管理</a>
 	                </div>
-	                <div id="sysNav" onclick="addtab('系统设置','sysNav','');" style="margin-top: 30px">
+	                <div id="sysNav" onclick="addtab('系统设置','sysNav','/systemMenu');" style="margin-top: 30px">
 	                    <img src="/static/pics/sysicon/xtsz.png" />
 	                    <a class="aStyle" style="float:left;" href="#">系统设置</a>
 	                </div>
@@ -110,8 +114,8 @@
         </div>
         <div data-options="region:'center'">
             <div id="main_tabs">
-                <div title="我的主页" closable="true">
-                    <h1>欢迎登陆白牙宠物管理系统</h1>
+                <div title="我的主页">
+                    <iframe src='/shopInfo' style='width:100%;height:100%' frameborder='0'></iframe>
                 </div>
             </div>
         </div>

@@ -28,4 +28,8 @@ public interface IPetServiceRegisterService {
     List<PetServiceChartVO> selectServiceCountByName();
 
     List<PetServiceChartVO> selectServiceTopCountByName();
+
+    void updatePayfor(Long id);
+
+    List<PetServiceRegister> selectPayEnd();
 }

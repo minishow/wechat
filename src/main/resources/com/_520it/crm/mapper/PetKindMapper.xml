@@ -35,6 +35,11 @@
     pt.id pt_id,pt.name pt_name
     from petkind pk left join pettype pt
   </select>
+  <select id="queryKindByTypeId" resultMap="BaseResultMap" >
+    select *
+    FROM petkind
+    WHERE pettype_id = #{id}
+  </select>
     <!-- 高级查询 -->
   <sql id="base_where">
   	<where>
@@ -44,9 +49,9 @@
   	</where>
   </sql>
   <select id="queryForCount" resultType="long">
-  	select count(pk.id) from petkind pk
-  	<include refid="base_where"/>
-  </select>
+    select count(pk.id) from petkind pk
+    <include refid="base_where"/>
+</select>
   <select id="queryForList" resultMap="BaseResultMap">
     select pk.id, pk.name,pk.state,
     pt.id pt_id,pt.name pt_name

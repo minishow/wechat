@@ -9,9 +9,8 @@
     <script type="text/javascript" src="/static/js/views/cashBillChart.js"></script>
 </head>
 <body>
+    <div><select name="selectMenu" id="selectCash"></select></div>
+    <div style="margin-top: 10px"></div>
     <table id="cashBillChart_datagrid"></table>
-    <div id="cashBillChart_datagrid_tb">
-        <a class="easyui-linkbutton" plain="true" iconCls="icon-reload" data-cmd="reload">加载权限</a>
-    </div>
 </body>
 </html>
