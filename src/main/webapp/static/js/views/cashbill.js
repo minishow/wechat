@@ -16,7 +16,7 @@ $(function () {
             {field:'shopName',title:'店铺名称',width:10,align:'center'},
             {field:'orderTime',title:'订单时间',width:10,align:'center'},
             {field:'totalNumber',title:'商品总数',width:10,align:'center'},
-            {field:'totalAmount',title:'消费金额(元)',width:10,align:'center'},
+            {field:'totalAmount',title:'总消费金额(元)',width:10,align:'center'},
             {field:'employeeName',title:'操作人',width:10,align:'center'},
             {field:'paymentTerm',title:'收款方式',width:10,align:'center',
                 formatter: function (value,row,index) {
@@ -68,15 +68,17 @@ $(function () {
                 formatter: function (value,row,index) {
                   return row.productInfoId?row.productInfoId.name:"";
                 }},
-            {field:'productInfoIdPrice',title:'原价',width:10,align:'center',
+            {field:'productInfoIdPrice',title:'原价(元)',width:10,align:'center',
                 formatter: function (value,row,index) {
                     return row.productInfoId?row.productInfoId.price:"";
                 }},
-            {field:'productInfoIdMemberPrice',title:'会员价',width:10,align:'center',
+            {field:'productInfoIdMemberPrice',title:'会员价(元)',width:10,align:'center',
                 formatter: function (value,row,index) {
                     return row.productInfoId?row.productInfoId.memberPrice:"";
                 }},
-            {field:'number',title:'销售数量',width:10,align:'center'}
+            {field:'number',title:'销售数量',width:10,align:'center'},
+            {field:'costAmount',title:'原价总价格(元)',width:10,align:'center'},
+            {field:'memberAmount',title:'会员总价格(元)',width:10,align:'center'}
         ]]
     })
 });

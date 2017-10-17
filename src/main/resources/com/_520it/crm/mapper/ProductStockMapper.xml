@@ -12,13 +12,13 @@
         <result column="incomeDate" property="incomeDate" jdbcType="TIMESTAMP"/>
         <result column="outcomeDate" property="outcomeDate" jdbcType="TIMESTAMP"/>
 
-        <collection property="productInfoId" ofType="ProductInfo" columnPrefix="pi_">
+        <association property="productInfoId" javaType="ProductInfo" columnPrefix="pi_">
             <id property="id" column="id"/>
             <result property="code" column="code"/>
             <result property="name" column="name"/>
             <result property="price" column="price"/>
             <result property="memberPrice" column="memberPrice"/>
-        </collection>
+        </association>
     </resultMap>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
