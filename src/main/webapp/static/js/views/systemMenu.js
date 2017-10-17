@@ -2,39 +2,54 @@ $(function(){
 	$("#div_tabs").tabs({
 		fit:true,
 		pill:true,
-		justified:true
+		justified:true,
+		onSelect:function(title,index){
+			if(index!=0){
+				var myTab=$("#div_tabs").tabs("getTab",title);
+				var myUrl=myTab.context.id;
+				$("#div_tabs").tabs("update",{
+					tab:myTab,
+					type:"body",
+					options:{
+						content:"<iframe src='/"+myUrl+"'></iframe>"
+					}
+				})
+			}
+		}
 	});
 	$("#productScale").panel({
+		id:"productScale",
+		selected:true,
 		content:"<iframe src='/productScale'></iframe>"
 	});
 	$("#brand").panel({
-		content:"<iframe src='/brand'></iframe>"
+		id:"brand"
 	});
 	$("#productType").panel({
-		content:"<iframe src='/productType'></iframe>"
+		id:"productType"
 	});
 	$("#location").panel({
-		content:"<iframe src='/location'></iframe>"
+		id:"location"
 	});
 	$("#loginLog").panel({
-		content:"<iframe src='/loginLog'></iframe>"
+		id:"loginLog"
 	});
 	$("#productPart").panel({
-		content:"<iframe src='/productPart'></iframe>"
+		id:"productPart"
 	});
 	$("#productInfo").panel({
-		content:"<iframe src='/productInfo'></iframe>"
+		id:"productInfo"
 	});
 	$("#petKind").panel({
-		content:"<iframe src='/petKind'></iframe>"
+		id:"petKind"
 	});
 	$("#petType").panel({
-		content:"<iframe src='/petType'></iframe>"
+		id:"petType"
 	});
 	$("#supplier").panel({
-		content:"<iframe src='/supplier'></iframe>"
+		id:"supplier"
 	});
 	$("#stockOutType").panel({
-		content:"<iframe src='/stockOutType'></iframe>"
+		id:"stockOutType"
 	});
 });
