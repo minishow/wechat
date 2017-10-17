@@ -23,7 +23,7 @@ public class MemberInfo {
 
     private String name;//会员名称
 
-    private String vipClass;//会员等级
+    private MemberLevel vipClass;//会员等级
 
     private BigDecimal balance;//会员余额
 
