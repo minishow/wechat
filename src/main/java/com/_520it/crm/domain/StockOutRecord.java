@@ -1,9 +1,14 @@
 package com._520it.crm.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter@Getter@ToString
 public class StockOutRecord {
     private Long id;
 
-    private Long stockOprationBillId;
+    private StockOprationBill stockOprationBill;
 
     private Integer state;
 

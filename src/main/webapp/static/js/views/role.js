@@ -70,7 +70,7 @@ $(function () {
         cancel: function () {
             $("#role_dialog").dialog("close");
         },
-        delete: function () {
+        quit: function () {
             var rowData = $("#role_datagrid").datagrid("getSelected");
             if (rowData) {
                 $.messager.confirm("温馨提示", "您确定需要删除该员工吗?", function (yes) {
