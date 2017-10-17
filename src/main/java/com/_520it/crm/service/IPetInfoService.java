@@ -1,6 +1,7 @@
 package com._520it.crm.service;
 
 import com._520it.crm.domain.PetInfo;
+import com._520it.crm.domain.PetType;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.PetInfoQueryObject;
 
@@ -23,4 +24,6 @@ public interface IPetInfoService {
 
 
     PageResult selectPetInfoList(PetInfoQueryObject qo);
+
+    List<PetType> addPetTypeList();
 }

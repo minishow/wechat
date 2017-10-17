@@ -5,7 +5,10 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Setter@Getter
-public class ProductInfo{
+public class ProductInfo {
+
+    public static final Integer GENDER_MALE = 0;
+    public static final Integer GENDER_FEMALE = 1;
     private Long id;
     private String code;
     private String name;

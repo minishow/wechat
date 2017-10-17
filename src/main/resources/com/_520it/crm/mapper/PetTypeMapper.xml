@@ -29,7 +29,7 @@
     select id,name,state
     from pettype
   </select>
-  
+
       <!-- 高级查询 -->
   <sql id="base_where">
   	<where>
@@ -48,13 +48,13 @@
     <include refid="base_where"/>
     limit #{start},#{rows}
   </select>
-  
+
   <update id="changeState">
   	update pettype
-  	   set 
+  	   set
   	   state=0
   	where id=#{id}
   </update>
-  
-  
+
+
 </mapper>

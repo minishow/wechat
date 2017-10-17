@@ -1,7 +1,9 @@
 package com._520it.crm.service.impl;
 
 import com._520it.crm.domain.Brand;
+import com._520it.crm.domain.Harm;
 import com._520it.crm.domain.PetKind;
+import com._520it.crm.mapper.HarmMapper;
 import com._520it.crm.mapper.PetKindMapper;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.PetKindQueryObject;
@@ -15,6 +17,9 @@ import java.util.List;
 public class PetKindServiceImpl implements IPetKindService {
 	@Autowired
 	private PetKindMapper petKindMapper;
+
+	@Autowired
+	private HarmMapper harmMapper;
 	@Override
 	public int deleteByPrimaryKey(Long id) {
 		return petKindMapper.deleteByPrimaryKey(id);
@@ -40,6 +45,20 @@ public class PetKindServiceImpl implements IPetKindService {
 		return petKindMapper.updateByPrimaryKey(petKind);
 	}
 
+	@Override
+	public List<PetKind> selectKindAll(Long kindID) {
+
+		return petKindMapper.selectKindAll(kindID);
+	}
+
+	/**
+	 * 过敏物查询
+	 * @return
+     */
+	@Override
+	public List<Harm> addHarmList() {
+		return harmMapper.selectAll();
+	}
 	@Override
 	public PageResult query(PetKindQueryObject qo) {
 		Long total=petKindMapper.queryForCount(qo);

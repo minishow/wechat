@@ -1,5 +1,6 @@
 package com._520it.crm.service;
 
+import com._520it.crm.domain.Harm;
 import com._520it.crm.domain.PetKind;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.PetKindQueryObject;
@@ -16,6 +17,10 @@ public interface IPetKindService {
     List<PetKind> selectAll();
 
     int updateByPrimaryKey(PetKind petKind);
+
+    List<PetKind> selectKindAll(Long kindID);
+
+    List<Harm> addHarmList();
 
 	PageResult query(PetKindQueryObject qo);
 

@@ -11,6 +11,8 @@ import com._520it.crm.page.PageResult;
 import com._520it.crm.query.MemberLevelQueryObject;
 import com._520it.crm.service.IMemberLevelService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/memberLevel")
 public class MemberLevelController {
@@ -31,6 +33,17 @@ public class MemberLevelController {
 			e.printStackTrace();
 		}
 		return pageResult;
+	}
+	@RequestMapping("/queryAll")
+	@ResponseBody
+	public List<MemberLevel> listAll( ){
+		List<MemberLevel> list = null;
+		try {
+			 list = memberLevelService.selectAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	@RequestMapping("/delete")
 	@ResponseBody
@@ -54,4 +67,6 @@ public class MemberLevelController {
 			return new AjaxResult(false,"添加失败!");
 		}
 	}
+
+
 }

@@ -10,11 +10,13 @@
     <result column="petBirthday" property="petBirthday" jdbcType="DATE" />
     <result column="petGender" property="petGender" jdbcType="INTEGER" />
     <result column="petFeature" property="petFeature" jdbcType="VARCHAR" />
-    <result column="petAllergyThing" property="petAllergyThing" jdbcType="VARCHAR" />
     <result column="petAncestryMark" property="petAncestryMark" jdbcType="INTEGER" />
     <result column="petAncestryRegister" property="petAncestryRegister" jdbcType="VARCHAR" />
     <result column="petState" property="petState" jdbcType="VARCHAR" />
     <result column="petPic" property="petPic" jdbcType="VARCHAR" />
+
+    <!--过敏物-->
+    <!--<result column="petAllergyThing" property="petAllergyThing"  />-->
 
     <!--宠物品种-->
     <association property="petType" javaType="com._520it.crm.domain.PetType">
@@ -26,7 +28,6 @@
       <id property="id" column="mem_id"/>
       <result property="name" column="mem_name"/>
       <result property="number" column="mem_number"/>
-      <result property="vipClass" column="mem_vipClass"/>
       <result property="balance" column="mem_balance"/>
       <result property="tel" column="mem_tel"/>
       <result property="gender" column="mem_gender"/>
@@ -54,12 +55,12 @@
       petState, petPic)
     values (#{member.id,jdbcType=BIGINT},
     #{petName,jdbcType=VARCHAR},
-     #{petvarietyId,jdbcType=BIGINT},
+     #{petType.id,jdbcType=BIGINT},
       #{petAncestry,jdbcType=VARCHAR},
        #{petColour,jdbcType=VARCHAR}, #{petBirthday,jdbcType=DATE},
       #{petGender,jdbcType=INTEGER},
-      #{petFeature,jdbcType=VARCHAR}, #{petclassesId,jdbcType=BIGINT},
-      #{petAllergyThing,jdbcType=VARCHAR},
+      #{petFeature,jdbcType=VARCHAR}, #{petKind.id,jdbcType=BIGINT},
+      #{petAllergyThing.id,jdbcType=VARCHAR},
       #{petAncestryMark,jdbcType=INTEGER},
        #{petAncestryRegister,jdbcType=VARCHAR},
       #{petState,jdbcType=VARCHAR}, #{petPic,jdbcType=VARCHAR})
@@ -96,25 +97,55 @@
     from petinfo
   </select>
 
-  <select id="queryMemberInfoByTotal" resultType="long">
-    SELECT COUNT(id) FROM petinfo
+  <sql id="query_petinfoWhere">
+    <where>
+      <if test="petTypeBtn!=null">
+        AND t.id=#{petTypeBtn}
+      </if>
+      <if test="petKindBtn!=null">
+        AND k.id=#{petKindBtn}
+      </if>
+      <if test="petTypeBtn!=null">
+        AND t.id=#{petTypeBtn}
+      </if>
+      <if test="petTypeBtn!=null">
+        AND pet.petName LIKE concat('%',#{petNameBtn},'%')
+      </if>
+      <if test="memberTelBtn!=null">
+        AND mem.tel LIKE concat('%',#{memberTelBtn},'%')
+      </if>
+      <if test="memRemarkBtn=='已退卡'">
+        AND mem.remark =1
+      </if>
 
+    </where>
+  </sql>
+
+
+  <select id="queryMemberInfoByTotal" resultType="long">
+    SELECT COUNT(pet.id)
+    from petinfo pet LEFT JOIN memberinfo mem ON pet.member_id = mem.id
+    LEFT JOIN pettype t ON pet.petVariety_id=t.id
+    LEFT JOIN petkind k ON pet.petClasses_id=k.id
+    <include refid="query_petinfoWhere"></include>
   </select>
   <select id="queryMemberInfoByList" resultMap="BaseResultMap">
-    select pet.member_id, pet.petName,
+    select pet.id,pet.member_id, pet.petName,
       pet.petAncestry, pet.petColour, pet.petBirthday,
       pet.petGender, pet.petFeature,
       pet.petAllergyThing, pet.petAncestryMark, pet.petAncestryRegister,
       pet.petState, pet.petPic,
       t.id t_id,t.name t_name,
       k.id k_id,k.name k_name,
-      mem.number mem_number, mem.name mem_name, mem.vipClass mem_vipClass,
+      mem.id mem_id,
+      mem.number mem_number, mem.name mem_name,
       mem.balance mem_balance, mem.tel mem_tel, mem.gender mem_gender,
       mem.birthday mem_birthday, mem.adress mem_adress, mem.remark mem_remark
     from petinfo pet LEFT JOIN memberinfo mem ON pet.member_id = mem.id
                      LEFT JOIN pettype t ON pet.petVariety_id=t.id
                      LEFT JOIN petkind k ON pet.petClasses_id=k.id
-                     limit #{start},#{page}
+                  <include refid="query_petinfoWhere"></include>
+      limit #{start},#{rows}
   </select>
 
 

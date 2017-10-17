@@ -3,9 +3,11 @@ package com._520it.crm.mapper;
 import com._520it.crm.domain.Brand;
 import com._520it.crm.domain.MemberLevel;
 import com._520it.crm.query.MemberLevelQueryObject;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface MemberLevelMapper {
     int deleteByPrimaryKey(Long id);
 
