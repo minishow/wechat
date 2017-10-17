@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter@Getter
 public class AjaxResult {
-	private boolean success;
+	private boolean success ;
 	private String msg;
 	public AjaxResult(boolean success, String msg) {
 		super();

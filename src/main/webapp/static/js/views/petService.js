@@ -2,8 +2,8 @@ $(function () {
     /*
      * 抽取所有需要用得元素.
      */
-    var petServiceMenuTree,petServiceRegisterDatagrid,petServiceRegisterDialog,petServiceMenuDialog,petServiceRegisterForm,petServiceMenuForm,petNameSearchBtn,petTelSearchBtn,
-        petServiceRegisterTabs,topMenu,secondMenu,petKindMenu,petTypeMenu,menuTime;
+    var petServiceMenuTree,petServiceRegisterDatagrid,petServiceRegisterDialog,petServiceMenuDialog,petServiceRegisterForm,petServiceMenuForm,petNameSearchBtn,petTelSearchBtn,stateSearch,
+        petServiceRegisterTabs,topMenu,secondMenu,petKindMenu,petTypeMenu,menuTime,memberNo,petServiceLogDialog;
     petServiceMenuTree = $("#petServiceMenuTree");//菜单树
     petServiceRegisterDatagrid = $("#petServiceRegister_datagrid");//宠物登记表格
     petServiceRegisterDialog = $("#petServiceRegister_dialog");//宠物登记弹出框
@@ -12,12 +12,15 @@ $(function () {
     petServiceMenuForm = $("#petServiceMenu_form");//宠物登记表单
     petNameSearchBtn = $("#nameSearchBtn");//搜索按钮
     petTelSearchBtn = $("#telSearchBtn");//搜索按钮
+    stateSearch = $("#stateSearch");//搜索状态
     petServiceRegisterTabs = $("#petServiceRegister_tabs");//宠物登记弹出窗内的选项卡
     topMenu = $("#topMenu");//弹出窗一级菜单
     secondMenu = $("#secondMenu");//弹出窗二级菜单
     menuTime = $("#menuTime");//菜单次数
     petKindMenu = $("#petKindMenu");//宠物种类
     petTypeMenu = $("#petTypeMenu");//宠物类别
+    memberNo = $("#memberNo");//会员ID
+    petServiceLogDialog = $("#petServiceLog_dialog");//宠物服务日志
     //宠物登记表格
     petServiceRegisterDatagrid.datagrid({
         fit:true,
@@ -39,7 +42,10 @@ $(function () {
                 {field:'endTime',align:'center',width:'10%',title:'实际结束时间'},
                 {field:'times',align:'center',width:'12%',title:'寄养时间/剩余次数'},
                 {field:'sevPrice',align:'center',width:'8%',title:'服务价格'},
-                {field:'log',align:'center',width:'6%',title:'日志'}
+                {field:'log',align:'center',width:'6%',title:'日志',
+                    formatter:function(value,row,index){
+                        return '<img onclick="serviceLogFun();" src="/static/pics/serviceIcons/serviceLog.bmp"/>'
+                }}
             ]
         ],
         onClickRow:function(rowIndex,rowData){
@@ -88,15 +94,49 @@ $(function () {
         url:'/petService/queryPetType'
     });
     /**
+     * 监听会员号的改变事件
+     */
+    var memberInfo;
+    memberNo.textbox({
+        onChange:function () {
+            $.get("/petService/queryInfoByMemberId?memberId="+memberNo.val(),function(member){
+                if (member.petinfos) {
+                    memberInfo = member;
+                    for(var i=0;i<member.petinfos.length;i++) {
+                        if (i == 0) {
+                            $("#petBtn1").linkbutton({
+                                text : member.petinfos[0].petName
+                            });
+                        } else if (i == 1) {
+                            $("#petBtn2").linkbutton({
+                                text : member.petinfos[1].petName
+                            });
+                        } else if (i == 2) {
+                            $("#petBtn3").linkbutton({
+                                text : member.petinfos[2].petName
+                            });
+                        }
+                    }
+                }
+            },"json")
+        }
+    });
+    /**
      * 初始化宠物登记弹出窗内的选项卡
      */
     petServiceRegisterTabs.tabs({
         fit:true
     });
+    petServiceLogDialog.dialog({
+        width:400,
+        height:300,
+        title:"服务日志",
+        closed:true
+    });
     //对话框
     petServiceRegisterDialog.dialog({
         width:750,
-        height:380,
+        height:410,
         buttons:'#petServiceRegister_dialog_bt',
         closed:true,
         onOpen:function () {
@@ -114,18 +154,9 @@ $(function () {
         labelWidth:50
     });
     petTelSearchBtn.textbox({
-        width:200,
+        width:180,
         label:"电话号码:",
-        labelWidth:60,
-        buttonText:'搜索',
-        onClickButton:function(){
-            var keyword_petName = petNameSearchBtn.val();
-            var keyword_tel = $(this).val();
-            petServiceRegisterDatagrid.datagrid("load",{
-                keyword_petName:keyword_petName,
-                keyword_tel:keyword_tel
-            });
-        }
+        labelWidth:80
     });
     /*
      * 初始化菜单树
@@ -134,6 +165,10 @@ $(function () {
         url: '/petServiceMenu/queryTree',
         lines:true,
         onClick: function (node) {
+            petServiceRegisterDatagrid.datagrid('reload');
+            petServiceRegisterDatagrid.datagrid("load",{
+                menuText:node.text
+            });
         },
         onLoadSuccess: function (node, data) {
         }
@@ -151,6 +186,16 @@ $(function () {
      * 所有的操作封装到cmdObj对象中,方便管理
      */
     var cmdObj = {
+        search:function () {
+            petServiceMenuTree.tree('reload');
+            var keyword_petName = petNameSearchBtn.val();
+            var keyword_tel = petTelSearchBtn.val();
+            petServiceRegisterDatagrid.datagrid("load",{
+                keyword_petName:keyword_petName,
+                keyword_tel:keyword_tel,
+                state:stateSearch.val()
+            });
+        },
         addService:function(){
             //1.清空表单数据
             petServiceMenuForm.form("clear");
@@ -248,6 +293,21 @@ $(function () {
         },
         cancelMenu:function(){
             petServiceMenuDialog.dialog("close");
+        },
+        addPet1:function () {
+            $("#petServiceName").textbox('initValue',memberInfo.petinfos[0].petName);
+            $("#petServiceMasterName").textbox('initValue',memberInfo.name);
+            $("#petServiceTel").textbox('initValue',memberInfo.tel);
+        },
+        addPet2:function () {
+            $("#petServiceName").textbox('initValue',memberInfo.petinfos[1].petName);
+            $("#petServiceMasterName").textbox('initValue',memberInfo.name);
+            $("#petServiceTel").textbox('initValue',memberInfo.tel);
+        },
+        addPet3:function () {
+            $("#petServiceName").textbox('initValue',memberInfo.petinfos[2].petName);
+            $("#petServiceMasterName").textbox('initValue',memberInfo.name);
+            $("#petServiceTel").textbox('initValue',memberInfo.tel);
         }
     }
 });
@@ -267,7 +327,21 @@ function paymentFormatter(value,record,index){
         return "<font color='#7cfc00'>已付款</font>";
     }
 }
-
+function serviceLogFun() {
+    var rowData = $("#petServiceRegister_datagrid").datagrid('getSelected');
+    if (rowData == null) {
+        $.messager.alert("温馨提示","请先选择一行数据!","info");
+    } else {
+        $.get("/petServiceRegister/searchById?id="+rowData.id,function(petInfo){
+            $("#logPetName").text("宠物名:"+petInfo.petName);
+            $("#logPetAge").text("宠物年龄:"+petInfo.petAge);
+            $("#logPetService").text("服务名称:"+petInfo.itemSecond);
+            $("#logPetSelfGood").text("自带物品:"+petInfo.selfGood);
+            $("#logPetRemark").text("服务备注:"+petInfo.remark);
+            $("#petServiceLog_dialog").dialog('open')
+        },"json")
+    }
+}
 
 
 

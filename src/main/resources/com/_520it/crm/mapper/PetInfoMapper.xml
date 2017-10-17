@@ -137,6 +137,7 @@
       pet.petState, pet.petPic,
       t.id t_id,t.name t_name,
       k.id k_id,k.name k_name,
+      mem.id mem_id,
       mem.number mem_number, mem.name mem_name,
       mem.balance mem_balance, mem.tel mem_tel, mem.gender mem_gender,
       mem.birthday mem_birthday, mem.adress mem_adress, mem.remark mem_remark
@@ -145,6 +146,17 @@
                      LEFT JOIN petkind k ON pet.petClasses_id=k.id
                   <include refid="query_petinfoWhere"></include>
       limit #{start},#{rows}
+  </select>
+
+
+
+  <!--宠物服务需要的方法-->
+  <select id="selectByMemberInfoId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, member_id, petName, petVariety_id, petAncestry, petColour, petBirthday,
+    petGender, petFeature, petClasses_id, petAllergyThing, petAncestryMark, petAncestryRegister,
+    petState, petPic
+    from petinfo
+    where member_id = #{memberId}
   </select>
 
 </mapper>

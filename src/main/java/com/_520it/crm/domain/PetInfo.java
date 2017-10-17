@@ -29,8 +29,8 @@ public class PetInfo {
     private String petState;//宠物状态
     private String petPic;//宠物图片
 
-    private PetType petType;//宠物品种ID
-    private PetKind petKind;//宠物类别ID
+    private PetType petType;//宠物类别ID
+    private PetKind petKind;//宠物品种ID
 
     private Harm petAllergyThing;//过敏物
     private MemberInfo member;//会员

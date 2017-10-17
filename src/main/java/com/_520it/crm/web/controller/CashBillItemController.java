@@ -10,7 +10,6 @@ public class CashBillItemController {
     @RequestMapping("")
     public String index(){
         return "cashbillitem";
-
     }
 }
 

@@ -1,7 +1,9 @@
 package com._520it.crm.service.impl;
 
 import com._520it.crm.domain.Employee;
+import com._520it.crm.domain.LeaveRecord;
 import com._520it.crm.mapper.EmployeeMapper;
+import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.EmployeeQueryObject;
 import com._520it.crm.service.IEmployeeService;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,8 +21,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    public int deleteByPrimaryKey(Long id) {
-        return employeeMapper.deleteByPrimaryKey(id);
+    public int dimissionByPrimaryKey(Long id) {
+        return employeeMapper.dimissionByPrimaryKey(id);
     }
 
     @Override
@@ -50,4 +53,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
         List<Employee> data = employeeMapper.selectByPageList(qo);
         return new PageResult(count,data);
     }
+
+    @Override
+    public List<Employee> selectListByLeaveRecord() {
+        return employeeMapper.selectListByLeaveRecord();
+    }
+
+
 }

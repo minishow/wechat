@@ -3,6 +3,7 @@ package com._520it.crm.web.controller;
 import com._520it.crm.domain.MemberInfo;
 import com._520it.crm.domain.Membertop;
 import com._520it.crm.domain.PetInfo;
+import com._520it.crm.vo.ReturnMemberVO;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.MemberInfoQueryObject;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/memberInfo")
@@ -52,15 +55,27 @@ public class MemberInfoController {
     }
     @RequestMapping("/updateRemark")
     @ResponseBody
-    public AjaxObject updateRemark(){
+    public AjaxObject updateRemark(Long memberID){
         try {
 
-            memberInfoService.updateRemark();
+            memberInfoService.updateRemark(memberID);
             return new AjaxObject(true,"退卡成功");
         }catch (Exception e){
             e.printStackTrace();
             return new AjaxObject(false,"退卡失败");
 
+        }
+    }
+    @RequestMapping("/returnMember")
+    @ResponseBody
+    public List<ReturnMemberVO> returnMember(Long returnId){
+            List<ReturnMemberVO> returnMembers = null;
+            try {
+                returnMembers= memberInfoService.returnMemberList(returnId);
+            return returnMembers;
+        }catch (Exception e){
+            e.printStackTrace();
+            return returnMembers;
         }
     }
     @RequestMapping("/addMomberMoney")
@@ -78,4 +93,11 @@ public class MemberInfoController {
     }
 
 
+    //收银管理:根据会员号码查询 会员信息
+    @RequestMapping("/queryMemberByNumber")
+    @ResponseBody
+    public MemberInfo queryMemberByNumber(String number){
+        MemberInfo result = memberInfoService.queryMemberByNumber(number);
+        return result;
+    }
 }

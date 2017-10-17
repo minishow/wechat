@@ -16,7 +16,7 @@ public interface CashBillMapper {
 
     int updateByPrimaryKey(CashBill record);
 
+    //分页
     Long queryCount(CashBillQueryObject qo);
-
     List<CashBill> queryData(CashBillQueryObject qo);
 }

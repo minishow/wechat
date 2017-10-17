@@ -3,6 +3,7 @@ package com._520it.crm.service.impl;
 import com._520it.crm.domain.MemberInfo;
 import com._520it.crm.domain.Membertop;
 import com._520it.crm.domain.PetInfo;
+import com._520it.crm.vo.ReturnMemberVO;
 import com._520it.crm.mapper.MemberInfoMapper;
 import com._520it.crm.mapper.MembertopMapper;
 import com._520it.crm.mapper.PetInfoMapper;
@@ -99,10 +100,9 @@ public class MemberInfoServiceImpl implements IMemberInfoService {
     }
 
     @Override
-    public void updateRemark() {
-        MemberInfo info = new MemberInfo();
-        info.setRemark(1);
-        memberInfoMapper.updateRemark(info);
+    public void updateRemark(Long memberID) {
+
+        memberInfoMapper.updateRemark(1,memberID);
     }
 
     /**
@@ -114,13 +114,13 @@ public class MemberInfoServiceImpl implements IMemberInfoService {
     public void addMonberMoney(Membertop memLevel, MemberInfo info) {
 
 
-        BigDecimal infos =null;
-        if ( info.getBalance()==null){
-           infos=memLevel.getTopbalance();
-        }else {
-            infos=info.getBalance().add(memLevel.getTopbalance());
+        BigDecimal infos = null;
+        if (info.getBalance() == null) {
+            infos = memLevel.getTopbalance();
+        } else {
+            infos = info.getBalance().add(memLevel.getTopbalance());
         }
-        memberInfoMapper.updateAddMoney(info.getNumber(),infos);
+        memberInfoMapper.updateAddMoney(info.getNumber(), infos);
         String memberName = memberInfoMapper.getMember(info.getNumber());
         memLevel.setTopmembernumber(info.getNumber());
         memLevel.setTopmembername(memberName);
@@ -129,7 +129,24 @@ public class MemberInfoServiceImpl implements IMemberInfoService {
         memLevel.setTopshopname("小白的店");
         //增加充值记录
         membertopMapper.insert(memLevel);
+    }
+
+    //宠物服务需要的方法
+    @Override
+    public MemberInfo queryInfoByMemberId(String memberId) {
+        return memberInfoMapper.queryInfoByMemberId(memberId);
+    }
+
+    @Override
+    public MemberInfo queryMemberByNumber(String number) {
+        return memberInfoMapper.queryMemberByNumber(number);
+    }
+
+    @Override
+    public List<ReturnMemberVO> returnMemberList(Long id) {
 
 
+
+        return memberInfoMapper.returnMemberList(id);
     }
 }

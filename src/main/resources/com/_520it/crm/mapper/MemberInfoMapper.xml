@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.MemberInfoMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.MemberInfo" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="number" property="number" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="balance" property="balance"/>
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="INTEGER" />
-    <result column="birthday" property="birthday" jdbcType="DATE" />
-    <result column="adress" property="adress" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" />
+<mapper namespace="com._520it.crm.mapper.MemberInfoMapper">
+    <resultMap id="BaseResultMap" type="com._520it.crm.domain.MemberInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="balance" property="balance"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        <result column="adress" property="adress" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark"/>
 
-    <!--<result column="vipClass" property="vipClass" jdbcType="VARCHAR" />-->
+        <!--<result column="vipClass" property="vipClass" jdbcType="VARCHAR" />-->
 
-    <association property="petType" javaType="com._520it.crm.domain.MemberLevel">
-      <id property="id" column="L_id"/>
-      <result property="name" column="L_name"/>
-    </association>
-    <!--宠物查询-->
-    <collection property="petinfos" ofType="Petinfo" column="id"
-      select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">
-    </collection>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        <association property="petType" javaType="com._520it.crm.domain.MemberLevel">
+            <id property="id" column="L_id"/>
+            <result property="name" column="L_name"/>
+        </association>
+
+        <!--会员等级-->
+        <collection property="vipClass" ofType="MemberLevel" column="id"
+                    select="com._520it.crm.mapper.MemberLevelMapper.selectAll">
+        </collection>
+
+
+        <!--宠物查询-->
+        <collection property="petinfos" ofType="Petinfo" column="id"
+                    select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">
+        </collection>
+    </resultMap>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from memberinfo
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.MemberInfo" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="com._520it.crm.domain.MemberInfo" useGeneratedKeys="true" keyProperty="id">
     insert into memberinfo (number, name, vipClass,
       balance, tel, gender,
       birthday, adress, remark
@@ -37,7 +46,7 @@
       #{birthday,jdbcType=DATE}, #{adress,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.MemberInfo" >
+    <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.MemberInfo">
     update memberinfo
     set number = #{number,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -50,25 +59,80 @@
       remark = #{remark}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
     from memberinfo
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+    <select id="selectAll" resultMap="BaseResultMap">
     select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
     from memberinfo
   </select>
-  <update id="updateRemark">
-    UPDATE memberinfo set remark=#{remark}
+    <update id="updateRemark">
+    UPDATE memberinfo set remark=#{info}
+    WHERE id=#{memberID}
   </update>
-  <update id="updateAddMoney">
+    <update id="updateAddMoney">
     UPDATE memberinfo set balance=#{infos}
     WHERE number=#{number}
   </update>
 
-  <select id="getMember" resultType="string">
+    <select id="getMember" resultType="string">
     SELECT name FROM memberinfo where number=#{number}
   </select>
+    <select id="queryMemberByNumber" resultType="MemberInfo">
+    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
+    from memberinfo where number = #{number}
+  </select>
+
+
+    <!--宠物服务需要的方法-->
+    <resultMap id="petServiceResultMap" type="com._520it.crm.domain.MemberInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="balance" property="balance" jdbcType="DOUBLE"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        <result column="adress" property="adress" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+
+        <!--<result column="vipClass" property="vipClass" jdbcType="VARCHAR" />-->
+
+        <!--宠物查询-->
+        <collection property="petinfos" ofType="PetInfo" column="id"
+                    select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">
+        </collection>
+        <!--会员等级-->
+        <collection property="vipClass" ofType="MemberLevel" column="id"
+                    select="com._520it.crm.mapper.MemberLevelMapper.selectAll">
+        </collection>
+
+    </resultMap>
+    <select id="queryInfoByMemberId" resultMap="petServiceResultMap" parameterType="java.lang.Long">
+    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
+    from memberinfo
+    where number = #{memberId}
+  </select>
+
+    <resultMap id="ReturnMemberResultMap" type="com._520it.crm.vo.ReturnMemberVO">
+        <id column="id" property="id"/>
+        <result column="csSn" property="snnumber"/>
+        <result column="infoName" property="name"/>
+        <result column="caTotalAmount" property="totalAmount"/>
+        <result column="csOrderTime" property="orderTime"/>
+        <result column="infoPrice" property="infoPrice"/>
+
+    </resultMap>
+
+    <select id="returnMemberList" resultMap="ReturnMemberResultMap">
+      SELECT ca.id id,ca.sn csSn,info.name infoName,info.price infoPrice,ca.totalAmount caTotalAmount,ca.orderTime csOrderTime
+                  FROM cashbill ca
+				 	LEFT JOIN cashbillitem cs ON ca.id =cs.bill_id
+					 left JOIN productinfo info ON cs.product_id=info.id
+
+  </select>
+
 
 </mapper>

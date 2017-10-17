@@ -1,7 +1,9 @@
 package com._520it.crm.web.controller;
 
+import com._520it.crm.domain.MemberInfo;
 import com._520it.crm.domain.PetKind;
 import com._520it.crm.domain.PetType;
+import com._520it.crm.service.IMemberInfoService;
 import com._520it.crm.service.IPetKindService;
 import com._520it.crm.service.IPetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class PetServiceController {
     private IPetKindService petKindService;
     @Autowired
     private IPetTypeService petTypeService;
+    @Autowired
+    private IMemberInfoService memberInfoService;
 
     @RequestMapping("")
     public String main(){
@@ -35,6 +39,13 @@ public class PetServiceController {
     @ResponseBody
     public List<PetType> queryPetType(){
         List<PetType> result = petTypeService.selectAll();
+        return result;
+    }
+
+    @RequestMapping("/queryInfoByMemberId")
+    @ResponseBody
+    public MemberInfo queryInfoByMemberId(String memberId){
+        MemberInfo result = memberInfoService.queryInfoByMemberId(memberId);
         return result;
     }
 }
