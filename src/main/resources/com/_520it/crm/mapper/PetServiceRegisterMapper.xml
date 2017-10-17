@@ -18,6 +18,8 @@
     <result column="state" property="state"/>
     <result column="payment" property="payment"/>
     <result column="sevPrice" property="sevPrice"/>
+    <result column="pettype" property="pettype"/>
+    <result column="petkind" property="petkind"/>
   </resultMap>
 
   <sql id="base_where">
@@ -27,6 +29,27 @@
       </if>
       <if test="keyword_tel!=null">
         AND tel LIKE concat('%',#{keyword_tel},'%')
+      </if>
+      <if test="state==-1">
+
+      </if>
+      <if test="state==0">
+        AND state = 0
+      </if>
+      <if test="state==1">
+        AND state = 1
+      </if>
+      <if test="state==2">
+        AND state = 2
+      </if>
+      <if test="state==3">
+        AND payment = 0
+      </if>
+      <if test="state==4">
+        AND payment = 1
+      </if>
+      <if test="menuText!=null">
+        AND (itemFirst LIKE concat('%',#{menuText},'%') or itemSecond LIKE concat('%',#{menuText},'%'))
       </if>
     </where>
   </sql>
@@ -39,12 +62,12 @@
     insert into petserviceregister (petName, masterName, tel, 
       itemFirst, itemSecond, petAge, petGender,
       selfGood, remark, times, 
-      state, payment, sevPrice
+      state, payment, sevPrice,pettype,petkind
       )
     values (#{petName}, #{masterName}, #{tel}, 
       #{itemFirst}, #{itemSecond}, #{petAge}, #{petGender},
       #{selfGood}, #{remark}, #{times}, 
-      #{state}, #{payment}, #{sevPrice}
+      #{state}, #{payment}, #{sevPrice},#{pettype}, #{petkind}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetServiceRegister" >
@@ -63,7 +86,9 @@
       times = #{times},
       state = #{state},
       payment = #{payment},
-      sevPrice = #{sevPrice}
+      sevPrice = #{sevPrice},
+      pettype = #{pettype},
+      petkind = #{petkind}
     where id = #{id}
   </update>
 
@@ -80,16 +105,21 @@
         endTime = #{endTime}
     where id = #{id}
   </update>
+  <update id="updatePayfor">
+    update petserviceregister
+    SET payment = 1
+    where id = #{id}
+  </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
-    petGender, selfGood, remark, times, state, payment, sevPrice
+    petGender, selfGood, remark, times, state, payment, sevPrice,pettype,petkind
     from petserviceregister
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge, 
-    petGender, selfGood, remark, times, state, payment, sevPrice
+    petGender, selfGood, remark, times, state, payment, sevPrice,pettype,petkind
     from petserviceregister
   </select>
 
@@ -103,10 +133,33 @@
   <select id="queryForList" resultMap="BaseResultMap">
 
     SELECT id, petName, masterName, tel, itemFirst, itemSecond, startTime, endTime, petAge,
-    petGender, selfGood, remark, times, state, payment, sevPrice
+    petGender, selfGood, remark, times, state, payment, sevPrice,pettype,petkind
     FROM petserviceregister
     <include refid="base_where"/>
     LIMIT #{start},#{rows}
+  </select>
+
+  <select id="selectPayEnd" resultMap="BaseResultMap">
+
+    SELECT *
+    FROM petserviceregister
+    WHERE payment = 1
+  </select>
+
+  <!--报表查询-->
+  <select id="selectServiceCountByName" resultType="com._520it.crm.vo.PetServiceChartVO">
+    SELECT itemSecond groupType,
+    COUNT(*) totalCount
+    FROM petserviceregister
+    <include refid="base_where"/>
+    GROUP BY itemSecond
+  </select>
+  <select id="selectServiceTopCountByName" resultType="com._520it.crm.vo.PetServiceChartVO">
+    SELECT itemFirst groupType,
+    COUNT(*) totalCount
+    FROM petserviceregister
+    <include refid="base_where"/>
+    GROUP BY itemFirst
   </select>
 
 </mapper>

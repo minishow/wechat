@@ -9,4 +9,6 @@ public class PetServiceRegisterQueryObject extends QueryObject {
 
     private String keyword_petName;
     private String keyword_tel;
+    private String state;
+    private String menuText;
 }

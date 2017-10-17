@@ -18,4 +18,6 @@ public interface ICashBillService {
     int updateByPrimaryKey(CashBill record);
 
     PageResult query(CashBillQueryObject qo);
+
+    List<CashBill> selectByTypeId(Long typeId);
 }

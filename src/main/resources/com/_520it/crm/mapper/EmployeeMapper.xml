@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com._520it.crm.mapper.EmployeeMapper">
+
     <resultMap id="BaseResultMap" type="com._520it.crm.domain.Employee">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="jobNumber" property="jobNumber" jdbcType="BIGINT"/>
-        <result column="position_id" property="position.id" jdbcType="BIGINT"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="INTEGER"/>
         <result column="tel" property="tel" jdbcType="VARCHAR"/>
@@ -12,19 +12,26 @@
         <result column="resignationTime" property="resignationTime" jdbcType="DATE"/>
         <result column="basePay" property="basePay" jdbcType="DOUBLE"/>
         <result column="idCard" property="idCard" jdbcType="VARCHAR"/>
+
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+
+        <result column="state" property="state" jdbcType="VARCHAR"/>
+
+        <association property="position" javaType="com._520it.crm.domain.Position" columnPrefix="p_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+
     </resultMap>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from employee
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
     <insert id="insert" parameterType="com._520it.crm.domain.Employee" useGeneratedKeys="true" keyProperty="id">
     insert into employee (jobNumber, position_id, name, 
       gender, tel, entryTime, 
-      resignationTime, basePay, idCard
+      resignationTime, basePay, idCard,password
       )
     values (#{jobNumber,jdbcType=BIGINT}, #{position.id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
       #{gender,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{entryTime,jdbcType=DATE}, 
-      #{resignationTime,jdbcType=DATE}, #{basePay,jdbcType=DOUBLE}, #{idCard,jdbcType=VARCHAR}
+      #{resignationTime,jdbcType=DATE}, #{basePay,jdbcType=DOUBLE}, #{idCard,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}
       )
   </insert>
     <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Employee">
@@ -38,32 +45,63 @@
       resignationTime = #{resignationTime,jdbcType=DATE},
       basePay = #{basePay,jdbcType=DOUBLE},
       idCard = #{idCard,jdbcType=VARCHAR}
+      state = #{state}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+    <update id="dimissionByPrimaryKey" parameterType="long">
+      update employee set state=1,resignationTime=NOW() where id = #{id}
+    </update>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, 
-    basePay, idCard
+    basePay, idCard ,state
     from employee
     where id = #{id,jdbcType=BIGINT}
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, 
-    basePay, idCard
+    basePay, idCard,state
     from employee
   </select>
     <sql id="baes_where">
         <where>
-
+            <if test="keyword!=null">
+                and (e.jobNumber like concat('%',#{keyword},'%') or e.name like concat('%',#{keyword},'%'))
+            </if>
         </where>
     </sql>
-    <select id="selectByCount" resultType="java.lang.Long">
-      select count(id) from employee
-      <include refid="baes_where"></include>
-    </select>
-    <select id="selectByPageList" resultType="com._520it.crm.domain.Employee">
-        SELECT id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, basePay, idCard
-        from employee
+    <select id="selectByCount" resultType="long">
+        select count(e.id) from employee e
         <include refid="baes_where"></include>
-        limit #{page},#{start}
     </select>
+
+    <!-- 根据username查询出对象信息 -->
+    <select id="selectEmployeeByUsername" resultMap="BaseResultMap">
+    select id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, 
+    	basePay, idCard,password
+    	from employee
+    where name= #{username,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectByPageList" resultMap="BaseResultMap">
+        select e.id,e.jobNumber,e.name, e.gender, e.tel, e.entryTime, e.resignationTime, e.basePay, e.idCard,e.state,
+        p.id p_id , p.name p_name
+        from employee e LEFT JOIN position p on e.position_id = p.id
+        <include refid="baes_where"></include>
+        limit #{start},#{rows}
+    </select>
+
+    <select id="selectListByLeaveRecord" resultType="com._520it.crm.domain.Employee">
+        select e.id,e.jobNumber,e.name from employee e
+    </select>
+	<!-- 修改密码的方法 -->
+	<update id="updatePasswordByEmployeeId">
+		update employee 
+		set password=#{newPassword}
+		where id=#{employeeId}
+	</update>
+
+
 </mapper>

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/petServiceRegister")
 public class PetServiceRegisterController {
@@ -28,7 +30,15 @@ public class PetServiceRegisterController {
         PageResult result = petServiceRegisterService.queryPage(qo);
         return result;
     }
-    
+
+    @RequestMapping("/selectPayEnd")
+    @ResponseBody
+    public List<PetServiceRegister> selectPayEnd(){
+
+        List<PetServiceRegister> result = petServiceRegisterService.selectPayEnd();
+        return result;
+    }
+
     @RequestMapping("/save")
     @ResponseBody
     public AjaxResult save(PetServiceRegister petServiceRegister){
@@ -42,7 +52,7 @@ public class PetServiceRegisterController {
         }
         return result;
     }
-    
+
     @RequestMapping("/startService")
     @ResponseBody
     public AjaxResult startService(Long id){
@@ -65,6 +75,28 @@ public class PetServiceRegisterController {
         try{
             petServiceRegisterService.endService(id);
             result = new AjaxResult(true,"结束服务成功!");
+        }catch(Exception e){
+            e.printStackTrace();
+            result = new AjaxResult(e.getMessage());
+        }
+        return result;
+    }
+
+    @RequestMapping("/searchById")
+    @ResponseBody
+    public PetServiceRegister searchById(Long id){
+        PetServiceRegister record = petServiceRegisterService.selectByPrimaryKey(id);
+        return record;
+    }
+
+    @RequestMapping("/sevCash")
+    @ResponseBody
+    public AjaxResult sevCash(Long id){
+
+        AjaxResult result = null;
+        try{
+            petServiceRegisterService.updatePayfor(id);
+            result = new AjaxResult(true,"付款成功!");
         }catch(Exception e){
             e.printStackTrace();
             result = new AjaxResult(e.getMessage());

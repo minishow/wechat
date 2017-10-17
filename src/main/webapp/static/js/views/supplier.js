@@ -13,7 +13,6 @@ $(function(){
 	              {field:'tel',title:'联系电话',width:100,align:'center'},    
 	              {field:'info',title:'优势',width:100,align:'center'},    
 	              {field:'product',title:'主供商品',width:100,align:'center',formatter:function(value,row,index){
-	            	  console.log(value);
 	            	  return value?value.name:"";
 	              }},       
 	              {field:'state',title:'是否启用',width:100,align:'center',formatter:function(value,row,index){
@@ -23,7 +22,15 @@ $(function(){
 	            		  return "<span style='color:red'>否</span>";
 	            	  }
 	              }},   
-	              {field:'day',title:'合作天数',width:100,align:'center'}   
+	              {field:'day',title:'合作天数',width:100,align:'center',formatter(value,row,index){
+	            	  /*
+	            	   * 根据一个日期计算距离现在多少天
+	            	   */
+	            	  var myDate=new Date();
+	            	  var myTimeLong=myDate.getTime()-Date.parse(value);
+	            	  var myResult=Math.round(myTimeLong/(24*60*60*1000));
+	            	  return ""+myResult;
+	              }}   
 	          ]] ,
 	    toolbar:"#table_datagrid_tb"
 	});

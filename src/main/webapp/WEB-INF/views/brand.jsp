@@ -17,9 +17,9 @@
 	<div id="table_datagrid_tb">
 		<table>
 			<tr>
-				<td><a class="easyui-linkbutton" data-options="text:'添加品牌',onClick:myAdd"></a><td>
-				<td><a class="easyui-linkbutton" data-options="text:'是否启用',onClick:myDelete"></a><td>
-				<td><input class="easyui-textbox" data-options="buttonText:'查询',onClickButton:mySearch,prompt:'品牌名称'"><td>
+				<td><a class="easyui-linkbutton brand" data-options="text:'添加品牌'" data-cmd="myAdd"></a><td>
+				<td><a class="easyui-linkbutton brand" data-options="text:'是否启用'" data-cmd="myDelete"></a><td>
+				<td><input class="easyui-textbox brand" data-options="buttonText:'查询',prompt:'品牌名称',onClickButton:mySearch"><td>
 			</tr>
 		</table>
 	</div>
@@ -44,8 +44,8 @@
 		</form>
 	</div>
 	<div id="div_dialog_tb">
-		<a class="easyui-linkbutton" data-options="text:'保存',onClick:mySave"></a>
-		<a class="easyui-linkbutton" data-options="text:'取消',onClick:myCancel"></a>
+		<a class="easyui-linkbutton brand" data-options="text:'保存'" data-cmd="mySave"></a>
+		<a class="easyui-linkbutton brand" data-options="text:'取消'" data-cmd="myCancel"></a>
 	</div>
 </body>
 </html>

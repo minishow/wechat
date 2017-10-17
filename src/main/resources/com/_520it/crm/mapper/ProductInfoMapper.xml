@@ -94,13 +94,27 @@ select pi.id, pi.code, pi.name,
     <!-- 高级查询 -->
   <sql id="base_where">
   	<where>
-	  	<if test="keyword!=null">
-	  		and pi.name like concat('%',#{keyword},'%')
+	  	<if test="productName!=null">
+	  		and pi.name like concat('%',#{productName},'%')
+	  	</if>
+	  	<if test="productPartName!=null">
+	  		and pp.name like concat('%',#{productPartName},'%')
+	  	</if>
+	  	<if test="productTypeId!=null">
+	  		and pt.id = #{productTypeId}
+	  	</if>
+	  	<if test="brandId!=null">
+	  		and b.id = #{brandId}
 	  	</if>
   	</where>
   </sql>
   <select id="queryForCount" resultType="long">
   	select count(pi.id) from productinfo pi
+  	left join producttype pt on pi.producttype_id=pt.id
+    left join brand b on pi.brand_id = b.id 
+    left join location l on b.location_id=l.id
+    left join harm h on pi.harm_id = h.id
+    left join productpart pp on pp.id=pi.productpart_id
   	<include refid="base_where"/>
   </select>
   <select id="queryForList" resultMap="BaseResultMap">

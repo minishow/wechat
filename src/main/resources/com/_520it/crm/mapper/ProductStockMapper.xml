@@ -102,9 +102,8 @@
   </select>
 
 
-
-  <!--根据商品69条码查询 库存对象-->
-  <select id="getProductStockByProductinfoCode" resultMap="BaseResultMap">
+    <!--根据商品69条码查询 库存对象-->
+    <select id="getProductStockByProductinfoCode" resultMap="BaseResultMap">
     select ps.id, ps.productInfo_id, ps.supplier_id, ps.packageNumber, ps.bulkNumber, ps.amount, ps.warnNumber,
            ps.storeNumber, ps.incomeDate, ps.outcomeDate,
        pi.id pi_id , pi.code pi_code , pi.name pi_name , pi.price pi_price ,pi.memberPrice pi_memberPrice
@@ -113,6 +112,13 @@
     where pi.code = #{code}
   </select>
 
-
+    <!--根据商品id  查询  库存的整装数量-->
+    <select id="queryPackageNumberByProductInfoId" resultType="int">
+     select packageNumber from ProductStock where productInfo_id = #{productInfoId}
+  </select>
+    <!--根据  商品id  更改 库存的 整装数量-->
+    <update id="updatePackageNumberByProductinfoId">
+      update ProductStock set packageNumber = #{packageNumber} where productInfo_id = #{productinfoId}
+    </update>
 
 </mapper>

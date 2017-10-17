@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.ShopInfoMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.ShopInfo" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="fax" property="fax" jdbcType="VARCHAR" />
-    <result column="location" property="location" jdbcType="VARCHAR" />
-    <result column="time" property="time" jdbcType="DATE" />
-    <result column="img" property="img" jdbcType="VARCHAR" />
-    <result column="info" property="info" jdbcType="VARCHAR" />
-    <!-- 关联员工信息 -->
-    <association property="employee" javaType="Employee">
-    	<id column="e_id" property="id"></id>
-    	<result column="e_name" property="name"/>
-    	<result column="e_tel" property="tel"/>
-    </association>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+<mapper namespace="com._520it.crm.mapper.ShopInfoMapper">
+    <resultMap id="BaseResultMap" type="com._520it.crm.domain.ShopInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="fax" property="fax" jdbcType="VARCHAR"/>
+        <result column="location" property="location" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="DATE"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
+        <result column="info" property="info" jdbcType="VARCHAR"/>
+        <!-- 关联员工信息 -->
+        <association property="employee" javaType="Employee">
+            <id column="e_id" property="id"></id>
+            <result column="e_name" property="name"/>
+            <result column="e_tel" property="tel"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from shopinfo
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.ShopInfo" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="com._520it.crm.domain.ShopInfo" useGeneratedKeys="true" keyProperty="id">
     insert into shopinfo (name, fax, employee_id, 
       location, time, img, info
       )
@@ -28,7 +28,7 @@
       #{location,jdbcType=VARCHAR}, #{time,jdbcType=DATE}, #{img,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ShopInfo" >
+    <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ShopInfo">
     update shopinfo
     set name = #{name,jdbcType=VARCHAR},
       fax = #{fax,jdbcType=VARCHAR},
@@ -38,15 +38,28 @@
       info = #{info,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select s.id, s.name, s.fax,s.location, s.time, s.img, s.info,
     e.id e_id,e.name e_name,e.tel e_tel
     from shopinfo s join employee e on s.employee_id = e.id
     where s.id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+    <select id="selectAll" resultMap="BaseResultMap">
     select s.id, name, s.fax, s.employee_id, s.location, s.time, s.img, s.info
     e.id e_id,e.name e_name,e.tel e_tel
     from shopinfo s join employee e on s.employee_id = e.id
   </select>
+
+  <!-- 更新图片操作 -->
+  <update id="updateImg">
+  	update shopinfo
+  		set img = #{imgName}
+  	where id=#{id}
+  </update>
+
+
+  <select id="queryShopNameByEmployeeId" resultType="string">
+      select name from shopinfo where employee_id = #{employeeId}
+  </select>
+
 </mapper>

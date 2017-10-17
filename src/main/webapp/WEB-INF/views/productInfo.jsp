@@ -15,16 +15,28 @@
 <body>
 	<table id="table_datagrid"></table>
 	<div id="table_datagrid_tb">
+		<form id="searchForm" method="post">
 		<table>
 			<tr>
 				<td><a class="easyui-linkbutton" data-options="text:'添加商品信息',onClick:myAdd"></a><td>
 				<td><a class="easyui-linkbutton" data-options="text:'是否启用',onClick:myDelete"></a><td>
-				<td><input class="easyui-textbox" data-options="buttonText:'查询',onClickButton:mySearch,prompt:'商品名称'"><td>
+				<td>
+						<input class="easyui-textbox" data-options="label:'商品名称:',labelPosition:'left',
+							width:200,height:22" name="productName">
+						<input class="easyui-textbox" data-options="label:'商品成分:',labelPosition:'left',
+							width:200,height:22" name="productPartName">
+						<input id="input_combobox_form_productType" name="productTypeId"/>
+						<input id="input_combobox_form_brand" name="brandId"/>
+				<td>
+				<td>
+					<a class="easyui-linkbutton" data-options="text:'查询',onClick:mySearch"></a>
+				</td>
 			</tr>
 		</table>
+		</form>
 	</div>
 	<div id="div_dialog">
-		<form method="post" id="div_dialog_post">
+		<form method="post" id="div_dialog_post" enctype="multipart/form-data">
 			<div style="float: left">
 				<table>
 					<tr>
@@ -53,7 +65,8 @@
 					<tr>
 						<td>
 							<!-- 商品照片 -->
-							<input  class="easyui-textbox"  name="img" data-options="prompt:'请输入商品图片',label:'商品图片',labelPosition:'left'">
+							<input class="easyui-filebox"  name="imgFile" data-options="prompt:'请输入商品图片',label:'商品图片',labelPosition:'left',
+							width:300,buttonText:'请选择要上传的图片'">
 						</td>
 					</tr>
 				</table>

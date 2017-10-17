@@ -50,7 +50,7 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
+    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark,email
     from memberinfo
   </select>
 
@@ -58,5 +58,38 @@
     select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
     from memberinfo where number = #{number}
   </select>
+
+
+  <!--宠物服务需要的方法-->
+  <resultMap id="petServiceResultMap" type="com._520it.crm.domain.MemberInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="vipClass" property="vipClass" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="adress" property="adress" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <!--宠物查询-->
+    <collection property="petinfos" ofType="PetInfo" column="id"
+      select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">
+    </collection>
+  </resultMap>
+  <select id="queryInfoByMemberId" resultMap="petServiceResultMap" parameterType="java.lang.Long" >
+    select id, number, name, vipClass, balance, tel, gender, birthday, adress, remark
+    from memberinfo
+    where number = #{memberId}
+  </select>
+
+  <!--根据会员id查询 余额-->
+  <select id="queryBalanceByMemberId" resultType="double">
+    select balance from MemberInfo where id = #{memberId}
+  </select>
+
+  <update id="updateMemberBalanceByMember" >
+    update MemberInfo set balance = #{balance} where id = #{memberId}
+  </update>
 
 </mapper>

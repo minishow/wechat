@@ -1,6 +1,9 @@
 package com._520it.crm.mapper;
 
+import com._520it.crm.domain.Location;
 import com._520it.crm.domain.PetType;
+import com._520it.crm.query.PetTypeQueryObject;
+
 import java.util.List;
 
 public interface PetTypeMapper {
@@ -13,4 +16,10 @@ public interface PetTypeMapper {
     List<PetType> selectAll();
 
     int updateByPrimaryKey(PetType petType);
+
+	Long queryForCount(PetTypeQueryObject qo);
+
+	List<Location> queryForList(PetTypeQueryObject qo);
+
+	void changeState(Long id);
 }

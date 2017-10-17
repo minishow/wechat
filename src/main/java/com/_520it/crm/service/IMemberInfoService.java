@@ -20,5 +20,8 @@ public interface IMemberInfoService {
 
     PageResult queryMemberByList(MemberInfoQueryObject qo);
 
+    //宠物服务需要的方法
+    MemberInfo queryInfoByMemberId(String memberId);
+
     MemberInfo queryMemberByNumber(String number);
 }

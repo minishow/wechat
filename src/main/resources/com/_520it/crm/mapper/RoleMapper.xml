@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Role" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <!-- <result column="userName" property="userName" jdbcType="VARCHAR" /> -->
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <!-- <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="loginTime" property="loginTime" jdbcType="DATE" />
+    <result column="establishTime" property="establishTime" jdbcType="DATE" />
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" /> -->
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com._520it.crm.domain.Role" useGeneratedKeys="true" keyProperty="id" >
+    <!-- insert into role (userName, name, tel, 
+      loginTime, establishTime, roleName
+      )
+    values (#{userName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
+      #{loginTime,jdbcType=DATE}, #{establishTime,jdbcType=DATE}, #{roleName,jdbcType=VARCHAR}
+      ) -->
+    insert into role (name,sn)
+    values ( #{name,jdbcType=VARCHAR},#{sn,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Role" >
+    update role
+    set 
+      name = #{name,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select  name,id,sn
+    from role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name,sn
+    from role
+  </select>
+
+  <select id="selectByCount" resultType="long">
+    select count(id)
+    from role
+  </select>
+
+  <select id="selectByPageList" resultType="com._520it.crm.domain.Role">
+    select id,name,sn
+    limit #{start},#{rows}
+  </select>
+  <!-- 根据员工的id查询拥有的全部角色 -->
+  <select id="queryRolesByEmployeeId" resultMap="BaseResultMap">
+  	select r.id,r.name,r.sn
+  	from role r join employee_role er on r.id=er.role_id
+  	where er.employee_id=#{id}
+  </select>
+</mapper>

@@ -1,16 +1,17 @@
 package com._520it.crm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
 public class MemberInfo {
-
 
     private Long id;//会员ID
 
@@ -26,6 +27,8 @@ public class MemberInfo {
 
     private Integer gender;//性别
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date birthday;//生日时间
 
     private String adress;//会员地址
@@ -33,5 +36,7 @@ public class MemberInfo {
     private String remark;//备注
 
     private List<PetInfo> petinfos;//宠物ID
+
+    private String email;
 
 }
