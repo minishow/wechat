@@ -79,7 +79,7 @@
 	                </div>
                 </shiro:hasRole>
                 <shiro:hasRole name="pay">
-	                <div id="payNav" onclick="addtab('收银管理','payNav','cashbillitem');" style="margin-top: 30px">
+	                <div id="payNav" onclick="addtab('收银管理','payNav','/cashbillitem');" style="margin-top: 30px">
 	                    <img src="/static/pics/sysicon/sygl.png" />
 	                    <a class="aStyle" style="float:left;" href="#">收银管理</a>
 	                </div>

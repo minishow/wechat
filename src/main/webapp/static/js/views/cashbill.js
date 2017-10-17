@@ -1,12 +1,11 @@
 $(function () {
     $("#cashBill_datagrid").datagrid({
+        fit:true,
         singleSelect:true, /*只选择一个*/
         striped:true, /*斑马线*/
         rownumbers:true, /*行号列*/
         pagination:true, /*分页*/
         fitColumns:true,
-        width:1350,
-        height:590,
         url:"/cashbill/list",
         columns:[[
             {field:'sn',title:'订单编号',width:10,align:'center'},
