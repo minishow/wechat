@@ -46,7 +46,7 @@
                     <td>实收金额:<input id="reallyMoney" type="text"><span>元</span></td>
                     <td>
                         收款方式:
-                        <select id="paymentTerm" name="paymentTerm" style="width:80px;">
+                        <select id="paymentTerm" name="paymentTerm"  style="width:80px;">
                             <option value="1">现金</option>
                             <option value="2">微信</option>
                             <option value="3">支付宝</option>
@@ -54,12 +54,28 @@
                         </select>
                     </td>
                     <td><a id="accountsBtn" class="easyui-linkbutton"
-                           style="color: #fdfdfd; background-color: #e68900 ; width: 150px;height: 30px"><h2>结账</h2>
-                    </a></td>
+                           style="color: #fdfdfd; background-color: #e68900 ; width: 150px;height: 30px"><h2>结账</h2> </a>
+                    </td>
+                    <td><a id="orderbill" class="easyui-linkbutton"
+                           style="color: #fdfdfd; background-color: #e68900 ; width: 150px;height: 30px"><h2>挂单</h2> </a>
+                    </td>
+                    <td><a id="ordertime" class="easyui-linkbutton"
+                           style="color: #fdfdfd; background-color: #e68900 ; width: 150px;height: 30px"><h2>取单</h2></a>
+                    </td>
                 </tr>
             </table>
         </form>
     </div>
 </form>
+<%--取单对话框--%>
+<div id="orderbillitem_dialog">
+    <table id="orderbillitem_datagrid"></table>
+</div>
+
+<%--对话框的下部按钮--%>
+<div id="orderbillitem_dialog_bt">
+   <a id="affirm" class="easyui-linkbutton" >确认</a>
+   <a id="cancel" class="easyui-linkbutton" >取消</a>
+</div>
 </body>
 </html>
