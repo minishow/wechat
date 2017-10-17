@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 @Setter
 @ToString
-public class stockObject {
+public class StockObject {
     private Long stockIncomeId;
     private Long specificId;
     private Long productInfoId;
@@ -20,7 +20,7 @@ public class stockObject {
     private Long openStockId;
     private BigDecimal costPrice;
     private BigDecimal memberPrice;
-     private String inputTime;
+    private String inputTime;
     private String warnDate;
     private String survivalTime;
     private  Integer number;
@@ -58,7 +58,7 @@ public class stockObject {
 
     public Long getProductInfoId() {
         if (productInfoId==null){
-          return 0L;
+            return 0L;
         }
         return productInfoId;
     }

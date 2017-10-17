@@ -33,7 +33,7 @@ public interface ProductStockMapper {
     /**
      * 根据  商品id  更改 库存的 整装数量
      * @param packageNumber
-     * @param id
+     * @param productinfoId
      */
     void updatePackageNumberByProductinfoId(@Param("packageNumber") Integer packageNumber, @Param("productinfoId")Long productinfoId);
 }

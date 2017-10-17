@@ -177,10 +177,10 @@ public class StockOprationBillServiceImpl implements IStockOprationBillService {
                             BigDecimal bigDecimal = new BigDecimal(number);
                             BigDecimal amount = stock.getAmount().subtract(sob.getCostPrice().multiply(bigDecimal));
                             stock.setAmount(amount);//sssssssssssssssssssssss
-                            stock.setBulkNumber(sob.getOpenStockNumber()+stock.getWarnNumber());//sssssssssssssssssssssssss
+                            stock.setBulkNumber(stock.getBulkNumber()-sob.getOpenStockNumber());//sssssssssssssssssssssssss
                             stock.setOutcomeDate(new Date());
-                            stock.setPackageNumber(sob.getNumber()+stock.getPackageNumber());//sssssssssssssssssssssss
-                            stock.setStoreNumber(number+stock.getStoreNumber());//sssssssssssssssssssssssssssss
+                            stock.setPackageNumber(stock.getPackageNumber()-sob.getNumber());//sssssssssssssssssssssss
+                            stock.setStoreNumber(stock.getStoreNumber()-number);//sssssssssssssssssssssssssssss
                             productStockMapper.deleteByPrimaryKey(stock.getId());
                             productStockMapper.insert(stock);
                         }else if(!ids.contains(stockList.getProductInfoId())){

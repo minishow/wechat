@@ -6,22 +6,22 @@
     <!-- <result column="userName" property="userName" jdbcType="VARCHAR" /> -->
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="sn" property="sn" jdbcType="VARCHAR" />
-    <!-- <result column="tel" property="tel" jdbcType="VARCHAR" />
+     <result column="tel" property="tel" jdbcType="VARCHAR" />
     <result column="loginTime" property="loginTime" jdbcType="DATE" />
     <result column="establishTime" property="establishTime" jdbcType="DATE" />
-    <result column="roleName" property="roleName" jdbcType="VARCHAR" /> -->
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from role
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.Role" useGeneratedKeys="true" keyProperty="id" >
-    <!-- insert into role (userName, name, tel, 
+     insert into role (userName, name, tel,
       loginTime, establishTime, roleName
       )
     values (#{userName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
       #{loginTime,jdbcType=DATE}, #{establishTime,jdbcType=DATE}, #{roleName,jdbcType=VARCHAR}
-      ) -->
+      )
     insert into role (name,sn)
     values ( #{name,jdbcType=VARCHAR},#{sn,jdbcType=VARCHAR}
       )

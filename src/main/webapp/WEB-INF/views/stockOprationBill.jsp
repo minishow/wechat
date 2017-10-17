@@ -182,24 +182,24 @@
                     var  rowDates = $("#" + table).datagrid("getRows");
                     $("#jsonString_text").form("submit", {
                         url: url,
-                        onSubmit: function (param) {
+                        onSubmit: function (para) {
                             console.log(rowDates);
                             for (var i = 0; i < rowDates.length; i++) {
-                                param["stockObjects[" + i + "].productInfoId"] = rowDates[i]['productInfo.name'];
-                                param["stockObjects[" + i + "].productionPrice"] = rowDates[i]['productionPrice'];
-                                param["stockObjects[" + i + "].costPrice"] = rowDates[i].costPrice;
-                                param["stockObjects[" + i + "].memberPrice"] = rowDates[i].memberPrice;
-                                param["stockObjects[" + i + "].number"] = rowDates[i].number;
-                                param["stockObjects[" + i + "].stockIncomeId"] = rowDates[i]['stockIncome.id'];
-                                param["stockObjects[" + i + "].productStockSn"] = rowDates[i]['productStock.sn'];
-                                param["stockObjects[" + i + "].specificNumber"] = rowDates[i]['specific.number'];
-                                param["stockObjects[" + i + "].specificId"] = rowDates[i]['specific.id'];
-                                param["stockObjects[" + i + "].openStockId"] = rowDates[i]['specific.stockSpecific'];
-                                param["stockObjects[" + i + "].inputTime"] = rowDates[i].inputTime;
-                                param["stockObjects[" + i + "].survivalTime"] = rowDates[i].survivalTime;
-                                param["stockObjects[" + i + "].warnDate"] = rowDates[i].warnDate;
-                                param["stockObjects[" + i + "].warnNumber"] = rowDates[i].warnNumber;
-                                param["stockObjects[" + i + "].operation"] = rowDates[i].operation;
+                                para["stockObjects[" + i + "].productInfoId"] = rowDates[i]['productInfo.name'];
+                                para["stockObjects[" + i + "].productionPrice"] = rowDates[i]['productionPrice'];
+                                para["stockObjects[" + i + "].costPrice"] = rowDates[i].costPrice;
+                                para["stockObjects[" + i + "].memberPrice"] = rowDates[i].memberPrice;
+                                para["stockObjects[" + i + "].number"] = rowDates[i].number;
+                                para["stockObjects[" + i + "].stockIncomeId"] = rowDates[i]['stockIncome.id'];
+                                para["stockObjects[" + i + "].productStockSn"] = rowDates[i]['productStock.sn'];
+                                para["stockObjects[" + i + "].specificNumber"] = rowDates[i]['specific.number'];
+                                para["stockObjects[" + i + "].specificId"] = rowDates[i]['specific.id'];
+                                para["stockObjects[" + i + "].openStockId"] = rowDates[i]['specific.stockSpecific'];
+                                para["stockObjects[" + i + "].inputTime"] = rowDates[i].inputTime;
+                                para["stockObjects[" + i + "].survivalTime"] = rowDates[i].survivalTime;
+                                para["stockObjects[" + i + "].warnDate"] = rowDates[i].warnDate;
+                                para["stockObjects[" + i + "].warnNumber"] = rowDates[i].warnNumber;
+                                para["stockObjects[" + i + "].operation"] = rowDates[i].operation;
 
                             }
                             if (param == 'all_inStock') {
@@ -358,7 +358,7 @@
                     </th>
                     </tr>
                     <tr>
-                        <th colspan="4">
+                        <th >
                             </p>
                             <input id="warn_number" name="warnNumber" class="easyui-numberbox" iconCls="icon-man"
                                    data-options="label:'预警数量',width:250,prompt:'设置预警数量'"/></br>
@@ -392,7 +392,7 @@
 
 </div>
 
-<div data-options="region:'south',border:false" style="height:76%">
+<div data-options="region:'south',border:false" style="height:70%">
     <table id="datagrip_show" style="color:red">
 
     </table>

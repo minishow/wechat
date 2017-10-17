@@ -11,10 +11,10 @@
     <result column="paymentTerm" property="paymentTerm"  />
     <result column="employeeName" property="employeeName" />
     <result column="shopName" property="shopName"/>
-    <association property="memberId" javaType="MemberInfo" columnPrefix="m_">
+ <!--   <association property="memberId" javaType="MemberInfo" columnPrefix="m_">
         <id column="id" property="id"/>
         <result column="number" property="number"/>
-    </association>
+    </association>-->
     <collection property="items" ofType="CashBillItem" column="id"
                 select="com._520it.crm.mapper.CashBillItemMapper.queryItemsByBillId"/>
   </resultMap>

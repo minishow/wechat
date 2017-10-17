@@ -34,5 +34,5 @@ public class ProductStock {
     private Date incomeDate;
     @DateTimeFormat(pattern = "yyy-MM-dd")
     @JsonFormat(pattern = "yyy-MM-dd",timezone = "GTM+8")
-private Date outcomeDate;
-        }
+    private Date outcomeDate;
+}
