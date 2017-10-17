@@ -50,7 +50,16 @@
     from shopinfo s join employee e on s.employee_id = e.id
   </select>
 
+  <!-- 更新图片操作 -->
+  <update id="updateImg">
+  	update shopinfo
+  		set img = #{imgName}
+  	where id=#{id}
+  </update>
+
+
   <select id="queryShopNameByEmployeeId" resultType="string">
       select name from shopinfo where employee_id = #{employeeId}
   </select>
+
 </mapper>

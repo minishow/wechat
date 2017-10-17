@@ -4,38 +4,41 @@ $(function () {
     cashBillChartDatagird.datagrid({
         fit:true,
         fitColumns: true,
-        url:"/cashBillChart/list",
-        toolbar: "#cashBillChart_datagrid_tb",
+        url:"/chart/queryCashBillList",
         pagination: true,
         rownumbers: true,
         singleSelect: true,
         columns: [
             [
-                {field: "name", title: "权限名称", width: "45%", align: "center"},
-                {field: "resource", title: "权限表达式", width: "55%", align: "center"}
+                {field: "sn", title: "订单编号", width: 100, align: "center"},
+                {field: "totalNumber", title: "消费总数量", width: 100, align: "center"},
+                {field: "totalAmount", title: "消费总金额(RMB)", width: 100, align: "center"},
+                {field: "paymentTerm", title: "消费方式", width: 100, align: "center",formatter:paymentFormatter}
             ]
         ]
     });
-    //同一管理方法
-    var cmdObj = {
-        reload : function() {
-            $.messager.confirm("温馨提示","确定要加载权限吗?",function (yes) {
-                if (yes) {
-                    $.get("/cashBillChart/reload",function (data) {
-                        if (data.success) {
-                            $.messager.alert("温馨提示",data.msg,"info",function () {
-                                cashBillChartDatagird.datagrid('reload');
-                            });
-                        } else {
-                            $.messager.alert("温馨提示",data.msg,"error");
-                        }
-                    },"json");
-                }
-            });
+    $("#selectCash").combobox({
+        width: 190,
+        label: '消费方式:',
+        valueField: 'id',
+        textField: 'name',
+        value:'0',
+        url: '/static/js/data/selectCash.json',
+        onSelect: function (record) {
+            $.get("/chart/queryCashType?typeId="+record.id,function (data) {
+                cashBillChartDatagird.datagrid('loadData',data);
+            })
         }
-    };
-    $("a[data-cmd]").on('click',function () {
-        var cmd = $(this).data('cmd');
-        cmdObj[cmd]();
-    });
+    })
 });
+function paymentFormatter(value,record,index) {
+    if (value == 1) {
+        return "现金消费";
+    } else if (value == 2) {
+        return "微信付款";
+    } else if (value == 3) {
+        return "支付宝付款";
+    } else {
+        return "会员卡内消费";
+    }
+}

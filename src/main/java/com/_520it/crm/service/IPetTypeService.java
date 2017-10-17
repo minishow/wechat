@@ -3,6 +3,8 @@ package com._520it.crm.service;
 import java.util.List;
 
 import com._520it.crm.domain.PetType;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.PetTypeQueryObject;
 
 public interface IPetTypeService {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +16,8 @@ public interface IPetTypeService {
     List<PetType> selectAll();
 
     int updateByPrimaryKey(PetType petType);
+
+	PageResult query(PetTypeQueryObject qo);
+
+	void changeState(Long id);
 }

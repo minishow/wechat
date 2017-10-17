@@ -1,5 +1,7 @@
 package com._520it.crm.web.controller;
 
+import com._520it.crm.domain.CashBill;
+import com._520it.crm.service.ICashBillService;
 import com._520it.crm.service.IPetServiceRegisterService;
 import com._520it.crm.vo.PetServiceChartVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/chart")
@@ -18,6 +17,8 @@ public class ChartController {
 
     @Autowired
     private IPetServiceRegisterService petServiceRegisterService;
+    @Autowired
+    private ICashBillService cashBillService;
 
     @RequestMapping("")
     public String main(){
@@ -31,6 +32,10 @@ public class ChartController {
     @RequestMapping("/lineJsp")
     public String lineJsp() {
         return "serviceChartByLine";
+    }
+    @RequestMapping("/cashBillJsp")
+    public String cashBillJsp() {
+        return "cashBillChart";
     }
 
     @RequestMapping("/serviceChartByPie")
@@ -126,5 +131,24 @@ public class ChartController {
         map.put("groupList",groupList);
 
         return map;
+    }
+
+    @RequestMapping("/queryCashBillList")
+    @ResponseBody
+    public List<CashBill> list(){
+        List<CashBill> result = cashBillService.selectAll();
+        return result;
+    }
+
+    @RequestMapping("/queryCashType")
+    @ResponseBody
+    public List<CashBill> queryCashType(Long typeId){
+        List<CashBill> result = new ArrayList<>();
+        if (typeId == 0) {
+            result = cashBillService.selectAll();
+        } else {
+            result = cashBillService.selectByTypeId(typeId);
+        }
+        return result;
     }
 }

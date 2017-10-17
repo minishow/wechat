@@ -87,4 +87,16 @@
     limit #{start},#{rows}
   </select>
 
+<<<<<<< HEAD
+=======
+
+  <select id="selectByTypeId" resultMap="BaseResultMap" >
+    select id, sn, member_id, shopName, orderTime, totalNumber, totalAmount, employeeName,
+    paymentTerm
+    from cashbill
+    WHERE paymentTerm = #{typeId}
+  </select>
+
+
+>>>>>>> dec2b6a5f90d0dab3820ccc6d2795e8f35f3ff28
 </mapper>

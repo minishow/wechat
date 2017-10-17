@@ -7,7 +7,7 @@
     <result column="sn" property="sn" jdbcType="VARCHAR" />
     <result column="person" property="person" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
-    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="day" property="day"  />
     <result column="tel" property="tel" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
@@ -26,7 +26,7 @@
       tel, address, state
       )
     values (#{name,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR}, #{person,jdbcType=VARCHAR}, 
-      #{product.id,jdbcType=BIGINT}, #{info,jdbcType=VARCHAR}, #{day,jdbcType=INTEGER}, 
+      #{product.id,jdbcType=BIGINT}, #{info,jdbcType=VARCHAR}, #{day}, 
       #{tel,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
       )
   </insert>
@@ -37,7 +37,7 @@
       person = #{person,jdbcType=VARCHAR},
       product_id = #{product.id,jdbcType=BIGINT},
       info = #{info,jdbcType=VARCHAR},
-      day = #{day,jdbcType=INTEGER},
+      day = #{day},
       tel = #{tel,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       state = #{state,jdbcType=INTEGER}

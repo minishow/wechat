@@ -19,4 +19,8 @@ public interface IRoleService {
     int updateByPrimaryKey(Role record);
 
     PageResult queryByPageList(RoleQueryObject qo);
+    /*
+     * 根据员工的id查询全部的角色列表
+     */
+	List<Role> queryRolesByEmployeeId(Long id);
 }

@@ -43,7 +43,7 @@ $(function(){
 	            	  }
 	              }},   
 	              {field:'img',title:'图片',width:100,align:'center',formatter:function(value,row,index){
-	            	  return "<img src="+value+"/>";
+            	  return "<img style='width:20%;height:20%' src='/static/img/productInfo/"+value+"'/>";
 	              }}   
 	          ]] ,
 	    toolbar:"#table_datagrid_tb"
@@ -99,6 +99,28 @@ $(function(){
 		label:"过敏物",
 		labelPosion:"left"
 	});
+	
+	$("#input_combobox_form_productType").combobox({
+		url:"/productType/list",
+		valueField:"id",
+		textField:"name",
+		editable:false,
+		multiple:false,
+		prompt:"请选择商品类别信息",
+		label:"商品类别",
+		labelPosion:"left"
+	});
+	$("#input_combobox_form_brand").combobox({
+		url:"/brand/list",
+		valueField:"id",
+		textField:"name",
+		editable:false,
+		multiple:false,
+		prompt:"请选择商品品牌信息",
+		label:"商品品牌",
+		labelPosion:"left"
+	});
+	
 	$("#input_combobox_state").combobox({
 		valueField:"id",
 		textField:"text",
@@ -120,6 +142,9 @@ $(function(){
 	$("#div_dialog_post").form({
 		
 	});
+	$("#searchForm").form({
+		
+	});
 });
 
 function myAdd(){
@@ -129,9 +154,17 @@ function myAdd(){
 }
 function mySearch(){
 	/*获取输入框的文本信息,作为关键字去后台查询*/
-	var keyword=$(this).val();
+	/*var keyword=$(this).val();
 	$("#table_datagrid").datagrid("load",{
 		keyword:keyword
+	});*/
+	/*提交表单,进行查询*/
+	$("#searchForm").form("submit",{
+		url:"/productInfo/query",
+		success:function(myData){
+			var data=$.parseJSON(myData);
+			$("#table_datagrid").datagrid("loadData",data);
+		}
 	});
 }
 function mySave(){

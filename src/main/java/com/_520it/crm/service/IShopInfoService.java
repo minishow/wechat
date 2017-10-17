@@ -14,4 +14,8 @@ public interface IShopInfoService {
     List<ShopInfo> selectAll();
 
     int updateByPrimaryKey(ShopInfo shopInfo);
+
+	ShopInfo queryMessagesOfBoss();
+
+	void updateImg(Long id, String imgName);
 }

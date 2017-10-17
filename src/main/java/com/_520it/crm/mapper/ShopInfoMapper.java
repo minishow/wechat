@@ -1,7 +1,10 @@
 package com._520it.crm.mapper;
 
-import com._520it.crm.domain.ShopInfo;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com._520it.crm.domain.ShopInfo;
 
 public interface ShopInfoMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,10 +17,14 @@ public interface ShopInfoMapper {
 
     int updateByPrimaryKey(ShopInfo shopInfo);
 
+
+	void updateImg(@Param("id")Long id, @Param("imgName")String imgName);
+
     /**
      * 根据员工id查询店铺名称
      * @param employeeId
      * @return
      */
     String queryShopNameByEmployeeId(Long employeeId);
+
 }

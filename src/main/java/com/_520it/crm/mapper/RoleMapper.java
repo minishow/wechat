@@ -22,4 +22,10 @@ public interface RoleMapper {
     Long selectByCount(RoleQueryObject qo);
 
     List<Role> selectByPageList(RoleQueryObject qo);
+    /**
+     * 根据员工id查询拥有的全部角色
+     * @param id
+     * @return
+     */
+	List<Role> queryRolesByEmployeeId(Long id);
 }
