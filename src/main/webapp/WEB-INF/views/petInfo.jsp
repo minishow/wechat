@@ -47,8 +47,6 @@
         <a class="easyui-linkbutton" iconCls="icon-edit" data-cmd="addMember">增加会员</a>
         <a class="easyui-linkbutton" id="deleBtn" iconCls="icon-remove" data-cmd="addPet">增加宠物</a>
         <a class="easyui-linkbutton" id="editBtn" iconCls="icon-reload" data-cmd="refrech">退卡</a>
-        <a class="easyui-linkbutton" iconCls="icon-reload" href="/excel">导入会员</a>
-
 
         <a class="easyui-linkbutton" href="/memberTop" id="topBtn" iconCls="icon-reload"
            style="float:right;margin-right: 60px">充值记录</a>

@@ -11,9 +11,9 @@
     <result column="tel" property="tel" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
    <result column="state" property="state" jdbcType="INTEGER" />
-    <association property="product" javaType="ProductInfo">
+    <association property="product" javaType="com._520it.crm.domain.ProductInfo">
     	<id column="pi_id" property="id" jdbcType="BIGINT" />
-    	<result column="pi_name" property="name" jdbcType="VARCHAR"></result>
+    	<result column="pi_name" property="name" jdbcType="VARCHAR"/>
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >

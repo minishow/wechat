@@ -14,10 +14,10 @@
 
         <!--<result column="vipClass" property="vipClass" jdbcType="VARCHAR" />-->
 
-        <association property="petType" javaType="com._520it.crm.domain.MemberLevel">
+        <!--<association property="petType" javaType="com._520it.crm.domain.MemberLevel">
             <id property="id" column="L_id"/>
             <result property="name" column="L_name"/>
-        </association>
+        </association>-->
 
         <!--会员等级-->
         <collection property="vipClass" ofType="MemberLevel" column="id"
@@ -33,24 +33,6 @@
 
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-<mapper namespace="com._520it.crm.mapper.MemberInfoMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.MemberInfo" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="number" property="number" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="vipClass" property="vipClass" jdbcType="VARCHAR" />
-    <result column="balance" property="balance" jdbcType="DOUBLE" />
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="INTEGER" />
-    <result column="birthday" property="birthday" jdbcType="DATE" />
-    <result column="adress" property="adress" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <!--宠物查询-->
-  <collection property="petinfos" ofType="Petinfo" column="id"
-      select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">
-    </collection>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from memberinfo
     where id = #{id,jdbcType=BIGINT}
   </delete>
@@ -149,16 +131,15 @@
                   FROM cashbill ca
 				 	LEFT JOIN cashbillitem cs ON ca.id =cs.bill_id
 					 left JOIN productinfo info ON cs.product_id=info.id
-
   </select>
 
 
-  <!--根据会员id查询 余额-->
-  <select id="queryBalanceByMemberId" resultType="double">
+    <!--根据会员id查询 余额-->
+    <select id="queryBalanceByMemberId" resultType="double">
     select balance from MemberInfo where id = #{memberId}
   </select>
 
-  <update id="updateMemberBalanceByMember" >
+    <update id="updateMemberBalanceByMember">
     update MemberInfo set balance = #{balance} where id = #{memberId}
   </update>
 
