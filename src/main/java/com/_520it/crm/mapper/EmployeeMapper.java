@@ -31,4 +31,6 @@ public interface EmployeeMapper {
 
 	void updatePasswordByEmployeeId(@Param("newPassword")String newPassword, @Param("employeeId")Long id);
 
+	Employee checkEmailToDB(String email);
+
 }

@@ -13,7 +13,7 @@ $(function(){
 					options:{
 						content:"<iframe src='/"+myUrl+"'></iframe>"
 					}
-				})
+				});
 			}
 		}
 	});

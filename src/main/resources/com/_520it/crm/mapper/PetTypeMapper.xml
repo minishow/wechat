@@ -26,7 +26,7 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name,state
+    select id,name,state
     from pettype
   </select>
   

@@ -1,12 +1,12 @@
 package com._520it.crm.util;
 
+import java.util.Date;
 import java.util.Properties;
+
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
-import java.util.Date;
 
 public class SendMail {
 
@@ -21,12 +21,14 @@ public class SendMail {
     public static String myEmailSMTPHost = "smtp.163.com";
 
     // 收件人邮箱（替换为自己知道的有效邮箱）
-    public static String receiveMailAccount = "405806408@qq.com";
+    /*public static String receiveMailAccount = "405806408@qq.com";*/
+    public static String receiveMailAccount = "manolin_m@163.com";
 
     public static String fromName;//发送人名字
     public static String receiveName;//接收人名字
-    public static String mailTitle;//邮件主题
-    public static String mailText;//邮件文本
+    public static String mailTitle="";//邮件主题
+    public static String mailText="";//邮件文本
+
 
     public static void sendMail() throws Exception {
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
@@ -115,5 +117,48 @@ public class SendMail {
 
         return message;
     }
-
+    
+    /**
+     * 
+     * 发送邮件的方法
+     * 
+     * 
+     * @param sendPerson 发件人邮箱
+     * @param recievePerson 收件人邮箱
+     * @param sendPersonName 发件人名称
+     * @param receivePersonName 收件人名称
+     * @param emailTitle 邮件的标题
+     * @param emailText 邮件的正文
+     * @throws Exception
+     */
+    public static void  sendEasyMail(String sendPerson,String recievePerson,String sendPersonName,
+    		String receivePersonName,String emailTitle,String emailText) throws Exception {
+    	 // 1. 创建一封邮件
+        Properties props = new Properties();                // 用于连接邮件服务器的参数配置（发送邮件时才需要用到）
+        props.setProperty("mail.transport.protocol", "smtp");   // 使用的协议（JavaMail规范要求）
+        props.setProperty("mail.smtp.host", myEmailSMTPHost);   // 发件人的邮箱的 SMTP 服务器地址
+        props.setProperty("mail.smtp.auth", "true");            // 需要请求认证
+        Session session= Session.getDefaultInstance(props); // 根据参数配置，创建会话对象（为了发送邮件准备的）
+        MimeMessage message = new MimeMessage(session);     // 创建邮件对象
+        // 2. From: 发件人
+        //    其中 InternetAddress 的三个参数分别为: 邮箱, 显示的昵称(只用于显示, 没有特别的要求), 昵称的字符集编码
+        //    真正要发送时, 邮箱必须是真实有效的邮箱。
+        message.setFrom(new InternetAddress(sendPerson, sendPersonName, "UTF-8"));
+        // 3. To: 收件人
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(recievePerson, receivePersonName, "UTF-8"));
+        // 4. Subject: 邮件主题
+        message.setSubject(emailTitle, "UTF-8");
+        // 5. Content: 邮件正文（可以使用html标签）
+        message.setContent(emailText, "text/html;charset=UTF-8");
+        // 6. 设置显示的发件时间
+        message.setSentDate(new Date());
+        // 7. 保存前面的设置
+        message.saveChanges();
+        // 8. 将该邮件保存到本地
+        session.setDebug(true); // 设置为debug模式, 可以查看详细的发送 log
+        Transport transport = session.getTransport();
+        transport.connect(SendMail.myEmailAccount, SendMail.myEmailPassword);
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
+    }
 }

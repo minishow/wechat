@@ -111,12 +111,12 @@
 				</tr>
 				<tr>
 					<td><input type="button" value="安全登录" id="loginBtn"></td>
-					<td><input type="reset" value="重置"></td>
+					<td><input type="reset" value="重置数据"></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td><a href="/login/register">马上注册</a></td>
-					<td><a>忘记密码</a></td>
+					<td><span>还没有帐号,立马</span><a href="/login/register" style="text-decoration: none;color: blue;">注册</a></td>
+					<td><a href="/login/findPassword" style="text-decoration: none;color: blue;" >忘记密码</a></td>
 				</tr>
 			</table>
 		</form>

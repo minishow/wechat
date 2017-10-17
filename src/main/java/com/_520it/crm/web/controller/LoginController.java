@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com._520it.crm.domain.Employee;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.service.IEmployeeService;
+import com._520it.crm.util.SendMail;
 import com._520it.crm.util.VerifyCodeUtils;
 
 
@@ -86,6 +87,32 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new AjaxResult(false,"删除成功");
+		}
+	}
+	@RequestMapping("/sendCodeByEmail")
+	@ResponseBody
+	public AjaxResult sendCodeByEmail(String email){
+		/*得到一个随机的验证码*/
+		String randomCode=VerifyCodeUtils.generateVerifyCode(8);
+		try {
+			SendMail.sendEasyMail(SendMail.myEmailAccount, email, "baiyaa", 
+					"hello", "注册验证码", randomCode);
+			/*把随机码给前台去校验*/
+			return new AjaxResult(true,"发送成功"+"="+randomCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new AjaxResult(false,"验证码失败");
+		}
+	}
+	@RequestMapping("/checkEmailToDB")
+	@ResponseBody
+	public AjaxResult checkEmailToDB(String email){
+		try {
+			employeeService.checkEmailToDB(email);
+			return new AjaxResult(false,"可以注册");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new AjaxResult(true,"此邮箱已经注册");
 		}
 	}
 }
