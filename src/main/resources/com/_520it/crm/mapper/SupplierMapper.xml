@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.SupplierMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Supplier" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="sn" property="sn" jdbcType="VARCHAR" />
-    <result column="person" property="person" jdbcType="VARCHAR" />
-    <result column="info" property="info" jdbcType="VARCHAR" />
-    <result column="day" property="day" jdbcType="INTEGER" />
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <association property="product" javaType="ProductInfo">
-    	<id column="pi_id" property="id" jdbcType="BIGINT" />
-    	<result column="pi_name" property="name" jdbcType="VARCHAR" />
-    </association>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+<mapper namespace="com._520it.crm.mapper.SupplierMapper">
+    <resultMap id="BaseResultMap" type="com._520it.crm.domain.Supplier">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sn" property="sn" jdbcType="VARCHAR"/>
+        <result column="person" property="person" jdbcType="VARCHAR"/>
+        <result column="info" property="info" jdbcType="VARCHAR"/>
+        <result column="day" property="day" jdbcType="INTEGER"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <association property="product" javaType="ProductInfo">
+            <id column="pi_id" property="id" jdbcType="BIGINT"/>
+            <result column="pi_name" property="name" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from supplier
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.Supplier" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="com._520it.crm.domain.Supplier" useGeneratedKeys="true" keyProperty="id">
     insert into supplier (name, sn, person, 
       product_id, info, day, 
       tel, address, state
@@ -30,7 +30,7 @@
       #{tel,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Supplier" >
+    <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Supplier">
     update supplier
     set name = #{name,jdbcType=VARCHAR},
       sn = #{sn,jdbcType=VARCHAR},
@@ -43,47 +43,44 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,
-    pi.id pi_id,pi.name pi_name
-<<<<<<< HEAD
-    from supplier s join productinfo pi on s.product_id = pi.id
-=======
-    from supplier s left join productinfo pi on s.product_id = pi.id
->>>>>>> c7ac706ce2989c4dd962dc62ec27c55dfc6c923b
-    where s.id = #{id,jdbcType=BIGINT}
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT s.id,s. NAME,	s.sn,s.person,s.info,s. DAY,s.tel,s.address,s.state,pi.id pi_id,pi. NAME pi_name
+    FROM supplier s LEFT JOIN productinfo pi ON s.product_id = pi.id
+    WHERE
+	s.id =  #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+
+    <select id="selectAll" resultMap="BaseResultMap">
     select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,
     pi.id pi_id,pi.name pi_name
     from supplier s left join productinfo pi on s.product_id = pi.id
   </select>
-  
+
     <!-- 高级查询 -->
-  <sql id="base_where">
-  	<where>
-	  	<if test="keyword!=null">
-	  		and s.name like concat('%',#{keyword},'%')
-	  	</if>
-  	</where>
-  </sql>
-  <select id="queryForCount" resultType="long">
-  	select count(s.id) from supplier s
-  	<include refid="base_where"/>
-  </select>
-  <select id="queryForList" resultMap="BaseResultMap">
-    select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,
-    pi.id pi_id,pi.name pi_name
-    from supplier s left join productinfo pi on s.product_id = pi.id
-    <include refid="base_where"/>
-    limit #{start},#{rows}
-  </select>
-  <update id="changeState">
+    <sql id="base_where">
+        <where>
+            <if test="keyword!=null">
+                and s.name like concat('%',#{keyword},'%')
+            </if>
+        </where>
+    </sql>
+    <select id="queryForCount" resultType="long">
+        select count(s.id) from supplier s
+        <include refid="base_where"/>
+    </select>
+    <select id="queryForList" resultMap="BaseResultMap">
+        select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,
+        pi.id pi_id,pi.name pi_name
+        from supplier s left join productinfo pi on s.product_id = pi.id
+        <include refid="base_where"/>
+        limit #{start},#{rows}
+    </select>
+    <update id="changeState">
   	update supplier
   	   set 
   	   state=0
   	where id=#{id}
   </update>
-  
-  
+
+
 </mapper>

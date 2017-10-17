@@ -20,4 +20,12 @@ public interface StockOprationBillMapper {
     List<StockOutRecord> queryForData(StockOprationBillQueryObject qo);
 
     Long queryForCount(StockOprationBillQueryObject qo);
+
+    Long queryProductIdByName(String productInfoId);
+
+    Long querySpecificIdByName(String productInfoId);
+
+    Long queryOpenStocksIdByName(String productInfoId);
+
+    Long queryStockIncomesIdByName(String productInfoId);
 }

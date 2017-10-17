@@ -3,10 +3,7 @@
 <mapper namespace="com._520it.crm.mapper.ProductStockMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.ProductStock" >
     <id column="id" property="id" jdbcType="BIGINT" />
-<<<<<<< HEAD
-=======
     <result column="supplier_id" property="supplierId" jdbcType="BIGINT" />
->>>>>>> c7ac706ce2989c4dd962dc62ec27c55dfc6c923b
     <result column="packageNumber" property="packageNumber" jdbcType="INTEGER" />
     <result column="bulkNumber" property="bulkNumber" jdbcType="INTEGER" />
     <result column="sn" property="sn" jdbcType="VARCHAR" />
@@ -15,21 +12,17 @@
     <result column="storeNumber" property="storeNumber" jdbcType="BIGINT" />
     <result column="incomeDate" property="incomeDate" jdbcType="TIMESTAMP" />
     <result column="outcomeDate" property="outcomeDate" jdbcType="TIMESTAMP" />
-<<<<<<< HEAD
     <association property="productInfo" column="productInfo_id" javaType="ProductInfo"
-    select="com._520it.crm.mapper.ProductInfoMapper.selectByPrimaryKey"/>
+                 select="com._520it.crm.mapper.ProductInfoMapper.selectByPrimaryKey"/>
     <association property="productPart" column="productPart_id" javaType="ProductPart"
-    select="com._520it.crm.mapper.ProductPartMapper.selectByPrimaryKey"/>
-=======
-
-    <collection property="productInfoId" ofType="ProductInfo" columnPrefix="pi_">
+                 select="com._520it.crm.mapper.ProductPartMapper.selectByPrimaryKey"/>
+    <collection property="productInfo" ofType="ProductInfo" columnPrefix="pi_">
       <id property="id" column="id"/>
       <result property="code" column="code"/>
       <result property="name" column="name"/>
       <result property="price" column="price"/>
       <result property="memberPrice" column="memberPrice"/>
     </collection>
->>>>>>> c7ac706ce2989c4dd962dc62ec27c55dfc6c923b
   </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -37,27 +30,25 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.ProductStock" useGeneratedKeys="true" keyProperty="id" >
-    insert into productstock (productInfo_id, productPart_id, packageNumber, 
-      bulkNumber, amount, warnNumber, 
-      storeNumber, incomeDate, outcomeDate,sn
-      )
-    values (#{productInfoId,jdbcType=BIGINT}, #{productPartId,jdbcType=BIGINT}, #{packageNumber,jdbcType=INTEGER}, 
-      #{bulkNumber,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{warnNumber,jdbcType=INTEGER}, 
-      #{storeNumber,jdbcType=BIGINT}, #{incomeDate,jdbcType=TIMESTAMP}, #{outcomeDate,jdbcType=TIMESTAMP}, #{sn,jdbcType=VARCHAR}
-      )
+    insert into productstock (productInfo_id, productPart_id, packageNumber,
+    bulkNumber, amount, warnNumber,
+    storeNumber, incomeDate, outcomeDate,sn
+    )
+    values (#{productInfo.id,jdbcType=BIGINT}, #{productPart.id,jdbcType=BIGINT}, #{packageNumber,jdbcType=INTEGER},
+    #{bulkNumber,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{warnNumber,jdbcType=INTEGER},
+    #{storeNumber,jdbcType=BIGINT}, #{incomeDate,jdbcType=TIMESTAMP}, #{outcomeDate,jdbcType=TIMESTAMP}, #{sn,jdbcType=VARCHAR}
+    )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.ProductStock" >
     update productstock
-    set productInfo_id = #{productInfoId,jdbcType=BIGINT},
-      productPart_id = #{productPartId,jdbcType=BIGINT},
-      packageNumber = #{packageNumber,jdbcType=INTEGER},
-      bulkNumber = #{bulkNumber,jdbcType=INTEGER},
-      amount = #{amount,jdbcType=DECIMAL},
-      warnNumber = #{warnNumber,jdbcType=INTEGER},
-      storeNumber = #{storeNumber,jdbcType=BIGINT},
-      incomeDate = #{incomeDate,jdbcType=TIMESTAMP},
-      outcomeDate = #{outcomeDate,jdbcType=TIMESTAMP} ,
-       sn = #{sn,jdbcType=VARCHAR}
+    set
+    productInfo_id=#{productInfo.id},
+    packageNumber = #{packageNumber,jdbcType=INTEGER},
+    bulkNumber = #{bulkNumber,jdbcType=INTEGER},
+    amount = #{amount,jdbcType=DECIMAL},
+    warnNumber = #{warnNumber,jdbcType=INTEGER},
+    storeNumber = #{storeNumber,jdbcType=BIGINT},
+    sn = #{sn,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -70,17 +61,17 @@
   </select>
 
   <sql id="where_clause">
-      <where>
-        <if test="keyword!=null">
-            AND  (ps.sn LIKE CONCAT('%',#{keyword},'%') OR pi.code LIKE CONCAT('%',#{keyword},'%'))
-        </if>
-        <if test="productName!=null">
-            AND  (pi.name LIKE CONCAT('%',#{productName},'%'))
-        </if>
-        <if test="productType!=null">
-            AND  (pt.name LIKE CONCAT('%',#{productType},'%'))
-        </if>
-      </where>
+    <where>
+      <if test="keyword!=null">
+        AND  (ps.sn LIKE CONCAT('%',#{keyword},'%') OR pi.code LIKE CONCAT('%',#{keyword},'%'))
+      </if>
+      <if test="productName!=null">
+        AND  (pi.name LIKE CONCAT('%',#{productName},'%'))
+      </if>
+      <if test="productType!=null">
+        AND  pi.productpart_id=#{productType}
+      </if>
+    </where>
   </sql>
 
   <select id="selectAll" resultMap="BaseResultMap" >
@@ -94,10 +85,10 @@
 
 
   <select id="queryForData" resultMap="BaseResultMap" >
-       SELECT * FROM productstock  ps
-      JOIN productinfo pi ON ps.productinfo_id=pi.id JOIN producttype pt on pt.id=pi.producttype_id
-      <include refid="where_clause"/>
-      limit #{pageStart},#{rows}
+    SELECT * FROM productstock  ps
+    JOIN productinfo pi ON ps.productinfo_id=pi.id JOIN producttype pt on pt.id=pi.producttype_id
+    <include refid="where_clause"/>
+    limit #{pageStart},#{rows}
   </select>
 
 

@@ -50,6 +50,21 @@ $(function () {
     });
 
 
+    $("#productInfo_code").textbox("disable");
+    $("#productType_name").textbox("disable");
+    $("#productPart_name").textbox("disable");
+    $("#brand_name").textbox("disable");
+    $("#productInfo_id").combobox({
+        onSelect:function(data){
+            console.log(data.id);
+            $.get('/productStock/queryProductInfos?id='+data.id,function(rowData){
+                $("#productInfo_code").textbox("setText",rowData.code);
+                $("#productType_name").textbox("setText",rowData.productPart.name);
+                $("#productPart_name").textbox("setText",rowData.brand.name);
+                $("#brand_name").textbox("setText",rowData.productType.name);
+            })
+        }
+    });
 
 });
 
@@ -74,8 +89,8 @@ function brandFormatter(value, rowData, index) {
        return rowData.productInfo.brand.name;
     }
 }function productPartFormatter(value, rowData, index) {
-    if(value){
-       return value.name;
+    if(rowData){
+       return rowData.productInfo.productPart.name;
     }
 }
 
@@ -87,28 +102,116 @@ function stylerFormatter(value, rowData, index) {
 }
 
 $(function(){
-    $("#searchData").linkbutton({
+    loadData("#searchData");
+    $("#reload_data").linkbutton({
         width:60,
         height:30,
         plain:true,
         iconCls:'icon-search',
         onClick:function(){
-            var url="/productStock/json";
-            var keyword= $("#code_sn").textbox("getText");
-            var productName=$("#productName").textbox("getText");
-            var productType=$("#productType").textbox("getText");
-            alert(keyword);
-            var data="keyword="+keyword+"&productName="+productName+"&productType="+productType;
-            $("#datagrip_table").datagrid("load",{keyword:keyword,productName:productName,productType:productType});
-          /*  $.post(url, data, function (data) {
-                console.log(data);
-              /!*  $("#datagrip_table").datagrid("clear");*!/
+            $("#code_sn").textbox("clear");
+            $("#productName").textbox("clear");
+            $("#productTypes").textbox("clear");
+            $("#datagrip_table").datagrid("reload");
 
-                alert(123);
-            }, "json");*/
         }
     })
 })
 
+function edit() {
+    var rowData = $("#datagrip_table").datagrid("getSelected");
+    if (rowData) {
+        $("#edit_form").dialog({
+            title: '编辑',
+            width: 600,
+            height: 400,
+            closed: false,
+            modal: true,
+            buttons: '#edit_info'
+        });
+        rowData["productInfo.name"] = rowData.productInfo.name;
+        rowData["productInfo.code"] = rowData.productInfo.code;
+        rowData["productInfo.productPart.name"] = rowData.productInfo.productPart.name;
+        rowData["productInfo.brand.name"] = rowData.productInfo.brand.name;
+      rowData["productInfo.productType.id"] = rowData.productInfo.productType.name;
+        rowData["productInfo.id"] = rowData.productInfo.id;
+        $("#edit_form").form("clear");
+        $("#edit_form").form("load", rowData);
+    } else {
+        $.messager.alert("温馨提示", "亲，请选择需要编辑的项", "warning");
+    }
+}
 
 
+function saveInput() {
+    var url;
+    var eleId = $("[name='id']").val();
+    url = "/productStock/saveOrUpdate";
+    $("#edit_form").form("submit", {
+        url:url,
+        success: function (data) {
+            var dataJson = eval("(" + data + ")");
+            if (dataJson.success) {
+                $("#datagrip_table").datagrid("reload");
+                $.messager.alert("温馨提示", dataJson.msg, "warning", function () {
+                    $("#edit_form").dialog("close");
+                });
+            } else {
+                $.messager.alert("温馨提示", dataJson.msg, "warning", function () {
+                    $("#edit_form").dialog("close");
+                });
+            }
+        }
+    }, "json");
+}
+
+
+function closeInput(){
+    $("#edit_form").dialog("close");
+}
+
+
+function loadData(param){
+    $(param).linkbutton({
+        width:60,
+        height:30,
+        plain:true,
+        iconCls:'icon-search',
+        onClick:function(){
+            var keyword= $("#code_sn").textbox("getText");
+            var productName=$("#productName").textbox("getText");
+            var productType=$("#productTypes").combobox("getValues");
+            $("#datagrip_table").datagrid("load",{keyword:keyword,productName:productName,'productType':productType[0]});
+
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+if (eleId) {
+    $.get("/employee/queryRoles?id="+eleId, function (param) {
+        /!*  $('#multiple_role').combobox('setValues', newParam);*!/
+    });
+}
+*/
+
+/*   url: url,onSubmit:function (param){
+ var ids=$("#multiple_role").combobox("getValues");
+ for(var i= 0;i<ids.length;i++){
+ param["roles["+i+"].id"]=ids[i];
+ }
+ },*/

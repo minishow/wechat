@@ -12,7 +12,7 @@ public class Specific {
 
     private String beforeSpecific;
 
-    private String stockSpecific;
+    private OpenStock openStock;
 
     private Integer number;
 

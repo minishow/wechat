@@ -14,87 +14,50 @@
     <script>
         $(function(){
             $("#product_stock").click(function(){
+                $("#product_stock").css("backgroundColor",'dimgray');
                 $("#action_address").prop("src","/productStock");
-            });
-            $("#import_data").click(function(){
-                $("#action_address").prop("src","/import_data");
-            });
+            }).mouseenter(function(){
+                $("#product_stock").css("backgroundColor",'dimgray');
+            });;
             $("#operation_stock").click(function(){
+                $("#operation_stock").css("backgroundColor",'dimgray');
                 $("#action_address").prop("src","/stockOprationBill");
-            });
+            }).mouseenter(function(){
+                $("#operation_stock").css("backgroundColor",'dimgray');
+            });;
             $("#income_record").click(function(){
+                $("#income_record").css("backgroundColor",'dimgray');
                 $("#action_address").prop("src","/stockIncomeRecord");
-            });
-            $("#outcome_record").click(function(){
+            }).mouseenter(function(){
+                $("#income_record").css("backgroundColor",'dimgray');
+            });;
+            $("#outcome_record").mouseenter(function(){
+                $("#outcome_record").css("backgroundColor",'dimgray');
+            }).click(function(){
+                $("#outcome_record").css("backgroundColor",'dimgray');
                 $("#action_address").prop("src","/stockOutRecord");
-            });
+            });;
         })
 
     </script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north',border:false" align="center" style="height:6%;padding-top: 8;background-color: dimgray">
-    <a id="product_stock" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
+    <a id="product_stock" class="easyui-linkbutton" data-options="region:'north',plain:true"
+       style="width:18%;color: aliceblue;"
        href="javascript:;">库存主页</a>
-    <a id="import_data" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
-       href="javascript:;">导入数据</a>
-    <a id="operation_stock" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
+    <a id="operation_stock" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;;color: aliceblue"
        href="javascript:;">入库/发货/制单</a>
-    <a id="income_record" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
+    <a id="income_record" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;;color: aliceblue"
        href="javascript:;">入库记录</a>
-    <a id="outcome_record" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
+    <a id="outcome_record" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;;color: aliceblue"
        href="javascript:;">出货记录</a>
 </div>
 <div data-options="region:'south',border:false" style="height:94%" >
-    <iframe id="action_address" src="/stockOprationBill" style="width: 100%;height: 100%"/>
+    <iframe id="action_address" src="/productStock" style="width: 100%;height: 100%" frameborder="0"/>
 </div>
+
 
 </body>
 </html>
 
-<script>
-
-
-/*    <div id="tools_btn">
-            <a id="product_stock" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
-    onclick="productStock();">库存主页</a>
-            <a id="import_data" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
-    onclick="importData();">导入数据</a>
-            <a id="operation_stock" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
-    onclick="stockOprationBill();">入库/发货/制单</a>
-            <a id="income_record" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
-    onclick="stockIncomeRecord();">入库记录</a>
-            <a id="outcome_record" class="easyui-linkbutton" data-options="region:'north',plain:true" style="width:18%;"
-    onclick="stockIncomeRecord();">发货记录</a>
-            </div>*/
-    /*  $(function () {
-     $("#product_stock").click(function () {
-     showPage("库存主页","productStock");
-     });
-     $("#import_data").click(function () {
-     $("#main_page").tabs({
-     title:"导入数据",
-     fit:true,
-     content:"<iframe src='/import_data' width='100%' height='100%' frameborder='0'/>"
-     });
-     });
-     $("#operation_stock").click(function () {
-     $("#main_page").tabs({
-     title:"导入数据",
-     fit:true,
-     content:"<iframe src='/stockOprationBill' width='100%' height='100%' frameborder='0'/>"
-     });
-     /!* $("#action_address").prop("src", "/stockOprationBill");*!/
-     });
-
-     $("#income_record").click(function () {
-     $("#action_address").prop("src", "/stockIncomeRecord");
-     });
-     $("#outcome_record").click(function () {
-     $("#action_address").prop("src", "/stockOutRecord");
-     });*/
-</script>
-
-
-<%--
-</body>--%>

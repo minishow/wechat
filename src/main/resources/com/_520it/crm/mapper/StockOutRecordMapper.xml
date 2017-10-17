@@ -14,17 +14,17 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.StockOutRecord" useGeneratedKeys="true" keyProperty="id" >
-    insert into stockoutrecord (stockOprationBill_id, state, auditor, 
-      details)
-    values (#{stockOprationBillId,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, #{auditor,jdbcType=VARCHAR}, 
-      #{details,jdbcType=VARCHAR})
+    insert into stockoutrecord (stockOprationBill_id, state, auditor,
+    details)
+    values (#{stockOprationBill.id,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, #{auditor,jdbcType=VARCHAR},
+    #{details,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.StockOutRecord" >
     update stockoutrecord
-    set stockOprationBill_id = #{stockOprationBillId,jdbcType=BIGINT},
-      state = #{state,jdbcType=INTEGER},
-      auditor = #{auditor,jdbcType=VARCHAR},
-      details = #{details,jdbcType=VARCHAR}
+    set stockOprationBill_id = #{stockOprationBill.id,jdbcType=BIGINT},
+    state = #{state,jdbcType=INTEGER},
+    auditor = #{auditor,jdbcType=VARCHAR},
+    details = #{details,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -39,16 +39,34 @@
 
 
 
+  <sql id="where_clause">
+    <where>
+      <if test="keyword!=null">
+        AND  (sir.auditor LIKE CONCAT('%',#{keyword},'%') OR s.name LIKE CONCAT('%',#{keyword},'%'))
+      </if>
+      <if test="buildTime!=null">
+        AND sob.inputTime>#{buildTime}
+      </if>
+
+    </where>
+  </sql>
+
+
   <select id="queryForData" resultMap="BaseResultMap" >
-    select id, stockOprationBill_id, state, auditor, details
-    from stockoutrecord
+    select * from stockoutrecord sir
+    LEFT  JOIN stockoprationbill sob
+    on sir.stockoprationbill_id=sob.id
+    LEFT join supplier s on sob.supplier_id=s.id
+    <include refid="where_clause"/>
+    limit #{start},#{rows}
   </select>
 
   <select id="queryForCount" resultType="long" >
-    select COUNT(id)
-    from stockoutrecord
+    select COUNT(sir.id)
+    from stockoutrecord sir
+    LEFT  JOIN stockoprationbill sob
+    on sir.stockoprationbill_id=sob.id
+    LEFT  join supplier s on sob.supplier_id=s.id
+    <include refid="where_clause"/>
   </select>
-
-
-
 </mapper>

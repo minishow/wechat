@@ -5,11 +5,15 @@ import com._520it.crm.page.PageResult;
 import com._520it.crm.query.StockOutRecordQueryObject;
 import com._520it.crm.service.IStockOutRecordService;
 import com._520it.crm.util.AjaxObject;
+import com._520it.crm.util.ParseDate;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/9/25.
@@ -27,6 +31,12 @@ public class StockOutRecordController {
     @RequestMapping("/list")
     @ResponseBody
     public PageResult json(StockOutRecordQueryObject qo) {
+        if(StringUtils.isNotBlank(qo.getInputTime())){
+            Date date = ParseDate.parseDate(qo.getInputTime());
+            qo.setBuildTime(date);
+        }else{
+            qo.setBuildTime(null);
+        }
         return stockOutRecordServiceImpl.queryForList(qo);
     }
 
