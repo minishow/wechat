@@ -113,5 +113,8 @@ public class CashBillServiceImpl implements ICashBillService{
         return new PageResult(total, rows);
     }
 
-
+    @Override
+    public List<CashBill> selectByTypeId(Long typeId) {
+        return cashBillMapper.selectByTypeId(typeId);
+    }
 }
