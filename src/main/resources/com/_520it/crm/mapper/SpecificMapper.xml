@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.Specific">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="beforeSpecific" jdbcType="VARCHAR" property="beforeSpecific" />
-    <result column="stockSpecific" jdbcType="VARCHAR" property="stockSpecific" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <association property="openStock" column="openStock_id" javaType="OpenStock"

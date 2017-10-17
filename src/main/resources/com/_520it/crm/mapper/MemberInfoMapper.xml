@@ -13,9 +13,9 @@
     <result column="adress" property="adress" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <!--宠物查询-->
-    <!--<collection property="petinfos" ofType="Petinfo" column="id"-->
-      <!--select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">-->
-    <!--</collection>-->
+  <collection property="petinfos" ofType="Petinfo" column="id"
+      select="com._520it.crm.mapper.PetInfoMapper.selectByMemberInfoId">
+    </collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from memberinfo

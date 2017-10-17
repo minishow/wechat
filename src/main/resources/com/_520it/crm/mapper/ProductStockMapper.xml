@@ -3,7 +3,6 @@
 <mapper namespace="com._520it.crm.mapper.ProductStockMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.ProductStock" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="supplier_id" property="supplierId" jdbcType="BIGINT" />
     <result column="packageNumber" property="packageNumber" jdbcType="INTEGER" />
     <result column="bulkNumber" property="bulkNumber" jdbcType="INTEGER" />
     <result column="sn" property="sn" jdbcType="VARCHAR" />
@@ -16,13 +15,6 @@
                  select="com._520it.crm.mapper.ProductInfoMapper.selectByPrimaryKey"/>
     <association property="productPart" column="productPart_id" javaType="ProductPart"
                  select="com._520it.crm.mapper.ProductPartMapper.selectByPrimaryKey"/>
-    <collection property="productInfo" ofType="ProductInfo" columnPrefix="pi_">
-      <id property="id" column="id"/>
-      <result property="code" column="code"/>
-      <result property="name" column="name"/>
-      <result property="price" column="price"/>
-      <result property="memberPrice" column="memberPrice"/>
-    </collection>
   </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -101,10 +93,29 @@
     <include refid="where_clause"/>
   </select>
 
+  <resultMap id="BaseResultMap2" type="com._520it.crm.domain.ProductStock">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="packageNumber" property="packageNumber" jdbcType="INTEGER"/>
+    <result column="bulkNumber" property="bulkNumber" jdbcType="INTEGER"/>
+    <result column="amount" property="amount" jdbcType="DECIMAL"/>
+    <result column="warnNumber" property="warnNumber" jdbcType="INTEGER"/>
+    <result column="storeNumber" property="storeNumber" jdbcType="BIGINT"/>
+    <result column="incomeDate" property="incomeDate" jdbcType="TIMESTAMP"/>
+    <result column="outcomeDate" property="outcomeDate" jdbcType="TIMESTAMP"/>
+    <association property="productPart" column="productPart_id" javaType="ProductPart"
+                 select="com._520it.crm.mapper.ProductPartMapper.selectByPrimaryKey"/>
+    <association property="productInfoId" javaType="com._520it.crm.domain.ProductInfo" columnPrefix="pi_">
+      <id property="id" column="id"/>
+      <result property="code" column="code"/>
+      <result property="name" column="name"/>
+      <result property="price" column="price"/>
+      <result property="memberPrice" column="memberPrice"/>
+    </association>
+  </resultMap>
 
     <!--根据商品69条码查询 库存对象-->
-    <select id="getProductStockByProductinfoCode" resultMap="BaseResultMap">
-    select ps.id, ps.productInfo_id, ps.supplier_id, ps.packageNumber, ps.bulkNumber, ps.amount, ps.warnNumber,
+    <select id="getProductStockByProductinfoCode" resultMap="BaseResultMap2">
+    select ps.id, ps.productInfo_id, ps.productPart_id, ps.packageNumber, ps.bulkNumber, ps.amount, ps.warnNumber,
            ps.storeNumber, ps.incomeDate, ps.outcomeDate,
        pi.id pi_id , pi.code pi_code , pi.name pi_name , pi.price pi_price ,pi.memberPrice pi_memberPrice
     from productstock ps

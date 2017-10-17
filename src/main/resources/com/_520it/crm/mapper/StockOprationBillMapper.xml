@@ -19,15 +19,15 @@
     <association property="productInfo" column="productInfo_id" javaType="ProductInfo"
                  select="com._520it.crm.mapper.ProductInfoMapper.selectByPrimaryKey"/>
     <association property="stockIncome" column="stockIncome_id" javaType="StockIncome"
-                 select="com._520it.crm.mapper.StockIncomeMapper.selectByPrimaryKey"/>
-    <association property="specific" column="specific_id" javaType="Specific"
-                 select="com._520it.crm.mapper.SpecificMapper.selectByPrimaryKey"/>
+                select="com._520it.crm.mapper.StockIncomeMapper.selectByPrimaryKey"/>
+     <association property="specific" column="specific_id" javaType="Specific"
+                  select="com._520it.crm.mapper.SpecificMapper.selectByPrimaryKey"/>
     <association property="supplier" column="supplier_id" javaType="Supplier"
-                 select="com._520it.crm.mapper.SupplierMapper.selectByPrimaryKey"/>
-    <association property="productStock" column="productStock_id" javaType="ProductStock"
-                 select="com._520it.crm.mapper.ProductStockMapper.selectByPrimaryKey"/>
-    <association property="openStock" column="openStock_id" javaType="OpenStock"
-                 select="com._520it.crm.mapper.OpenStockMapper.selectByPrimaryKey"/>
+                    select="com._520it.crm.mapper.SupplierMapper.selectByPrimaryKey"/>
+  <association property="productStock" column="productStock_id" javaType="ProductStock"
+                  select="com._520it.crm.mapper.ProductStockMapper.selectByPrimaryKey"/>
+     <association property="openStock" column="openStock_id" javaType="OpenStock"
+                select="com._520it.crm.mapper.OpenStockMapper.selectByPrimaryKey"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from stockoprationbill

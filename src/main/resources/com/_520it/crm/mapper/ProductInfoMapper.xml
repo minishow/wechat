@@ -11,7 +11,7 @@
     <result column="info" property="info" jdbcType="VARCHAR" />
     <result column="memberprice" property="memberPrice" jdbcType="DECIMAL" />
     <!-- 关联关系处理 -->
-    <association property="productType" javaType="ProductType">
+    <association property="productType" javaType="com._520it.crm.domain.ProductType">
     	<id column="pt_id" property="id" jdbcType="BIGINT" />
     	<result column="pt_name" property="name" jdbcType="VARCHAR" />
     </association>

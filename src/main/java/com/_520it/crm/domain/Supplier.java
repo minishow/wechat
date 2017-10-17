@@ -1,12 +1,10 @@
 package com._520it.crm.domain;
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Setter@Getter
 public class Supplier {
@@ -19,7 +17,7 @@ public class Supplier {
      */
     private ProductInfo product;
     private String info;
-    @JsonFormat(pattern="MM/dd/yyyy",timezone="GMT+8")
+    @JsonFormat(pattern="MM-dd-yyyy",timezone="GMT+8")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date day;
     private String tel;

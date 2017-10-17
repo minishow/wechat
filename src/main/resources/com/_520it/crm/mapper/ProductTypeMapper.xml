@@ -29,7 +29,7 @@
     select pt.id,pt.state,pt.name,
     p.id p_id,p.name p_name
     from ProductType pt left join producttype p on pt.parent_id=p.id
-    where id = #{id,jdbcType=BIGINT}
+    where pt.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select pt.id,pt.state,pt.name,
