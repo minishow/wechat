@@ -135,4 +135,13 @@
   </select>
 
 
+  <!--根据会员id查询 余额-->
+  <select id="queryBalanceByMemberId" resultType="double">
+    select balance from MemberInfo where id = #{memberId}
+  </select>
+
+  <update id="updateMemberBalanceByMember" >
+    update MemberInfo set balance = #{balance} where id = #{memberId}
+  </update>
+
 </mapper>

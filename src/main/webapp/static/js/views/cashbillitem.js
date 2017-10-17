@@ -56,15 +56,10 @@ $(function () {
         ]],
          onAfterEdit: function (index, row, changes) {  //编辑完数量单元格触发事件
             //判断库存数量是否足够
-             var storeNumber = row.storeNumber; //库存数量
+             var storeNumber = row.packageNumber; //库存数量
              var editNumber = changes.number; //填入的数量
 
              if(editNumber <= storeNumber){  //库存数量 大于等于  填入的数量
-               /*  row.costAmount = changes.number * row.productInfoId.price;
-                 row.memberAmount = changes.number * row.productInfoId.memberPrice;*/
-
-                /* $('#cashbillitem_datagrid').datagrid("deleteRow",index);
-                 $('#cashbillitem_datagrid').datagrid('appendRow',row);*/
                  $('#cashbillitem_datagrid').datagrid('updateRow',{  //更新指定行数据
                         index:index,
                         row:{
@@ -92,7 +87,7 @@ $(function () {
                  }
              }
              else{
-                 $.messager.alert("温馨提示","当前库存数量不足","info");
+                 $.messager.alert("温馨提示","当前库存数量不足,现有当前商品库存数量为:"+storeNumber,"info");
              }
          }
 

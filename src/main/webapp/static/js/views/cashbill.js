@@ -5,13 +5,14 @@ $(function () {
         rownumbers:true, /*行号列*/
         pagination:true, /*分页*/
         fitColumns:true,
-        fit:true,
+        width:1350,
+        height:590,
         url:"/cashbill/list",
         columns:[[
             {field:'sn',title:'订单编号',width:10,align:'center'},
             {field:'memberNumber',title:'会员卡号',width:10,align:'center',
                 formatter: function (value,row,index) {
-                return row.MemberInfo?row.MemberInfo.number:"非会员";
+                return row.memberId?row.memberId.number:"非会员";
             }},
             {field:'shopName',title:'店铺名称',width:10,align:'center'},
             {field:'orderTime',title:'订单时间',width:10,align:'center'},
@@ -40,11 +41,82 @@ $(function () {
                 return h
             }}
         ]]
+    });
+
+    //对话框
+    $("#cashbill_dialog").dialog({
+        width:1200,
+        height:500,
+        closed:true
+    });
+
+    $("#product_datagrid").datagrid({
+        title:"商品明细",
+        width:1200,
+        height:400,
+        singleSelect:true, /*只选择一个*/
+        striped:true, /*斑马线*/
+        rownumbers:true, /*行号列*/
+        pagination:true, /*分页*/
+        fitColumns:true,
+        columns:[[
+            {field:'productInfoIdCode',title:'商品条码',width:10,align:'center',
+                formatter: function (value,row,index) {
+                    console.log(row);
+                    return row.productInfoId?row.productInfoId.code:"";
+                }},
+            {field:'productInfoIdName',title:'商品名称',width:10,align:'center',
+                formatter: function (value,row,index) {
+                  return row.productInfoId?row.productInfoId.name:"";
+                }},
+            {field:'productInfoIdPrice',title:'原价',width:10,align:'center',
+                formatter: function (value,row,index) {
+                    return row.productInfoId?row.productInfoId.price:"";
+                }},
+            {field:'productInfoIdMemberPrice',title:'会员价',width:10,align:'center',
+                formatter: function (value,row,index) {
+                    return row.productInfoId?row.productInfoId.memberPrice:"";
+                }},
+            {field:'number',title:'销售数量',width:10,align:'center'}
+        ]]
     })
-
 });
-
 //点击查看
 function checkItems(billId){
+    $("#cashbill_dialog").dialog("open");
+    $("#cashbill_dialog").dialog("setTitle","商品详情");
+    $("#productName").val("");
+
+    var options = $("#product_datagrid").datagrid("options");
+    options.url = "/cashbillitem/queryAllByBillId?billId="+billId;
+    $("#product_datagrid").datagrid("load",{
+        "productName":""
+    });
 
 }
+
+//高级查询 按钮
+function check(){
+    var keyword = $("#keyword").val();
+    var beginDate = $("#beginDate").val();
+    var endDate = $("#endDate").val();
+    var way = $('#way option:selected').val();//选中的值
+
+    $("#cashBill_datagrid").datagrid("load",{
+        keyword:keyword,
+        beginDate:beginDate,
+        endDate:endDate,
+        way:way
+    })
+
+}
+
+//明细的高级查询
+function checkItem(){
+    var productName = $("#productName").val();
+    $("#product_datagrid").datagrid("load",{
+        productName:productName
+    })
+
+}
+

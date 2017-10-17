@@ -2,6 +2,8 @@ package com._520it.crm.service;
 
 import com._520it.crm.domain.Harm;
 import com._520it.crm.domain.PetKind;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.PetKindQueryObject;
 
 import java.util.List;
 
@@ -19,5 +21,10 @@ public interface IPetKindService {
     List<PetKind> selectKindAll(Long kindID);
 
     List<Harm> addHarmList();
-}
 
+	PageResult query(PetKindQueryObject qo);
+
+	void changeState(Long id);
+
+    List<PetKind> queryKindByTypeId(Long id);
+}

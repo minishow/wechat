@@ -1,13 +1,17 @@
 package com._520it.crm.service.impl;
 
+import com._520it.crm.domain.Brand;
 import com._520it.crm.domain.Harm;
 import com._520it.crm.domain.PetKind;
 import com._520it.crm.mapper.HarmMapper;
 import com._520it.crm.mapper.PetKindMapper;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.PetKindQueryObject;
 import com._520it.crm.service.IPetKindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class PetKindServiceImpl implements IPetKindService {
@@ -55,4 +59,24 @@ public class PetKindServiceImpl implements IPetKindService {
 	public List<Harm> addHarmList() {
 		return harmMapper.selectAll();
 	}
+	@Override
+	public PageResult query(PetKindQueryObject qo) {
+		Long total=petKindMapper.queryForCount(qo);
+		if(total==0){
+			return new PageResult(new Long(0),new ArrayList<Brand>());
+		}
+		List<Brand> rows=petKindMapper.queryForList(qo);
+		return new PageResult(total,rows);
+	}
+
+	@Override
+	public void changeState(Long id) {
+		petKindMapper.changeState(id);
+	}
+
+	@Override
+	public List<PetKind> queryKindByTypeId(Long id) {
+		return petKindMapper.queryKindByTypeId(id);
+	}
+
 }

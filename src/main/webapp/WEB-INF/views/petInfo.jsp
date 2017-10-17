@@ -14,7 +14,8 @@
     <form id="searchBtn" method="post">
         <select class="easyui-combobox" id="petKindBtns" name="petTypeBtn"
                 data-options="
-                   width:150,
+                   width:170,
+                   labelWidth:60,
                      valueField:'id',
                     textField:'name',
                      url:'/petInfo/addPetTypeList',
@@ -23,29 +24,30 @@
 
         <select class="easyui-combobox" id="petTypeBtns" name="petKindBtn"
                 data-options="
-                   width:150,
+                width:170,
+                labelWidth:60,
                     valueField:'id',
                     textField:'name',
                     label:'宠物品种:'
-                    "></select>
+                    " ></select>
 
         <input class="easyui-textbox" name="petNameBtn"
-               data-options=" 'prompt':'请输入关键字','width':'200','label':'宠物名称:','labelWidth':'50',">
+               data-options=" 'prompt':'请输入关键字','width':'200','label':'宠物名称:','labelWidth':'60',">
 
         <input class="easyui-textbox" name="memberTelBtn"
-               data-options="'prompt':'请输入关键字','width':'200','label':'手机号码:','labelWidth':'50',">
+               data-options="'prompt':'请输入关键字','width':'200','label':'手机号码:','labelWidth':'60',">
 
         <input class="easyui-textbox" name="memRemarkBtn"
-               data-options="'prompt':'请输入关键字','width':'200','label':'备注:','labelWidth':'50',">
+               data-options="'prompt':'请输入关键字','width':'200','label':'备注:','labelWidth':'60',">
 
-        <a class="easyui-linkbutton" data-cmd="query">查询</a>
+        <a class="easyui-linkbutton" data-cmd="query" data-options="'width':'100'">查询</a>
     </form>
     <div>
         <a class="easyui-linkbutton" iconCls="icon-add" data-cmd="addMoney">充值</a>
         <a class="easyui-linkbutton" iconCls="icon-edit" data-cmd="addMember">增加会员</a>
         <a class="easyui-linkbutton" id="deleBtn" iconCls="icon-remove" data-cmd="addPet">增加宠物</a>
         <a class="easyui-linkbutton" id="editBtn" iconCls="icon-reload" data-cmd="refrech">退卡</a>
-        <a class="easyui-linkbutton" iconCls="icon-reload">导入会员</a>
+        <a class="easyui-linkbutton" iconCls="icon-reload" href="/excel">导入会员</a>
 
 
         <a class="easyui-linkbutton" href="/memberTop" id="topBtn" iconCls="icon-reload"
@@ -66,16 +68,16 @@
                 主人信息:
             </div>
             <div>
-                <input class="easyui-textbox" name="tel" data-options="label:'手机号码:'">
+                <input class="easyui-textbox" name="tel" data-options="label:'手机号码*:'">
                 <input class="easyui-textbox" name="name" data-options="label:'会员姓名:'">
-                <input class="easyui-textbox" name="balance" data-options="label:'首冲金额:'">
+                <input class="easyui-textbox" name="balance" data-options="label:'首冲金额*:'">
                 <select class="easyui-combobox" id="vipClassMember" name="vipClass.id" data-options="
-                    width:150,
+                    width:170,
+                    labelWidth:60,
                 valueField:'id',
                 textField:'level',
                 url:'/memberLevel/queryAll',
                 label:'会员等级:'
-
                 "></select>
                 服务折扣:<span id="servicememberID" name="serviceDiscounts"></span>
                 商品折扣:<span id="productmemberID" name="productDiscounts"></span>
@@ -94,7 +96,7 @@
             </div>
             <div>
 
-                <input class="easyui-textbox" name="petName" data-options="label:'宠物名:'">
+                <input class="easyui-textbox" name="petName" data-options="label:'宠物名*:'">
                 <input class="easyui-datebox" name="petBirthday" data-options="label:'宠物生日:'">
                 宠物性别:
                 <label><input name="petGender" type="radio" value="1"/>公 </label>
@@ -105,27 +107,27 @@
             <div>
 
                 <select class="easyui-combobox" id="petTyoeList" name="petType.id" data-options="
-                width:150,
+                width:200,
+                latelWidth:60,
                 valueField:'id',
                 textField:'name',
                 url:'/petInfo/addPetTypeList',
                 label:'宠物类别:'
-
                 "></select>
                 <select class="easyui-combobox" id="petKindList" name="petKind.id" data-options="
-               width:150,
+               width:170,
+               latelWidth:60,
                 valueField:'id',
                 textField:'name',
                 label:'宠物品种:'
-
                 "></select>
                 <select class="easyui-combobox" name="petAllergyThing.id" data-options="
-                width:150,
+                width:170,
+                latelWidth:60,
                 valueField:'id',
                 textField:'name',
                 url:'/petInfo/addHarmList',
                 label:'过敏物:'
-
                 "></select>
 
                 <input class="easyui-textbox" name="petColour" data-options="label:'颜色:'">
@@ -157,8 +159,8 @@
 
         <div align="left" style="margin-top: 10px">
             <div>
-                <input class="easyui-textbox" id="memberSn" name="member.tel" data-options="label:'会员编号'">
-                <input class="easyui-textbox" name="petName" data-options="label:'宠物名'">
+                <input class="easyui-textbox" id="memberSn" name="member.tel" data-options="label:'会员编号*'">
+                <input class="easyui-textbox" name="petName" data-options="label:'宠物名*'">
             </div>
             <div>
                 <input class="easyui-datebox" name="petBirthday" data-options="label:'宠物生日'"/>
@@ -169,14 +171,16 @@
             </div>
             <div>
                 <select class="easyui-combobox" id="petTyoeLists" name="petType.id" data-options="
-                width:150,
+                width:170,
+                latelWidth:60,
                 valueField:'id',
                 textField:'name',
                 url:'/petInfo/addPetTypeList',
                 label:'宠物类别:'
                 "></select>
                 <select class="easyui-combobox" id="petKindLists" name="petKind.id" data-options="
-               width:150,
+               width:170,
+               latelWidth:60,
                 valueField:'id',
                 textField:'name',
                 label:'宠物品种:'
@@ -184,7 +188,8 @@
             </div>
             <div>
                 <select class="easyui-combobox" name="petAllergyThing.id" data-options="
-                width:150,
+                width:170,
+                latelWidth:60,
                 valueField:'id',
                 textField:'name',
                 url:'/petInfo/addHarmList',
@@ -202,7 +207,7 @@
                 宠物状态:
                 <label><input name="petState" type="radio" value="正常"/>正常</label>
                 <label><input name="petState" type="radio" value="生病"/>生病</label>
-                <label><input name="petState" type="radio" value="jj思密达"/>已逝</label>
+                <label><input name="petState" type="radio" value="gg思密达"/>gg思密达</label>
                 <label><input name="petState" type="radio" value="交流"/>配种</label>
                 <label><input name="petState" type="radio" value="太监"/>绝育</label>
 
@@ -230,24 +235,24 @@
                 充值单编号: <span id="topUpNumber" name="topnumber"></span>
             </div>
             <div>
-                <input class="easyui-textbox" id="moneySn" name="number" data-options="label:'会员卡号'">
+                <input class="easyui-textbox" id="moneySn" name="number" data-options="label:'会员卡号*'">
 
                 卡内余额:
                 <spen name="balances" id="moneyDalance" style="color: red"></spen>
                 <%--历史消费总额:xxx元--%>
             </div>
             <div>
-                <input class="easyui-textbox" name="topbalance" data-options="label:'充值金额'">
+                <input class="easyui-textbox" name="topbalance" data-options="label:'充值金额*'">
             </div>
             <div>
                 <select class="easyui-combobox" id="vipClasses" name="vipClass.id" data-options="
 
-                width:150,
+                width:170,
+                labelWidth:85,
                 valueField:'id',
                 textField:'level',
                 url:'/memberLevel/queryAll',
-                label:'会员等级:'
-
+                label:'会员等级:',
                 "></select>
                 <%--<select class="easyui-combobox" id="vipClasses" name="vipClass" ></select>--%>
                 商品折扣:<span id="serviceDiscountID" name="serviceDiscounts"></span>

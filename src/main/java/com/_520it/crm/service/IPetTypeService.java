@@ -1,6 +1,8 @@
 package com._520it.crm.service;
 
 import com._520it.crm.domain.PetType;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.PetTypeQueryObject;
 
 import java.util.List;
 
@@ -15,5 +17,7 @@ public interface IPetTypeService {
 
     int updateByPrimaryKey(PetType petType);
 
+	PageResult query(PetTypeQueryObject qo);
 
+	void changeState(Long id);
 }

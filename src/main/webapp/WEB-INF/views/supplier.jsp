@@ -64,7 +64,7 @@
 								data-options="prompt:'请输入联系电话信息',label:'联系电话',labelPosition:'left'"></td>
 					</tr>
 					<tr>
-							<td><input class="easyui-textbox"  name="day"
+							<td><input class="easyui-datebox"  name="dayTime"
 								data-options="prompt:'首次合作时间',label:'首次合作时间',labelPosition:'left'"></td>
 					</tr>
 					<tr>

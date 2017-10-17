@@ -1,7 +1,10 @@
 package com._520it.crm.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -9,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
-@ToString
 public class MemberInfo {
 
 
@@ -21,7 +23,7 @@ public class MemberInfo {
 
     private String name;//会员名称
 
-    private MemberLevel vipClass;//会员等级
+    private String vipClass;//会员等级
 
     private BigDecimal balance;//会员余额
 
@@ -38,5 +40,7 @@ public class MemberInfo {
     private Integer remark;//备注
 
     private List<PetInfo> petinfos;//宠物ID
+
+    private String email;
 
 }

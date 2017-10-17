@@ -21,5 +21,14 @@ public interface EmployeeMapper {
 
     List<Employee> selectByPageList(EmployeeQueryObject qo);
 
+    /*
+     * 根据username查询出对象
+     */
+	Employee selectEmployeeByUsername(String username);
+
+
     List<Employee> selectListByLeaveRecord();
+
+	void updatePasswordByEmployeeId(@Param("newPassword")String newPassword, @Param("employeeId")Long id);
+
 }

@@ -24,6 +24,13 @@ public interface IEmployeeService {
      * */
     PageResult queryByPageList(EmployeeQueryObject qo);
 
+
+	Employee selectEmployeeByUsername(String username);
+
     List<Employee> selectListByLeaveRecord();
+
+	Boolean checkPassword(String oldPassword);
+
+	void changePassword(String newPassword);
 
 }

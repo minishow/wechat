@@ -8,8 +8,11 @@ import com._520it.crm.page.PageResult;
 import com._520it.crm.query.EmployeeQueryObject;
 import com._520it.crm.service.IEmployeeService;
 import com.alibaba.druid.sql.PagerUtils;
+
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -85,5 +88,29 @@ public class EmployeeController {
     public List<Employee> selectListByLeaveRecord() {
         return employeeService.selectListByLeaveRecord();
     }
-
+    /*添加修改密码的方法*/
+    @RequestMapping("/checkPassword")
+    @ResponseBody
+    public AjaxResult checkPassword(String oldPassword){
+    	Boolean flag=employeeService.checkPassword(oldPassword);
+    	return new AjaxResult(flag,"");
+    }
+	@RequestMapping("/changePassword")
+	public String changePassword(Model model){
+		Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
+		String name = employee.getName();
+		model.addAttribute("name",name);
+		return "changePassword";
+	}
+	@RequestMapping("/doChangePassword")
+	@ResponseBody
+	public AjaxResult doChangePassword(String newPassword){
+		try {
+			employeeService.changePassword(newPassword);
+			return new AjaxResult(true,"修改成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new AjaxResult(false,"修改失败!");
+		}
+	}
 }

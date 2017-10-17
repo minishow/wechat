@@ -4,29 +4,57 @@
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetType" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="state" property="state" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from pettype
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.PetType" useGeneratedKeys="true" keyProperty="id" >
-    insert into pettype (name)
-    values (#{name,jdbcType=VARCHAR})
+    insert into pettype (name,state)
+    values (#{name,jdbcType=VARCHAR},#{state})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetType" >
     update pettype
-    set name = #{name,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR},
+   		state = #{state}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name
+    select id, name,state
     from pettype
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name
+    select id, name,state
     from pettype
   </select>
+
+      <!-- 高级查询 -->
+  <sql id="base_where">
+  	<where>
+	  	<if test="keyword!=null">
+	  		and name like concat('%',#{keyword},'%')
+	  	</if>
+  	</where>
+  </sql>
+  <select id="queryForCount" resultType="long">
+  	select count(id) from pettype
+  	<include refid="base_where"/>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, name, state
+    from pettype
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+
+  <update id="changeState">
+  	update pettype
+  	   set
+  	   state=0
+  	where id=#{id}
+  </update>
 
 
 </mapper>

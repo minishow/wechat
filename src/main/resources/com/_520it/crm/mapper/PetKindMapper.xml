@@ -4,29 +4,36 @@
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.PetKind" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="state" property="state" />
+    <association property="petType" javaType="PetType">
+    	<id column="pt_id" property="id" jdbcType="BIGINT" />
+    	<result column="pt_name" property="name" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from petkind
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com._520it.crm.domain.PetKind" useGeneratedKeys="true" keyProperty="id" >
-    insert into petkind (name)
-    values (#{name,jdbcType=VARCHAR})
+    insert into petkind (name,pettype_id,state)
+    values (#{name,jdbcType=VARCHAR},#{petType.id,jdbcType=BIGINT},#{state,jdbcType=BIGINT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.PetKind" >
     update petkind
-    set name = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+    set name = #{name,jdbcType=VARCHAR},
+    state=#{state}
+    where id = #{id,jdbcType=BIGINT},
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name
-    from petkind
-    where id = #{id,jdbcType=BIGINT}
+    select pk.id, pk.name,pk.state,
+    pt.id pt_id,pt.name pt_name
+    from petkind pk left join pettype pt
+    where pk.id = #{id,jdbcType=BIGINT}
   </select>
-
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name
-    from petkind
+    select pk.id, pk.name,pk.state,
+    pt.id pt_id,pt.name pt_name
+    from petkind pk left join pettype pt
   </select>
 
   <select id="selectKindAll" resultMap="BaseResultMap" >
@@ -36,4 +43,34 @@
   </select>
 
 
+  <select id="queryKindByTypeId" resultMap="BaseResultMap" >
+    select *
+    FROM petkind
+    WHERE pettype_id = #{id}
+  </select>
+    <!-- 高级查询 -->
+  <sql id="base_where">
+  	<where>
+	  	<if test="keyword!=null">
+	  		and pk.name like concat('%',#{keyword},'%')
+	  	</if>
+  	</where>
+  </sql>
+  <select id="queryForCount" resultType="long">
+    select count(pk.id) from petkind pk
+    <include refid="base_where"/>
+</select>
+  <select id="queryForList" resultMap="BaseResultMap">
+    select pk.id, pk.name,pk.state,
+    pt.id pt_id,pt.name pt_name
+    from petkind pk left join pettype pt on pk.pettype_id=pt.id
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+  <update id="changeState">
+  	update petkind
+  	   set
+  	   state=0
+  	where id=#{id}
+  </update>
 </mapper>

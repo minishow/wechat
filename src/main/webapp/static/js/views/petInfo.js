@@ -140,7 +140,6 @@ $(function(){
                     //相当于html >> select >> onChange事件
 
                     onChange:function(){
-                        alert(11);
                         if($("#vipClasses").combobox("getValues")==1){
                             ////服务折扣
                             $("#serviceDiscountID").text('100%');

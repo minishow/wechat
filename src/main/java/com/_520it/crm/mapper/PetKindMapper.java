@@ -1,6 +1,8 @@
 package com._520it.crm.mapper;
 
+import com._520it.crm.domain.Brand;
 import com._520it.crm.domain.PetKind;
+import com._520it.crm.query.PetKindQueryObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,4 +26,12 @@ public interface PetKindMapper {
      * @return
      */
     List<PetKind> selectKindAll(Long kindID);
+
+	Long queryForCount(PetKindQueryObject qo);
+
+	List<Brand> queryForList(PetKindQueryObject qo);
+
+	void changeState(Long id);
+
+    List<PetKind> queryKindByTypeId(Long id);
 }
