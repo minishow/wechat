@@ -45,7 +45,7 @@
     where s.id = #{id,jdbcType=BIGINT}
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
-    select s.id, name, s.fax, s.employee_id, s.location, s.time, s.img, s.info
+    select s.id, s.name, s.fax, s.employee_id, s.location, s.time, s.img, s.info,
     e.id e_id,e.name e_name,e.tel e_tel
     from shopinfo s join employee e on s.employee_id = e.id
   </select>

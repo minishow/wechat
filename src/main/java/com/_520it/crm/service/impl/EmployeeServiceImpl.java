@@ -8,20 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com._520it.crm.domain.Employee;
-import com._520it.crm.domain.LeaveRecord;
 import com._520it.crm.mapper.EmployeeMapper;
-import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.EmployeeQueryObject;
 import com._520it.crm.service.IEmployeeService;
-
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 
 @Service
@@ -92,6 +82,17 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public void changePassword(String newPassword) {
 		Long id = ((Employee)SecurityUtils.getSubject().getPrincipal()).getId();
 		employeeMapper.updatePasswordByEmployeeId(newPassword,id);
+	}
+
+	@Override
+	public void checkEmailToDB(String email) {
+		/**
+		 * 根据邮箱去查询,如果存在,则抛出一个异常
+		 */
+		Employee employee=employeeMapper.checkEmailToDB(email);
+		if(employee!=null){
+			throw new RuntimeException("已经注册");
+		}
 	}
 
 

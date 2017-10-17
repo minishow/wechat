@@ -27,13 +27,13 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select pk.id, pk.name,pk.state,
     pt.id pt_id,pt.name pt_name
-    from petkind pk left join pettype pt
+    from petkind pk left join pettype pt on pk.pettype_id=pt.id
     where pk.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select pk.id, pk.name,pk.state,
     pt.id pt_id,pt.name pt_name
-    from petkind pk left join pettype pt
+    from petkind pk left join pettype pt on pk.pettype_id=pt.id
   </select>
 
   <select id="selectKindAll" resultMap="BaseResultMap" >

@@ -12,11 +12,9 @@
         <result column="resignationTime" property="resignationTime" jdbcType="DATE"/>
         <result column="basePay" property="basePay" jdbcType="DOUBLE"/>
         <result column="idCard" property="idCard" jdbcType="VARCHAR"/>
-
         <result column="password" property="password" jdbcType="VARCHAR"/>
-
         <result column="state" property="state" jdbcType="VARCHAR"/>
-
+        <result column="email" property="email" jdbcType="VARCHAR"/>
         <association property="position" javaType="com._520it.crm.domain.Position" columnPrefix="p_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
@@ -26,12 +24,12 @@
     <insert id="insert" parameterType="com._520it.crm.domain.Employee" useGeneratedKeys="true" keyProperty="id">
     insert into employee (jobNumber, position_id, name, 
       gender, tel, entryTime, 
-      resignationTime, basePay, idCard,password
+      resignationTime, basePay, idCard,password,email
       )
     values (#{jobNumber,jdbcType=BIGINT}, #{position.id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
       #{gender,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{entryTime,jdbcType=DATE}, 
       #{resignationTime,jdbcType=DATE}, #{basePay,jdbcType=DOUBLE}, #{idCard,jdbcType=VARCHAR},
-      #{password,jdbcType=VARCHAR}
+      #{password,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR}
       )
   </insert>
     <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Employee">
@@ -102,6 +100,13 @@
 		set password=#{newPassword}
 		where id=#{employeeId}
 	</update>
-
+	
+	<!-- 根据邮箱查询employee对象 -->
+	<select id="checkEmailToDB" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, jobNumber, position_id, name, gender, tel, entryTime, resignationTime, 
+    basePay, idCard ,state,email
+    from employee
+    where email = #{email}
+  </select>
 
 </mapper>
