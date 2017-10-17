@@ -140,15 +140,4 @@ public class ChartController {
         return result;
     }
 
-    @RequestMapping("/queryCashType")
-    @ResponseBody
-    public List<CashBill> queryCashType(Long typeId){
-        List<CashBill> result = new ArrayList<>();
-        if (typeId == 0) {
-            result = cashBillService.selectAll();
-        } else {
-            result = cashBillService.selectByTypeId(typeId);
-        }
-        return result;
-    }
 }
