@@ -7,12 +7,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
 public class MemberInfo {
 
+
+    public static final Integer GENDER_MALE = 0;
+    public static final Integer GENDER_FEMALE = 1;
     private Long id;//会员ID
 
     private String number;//会员号
@@ -21,7 +25,7 @@ public class MemberInfo {
 
     private String vipClass;//会员等级
 
-    private Double balance;//会员余额
+    private BigDecimal balance;//会员余额
 
     private String tel;//电话
 
@@ -33,7 +37,7 @@ public class MemberInfo {
 
     private String adress;//会员地址
 
-    private String remark;//备注
+    private Integer remark;//备注
 
     private List<PetInfo> petinfos;//宠物ID
 

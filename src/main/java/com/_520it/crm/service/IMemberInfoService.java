@@ -1,6 +1,9 @@
 package com._520it.crm.service;
 
 import com._520it.crm.domain.MemberInfo;
+import com._520it.crm.domain.Membertop;
+import com._520it.crm.domain.PetInfo;
+import com._520it.crm.vo.ReturnMemberVO;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.MemberInfoQueryObject;
 
@@ -20,8 +23,16 @@ public interface IMemberInfoService {
 
     PageResult queryMemberByList(MemberInfoQueryObject qo);
 
+    void insertMemberAndpet(MemberInfo mem, PetInfo pet);
+
+    void updateRemark(Long memberID);
+
+    void addMonberMoney(Membertop memLevel, MemberInfo info);
     //宠物服务需要的方法
     MemberInfo queryInfoByMemberId(String memberId);
 
     MemberInfo queryMemberByNumber(String number);
+
+    //退卡消费查询
+    List<ReturnMemberVO> returnMemberList(Long id);
 }

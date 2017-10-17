@@ -1,7 +1,6 @@
 package com._520it.crm.web.controller;
 
 import com._520it.crm.domain.Position;
-import com._520it.crm.domain.Position;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.PositionQueryObject;

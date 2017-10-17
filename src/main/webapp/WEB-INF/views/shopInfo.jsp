@@ -48,7 +48,7 @@
 
         .mysec2 {
             height: 200px;
-            width: 400px;
+            width: 420px;
             background-image: url("/static/pics/serviceIcons/shopinfo.png"); /*图片地址*/
             background-origin: content-box; /*从content区域开始显示背景*/
             background-position: 50% 50%; /*             图片上下左右居中  */

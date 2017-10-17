@@ -5,10 +5,10 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="state" property="state" />
-    <association property="petType" javaType="PetType">
+<!--    <association property="petType" javaType="PetType">
     	<id column="pt_id" property="id" jdbcType="BIGINT" />
     	<result column="pt_name" property="name" jdbcType="VARCHAR" />
-    </association>
+    </association>-->
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from petkind
@@ -27,14 +27,22 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select pk.id, pk.name,pk.state,
     pt.id pt_id,pt.name pt_name
-    from petkind pk left join pettype pt
+    from petkind pk left join pettype pt on pk.pettype_id=pt.id
     where pk.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select pk.id, pk.name,pk.state,
     pt.id pt_id,pt.name pt_name
-    from petkind pk left join pettype pt
+    from petkind pk left join pettype pt on pk.pettype_id=pt.id
   </select>
+
+  <select id="selectKindAll" resultMap="BaseResultMap" >
+    select id, name
+    from petkind
+    WHERE pettype_id=#{kindID}
+  </select>
+
+
   <select id="queryKindByTypeId" resultMap="BaseResultMap" >
     select *
     FROM petkind
@@ -61,7 +69,7 @@
   </select>
   <update id="changeState">
   	update petkind
-  	   set 
+  	   set
   	   state=0
   	where id=#{id}
   </update>

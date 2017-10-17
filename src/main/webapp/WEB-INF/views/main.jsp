@@ -73,7 +73,7 @@
         <div data-options="region:'west',width:80" style="background-color: #393939;border: 0px;">
             <div id="navDiv" style="margin-left: 15px;margin-right: 15px;margin-top: 30px">
                 <shiro:hasRole name="shoper">
-	                <div id="memberNav" onclick="addtab('会员管理','memberNav','');">
+	                <div id="memberNav" onclick="addtab('会员管理','memberNav','/petInfo');">
 	                    <img src="/static/pics/sysicon/cwgl.png" />
 	                    <a class="aStyle" style="float:left;" href="#">会员管理</a>
 	                </div>
@@ -89,7 +89,7 @@
 	                    <img src="/static/pics/sysicon/fw.png" />
 	                    <a class="aStyle" style="float:left;" href="#">宠物服务</a>
 	                </div>
-	                <div id="repertoryNav" onclick="addtab('库存管理','repertoryNav','');" style="margin-top: 30px">
+	                <div id="repertoryNav" onclick="addtab('库存管理','repertoryNav','/productRepertory');" style="margin-top: 30px">
 	                    <img src="/static/pics/sysicon/kcgl.png" />
 	                    <a class="aStyle" style="float:left;" href="#">库存管理</a>
 	                </div>

@@ -35,7 +35,7 @@
                                 &nbsp;&nbsp;
 								<select  name="itemSecond" id="secondMenu"></select>
                                 &nbsp;&nbsp;
-								<input type="text" name="times" id="menuTime"></input>
+								<input type="text" name="times" id="menuTime"/>
 							</div>
 							<div style="margin-left: 90px">
                                 <input id="petServiceName" type="text" name="petName" class="easyui-textbox" data-options="label:'宠物名:', width:250">
@@ -82,7 +82,7 @@
 		<div id="petServiceMenu_dialog">
 			<form id="petServiceMenu_form" method="post">
 				<div align="center" style="margin-top: 30px;" >
-					<div><input type="text" name="text" class="easyui-textbox" data-options="label:'服务名称:', width:250"></div>
+					<div><input type="text" name="text" style="color: red" class="easyui-textbox" data-options="label:'服务名称:', width:250"></div>
 					<div>
 						<select  name="parent.id" class="easyui-combobox"
 								 data-options="

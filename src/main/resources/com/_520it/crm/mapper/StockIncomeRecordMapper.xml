@@ -1,38 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com._520it.crm.mapper.StockIncomeRecordMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.StockIncomeRecord" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="stockOprationBill_id" property="stockOprationBillId" jdbcType="BIGINT" />
-    <result column="number" property="number" jdbcType="INTEGER" />
-    <result column="amount" property="amount" jdbcType="DECIMAL" />
-    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+<mapper namespace="com._520it.crm.mapper.StockIncomeRecordMapper">
+    <resultMap id="BaseResultMap" type="com._520it.crm.domain.StockIncomeRecord">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="number" property="number" jdbcType="INTEGER"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="auditor" property="auditor" jdbcType="VARCHAR"/>
+        <association property="stockOprationBill" column="stockOprationBill_id" javaType="StockOprationBill"
+                     select="com._520it.crm.mapper.StockOprationBillMapper.selectByPrimaryKey"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from stockincomerecord
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.StockIncomeRecord" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="com._520it.crm.domain.StockIncomeRecord" useGeneratedKeys="true"
+            keyProperty="id">
     insert into stockincomerecord (stockOprationBill_id, number, amount, 
       auditor)
-    values (#{stockOprationBillId,jdbcType=BIGINT}, #{number,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
+    values (#{stockOprationBill.id,jdbcType=BIGINT}, #{number,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
       #{auditor,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.StockIncomeRecord" >
+    <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.StockIncomeRecord">
     update stockincomerecord
-    set stockOprationBill_id = #{stockOprationBillId,jdbcType=BIGINT},
+    set stockOprationBill_id = #{stockOprationBill.id,jdbcType=BIGINT},
       number = #{number,jdbcType=INTEGER},
       amount = #{amount,jdbcType=DECIMAL},
       auditor = #{auditor,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select id, stockOprationBill_id, number, amount, auditor
     from stockincomerecord
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+    <select id="selectAll" resultMap="BaseResultMap">
     select id, stockOprationBill_id, number, amount, auditor
     from stockincomerecord
   </select>
+
+    <sql id="where_clause">
+        <where>
+            <if test="keyword!=null">
+                AND  pi.name LIKE CONCAT('%',#{keyword},'%')
+            </if>
+          </where>
+    </sql>
+
+
+    <select id="queryForData" resultMap="BaseResultMap">
+    select * from stockincomerecord sir
+        LEFT   JOIN stockoprationbill sob
+       on sir.stockoprationbill_id=sob.id
+        LEFT   join productinfo pi on sob.productinfo_id=pi.id
+      <include refid="where_clause"/>
+      limit #{start},#{rows}
+  </select>
+
+
+    <select id="queryForCount" resultType="long">
+    select COUNT(sir.id)
+    from stockincomerecord sir
+        LEFT  JOIN stockoprationbill sob
+    on sir.stockoprationbill_id=sob.id
+        LEFT   join productinfo pi on sob.productinfo_id=pi.id
+        <include refid="where_clause"/>
+    </select>
+
 </mapper>

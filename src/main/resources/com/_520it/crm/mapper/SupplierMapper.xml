@@ -3,17 +3,17 @@
 <mapper namespace="com._520it.crm.mapper.SupplierMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.Supplier" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+   <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="sn" property="sn" jdbcType="VARCHAR" />
     <result column="person" property="person" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
     <result column="day" property="day"  />
     <result column="tel" property="tel" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <association property="product" javaType="ProductInfo">
+   <result column="state" property="state" jdbcType="INTEGER" />
+    <association property="product" javaType="com._520it.crm.domain.ProductInfo">
     	<id column="pi_id" property="id" jdbcType="BIGINT" />
-    	<result column="pi_name" property="name" jdbcType="VARCHAR" />
+    	<result column="pi_name" property="name" jdbcType="VARCHAR"/>
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -43,7 +43,7 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap"  >
     select s.id, s.name, s.sn, s.person, s.info, s.day, s.tel, s.address, s.state,
     pi.id pi_id,pi.name pi_name
     from supplier s left join productinfo pi on s.product_id = pi.id

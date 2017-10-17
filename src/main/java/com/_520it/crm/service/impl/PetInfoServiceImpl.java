@@ -1,8 +1,9 @@
 package com._520it.crm.service.impl;
 
-import com._520it.crm.domain.MemberInfo;
 import com._520it.crm.domain.PetInfo;
+import com._520it.crm.domain.PetType;
 import com._520it.crm.mapper.PetInfoMapper;
+import com._520it.crm.mapper.PetTypeMapper;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.PetInfoQueryObject;
 import com._520it.crm.service.IPetInfoService;
@@ -18,7 +19,8 @@ public class PetInfoServiceImpl implements IPetInfoService {
     @Autowired
     private PetInfoMapper petInfoMapper;
 
-
+    @Autowired
+    private PetTypeMapper petTypeMapper;
     @Override
     public int deleteByPrimaryKey(Long id) {
         return petInfoMapper.deleteByPrimaryKey(id);
@@ -57,8 +59,16 @@ public class PetInfoServiceImpl implements IPetInfoService {
         if(pagetotal==0){
             return new PageResult(pagetotal,new ArrayList()) ;
         }
-        List<MemberInfo> dataList = petInfoMapper.queryMemberInfoByList(qo);
+        List<PetInfo> dataList = petInfoMapper.queryMemberInfoByList(qo);
         return new PageResult(pagetotal,dataList);
+    }
+
+    @Override
+    public List<PetType> addPetTypeList() {
+
+        List<PetType> petKinds = petTypeMapper.selectAll();
+
+        return petKinds;
     }
 
 
