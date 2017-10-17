@@ -1,8 +1,91 @@
-22:40:30,718 DEBUG selectAll:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@79b8e347]
-22:40:30,725 DEBUG selectAll:132 - ==>  Preparing: select id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, storeNumber, incomeDate, outcomeDate from productstock 
-22:40:30,760 DEBUG selectAll:132 - ==> Parameters: 
-22:40:30,781 TRACE selectAll:138 - <==    Columns: id, productInfo_id, supplier_id, packageNumber, bulkNumber, amount, warnNumber, storeNumber, incomeDate, outcomeDate
-22:40:30,783 TRACE selectAll:138 - <==        Row: 1, 1, 1, 1, 1, 11, 1, 5, null, null
-22:40:30,793 TRACE selectAll:138 - <==        Row: 2, 2, 2, 2, 2, 2, 2, 5, 2017-10-11 16:52:07.0, 2017-10-13 16:52:37.0
-22:40:30,794 TRACE selectAll:138 - <==        Row: 3, 3, 2, 3, 4, 5, 6, 7, null, null
-22:40:30,795 DEBUG selectAll:132 - <==      Total: 3
+14:30:28,109 TRACE selectByPrimaryKey:138 - <==    Columns: id, name, sn
+14:30:28,109 TRACE selectByPrimaryKey:138 - <==        Row: 1, 进货, 向供应商购买货品入货
+14:30:28,110 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,111 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,112 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, beforeSpecific, openStock_id, number, price from specifics where id = ? 
+14:30:28,112 DEBUG selectByPrimaryKey:132 - ==> Parameters: 1(Long)
+14:30:28,113 TRACE selectByPrimaryKey:138 - <==    Columns: id, beforeSpecific, openStock_id, number, price
+14:30:28,114 TRACE selectByPrimaryKey:138 - <==        Row: 1, 一个, 1, 23, 502
+14:30:28,133 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,134 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,134 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, name, number, sn from openstock where id = ? 
+14:30:28,135 DEBUG selectByPrimaryKey:132 - ==> Parameters: 1(Long)
+14:30:28,136 TRACE selectByPrimaryKey:138 - <==    Columns: id, name, number, sn
+14:30:28,137 TRACE selectByPrimaryKey:138 - <==        Row: 1, 根, 23, 212
+14:30:28,137 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,138 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,139 DEBUG selectByPrimaryKey:132 - ==>  Preparing: SELECT s.id,s. NAME, s.sn,s.person,s.info,s. DAY,s.tel,s.address,s.state,pi.id pi_id,pi. NAME pi_name FROM supplier s LEFT JOIN productinfo pi ON s.product_id = pi.id WHERE s.id = ? 
+14:30:28,139 DEBUG selectByPrimaryKey:132 - ==> Parameters: 1(Long)
+14:30:28,141 TRACE selectByPrimaryKey:138 - <==    Columns: id, NAME, sn, person, info, DAY, tel, address, state, pi_id, pi_name
+14:30:28,142 TRACE selectByPrimaryKey:138 - <==        Row: 1, 温州皮鞋, 倒闭了, 温州人, 好烂, 3, 15742560, 温州, 1, 1, 山猫
+14:30:28,143 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,144 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,144 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, productInfo_id, productPart_id, packageNumber, bulkNumber, amount, warnNumber, sn, storeNumber, incomeDate, outcomeDate from productstock where id = ? 
+14:30:28,145 DEBUG selectByPrimaryKey:132 - ==> Parameters: 1(Long)
+14:30:28,148 TRACE selectByPrimaryKey:138 - <==    Columns: id, productInfo_id, productPart_id, packageNumber, bulkNumber, amount, warnNumber, sn, storeNumber, incomeDate, outcomeDate
+14:30:28,149 TRACE selectByPrimaryKey:138 - <==        Row: 1, 2, 1, 20, 20, 4854565454, 2, 54645, null, 2017-10-13 09:01:04.0, 2017-10-13 09:01:07.0
+14:30:28,188 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,189 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select pi.id, pi.code, pi.name, pt.id pt_id,pt.name pt_name, b.id b_id,b.name b_name, l.id l_id,l.name l_name, h.id h_id,h.name h_name, pp.id pp_id,pp.name pp_name, pi.price, pi.state, pi.img, pi.info,pi.memberprice from ProductInfo pi join producttype pt on pi.producttype_id=pt.id left join brand b on pi.brand_id = b.id left join location l on b.location_id=l.id left join harm h on pi.harm_id = h.id left join productpart pp on pp.id=pi.productpart_id where pi.id = ? 
+14:30:28,190 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,192 TRACE selectByPrimaryKey:138 - <==    Columns: id, code, name, pt_id, pt_name, b_id, b_name, l_id, l_name, h_id, h_name, pp_id, pp_name, price, state, img, info, memberprice
+14:30:28,192 TRACE selectByPrimaryKey:138 - <==        Row: 2, 528122, 大雕, 2, 鸟, 2, 上冻大雕, 1, 上海, null, null, 2, 大豆、猪肉, 2564, 2, , 2, 2
+14:30:28,194 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,195 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,196 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,196 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, name,state from productpart where id = ? 
+14:30:28,197 DEBUG selectByPrimaryKey:132 - ==> Parameters: 1(Long)
+14:30:28,198 TRACE selectByPrimaryKey:138 - <==    Columns: id, name, state
+14:30:28,198 TRACE selectByPrimaryKey:138 - <==        Row: 1, 水、蛋白质, 1
+14:30:28,199 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,202 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,202 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice, costPrice, number, memberPrice, productionDate, survivalTime, warnNumber,supplier_id, productStock_id,warnDate,operation,sn,openStockNumber,openStockPrice,openStock_id from stockoprationbill where id = ? 
+14:30:28,204 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,206 TRACE selectByPrimaryKey:138 - <==    Columns: id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice, costPrice, number, memberPrice, productionDate, survivalTime, warnNumber, supplier_id, productStock_id, warnDate, operation, sn, openStockNumber, openStockPrice, openStock_id
+14:30:28,206 TRACE selectByPrimaryKey:138 - <==        Row: 2, 2, 2, 2017-10-16 13:08:01.0, 2, 565, 854, 656, 2, 2017-10-15 13:08:24.0, 2017-10-15 13:08:27.0, 32, 36, 2, 2017-10-19 19:13:49.0, 配发, null, null, null, null
+14:30:28,209 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,210 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,211 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select pi.id, pi.code, pi.name, pt.id pt_id,pt.name pt_name, b.id b_id,b.name b_name, l.id l_id,l.name l_name, h.id h_id,h.name h_name, pp.id pp_id,pp.name pp_name, pi.price, pi.state, pi.img, pi.info,pi.memberprice from ProductInfo pi join producttype pt on pi.producttype_id=pt.id left join brand b on pi.brand_id = b.id left join location l on b.location_id=l.id left join harm h on pi.harm_id = h.id left join productpart pp on pp.id=pi.productpart_id where pi.id = ? 
+14:30:28,211 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,213 TRACE selectByPrimaryKey:138 - <==    Columns: id, code, name, pt_id, pt_name, b_id, b_name, l_id, l_name, h_id, h_name, pp_id, pp_name, price, state, img, info, memberprice
+14:30:28,213 TRACE selectByPrimaryKey:138 - <==        Row: 2, 528122, 大雕, 2, 鸟, 2, 上冻大雕, 1, 上海, null, null, 2, 大豆、猪肉, 2564, 2, , 2, 2
+14:30:28,215 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,216 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,216 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, name, sn from stockincome where id = ? 
+14:30:28,217 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,217 TRACE selectByPrimaryKey:138 - <==    Columns: id, name, sn
+14:30:28,218 TRACE selectByPrimaryKey:138 - <==        Row: 2, 发货, 向买家发货
+14:30:28,218 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,219 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,219 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, beforeSpecific, openStock_id, number, price from specifics where id = ? 
+14:30:28,220 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,222 TRACE selectByPrimaryKey:138 - <==    Columns: id, beforeSpecific, openStock_id, number, price
+14:30:28,222 TRACE selectByPrimaryKey:138 - <==        Row: 2, 放大, 2, null, null
+14:30:28,223 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,224 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,224 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, name, number, sn from openstock where id = ? 
+14:30:28,225 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,226 TRACE selectByPrimaryKey:138 - <==    Columns: id, name, number, sn
+14:30:28,227 TRACE selectByPrimaryKey:138 - <==        Row: 2, 条, 20, 12
+14:30:28,227 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,228 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,229 DEBUG selectByPrimaryKey:132 - ==>  Preparing: SELECT s.id,s. NAME, s.sn,s.person,s.info,s. DAY,s.tel,s.address,s.state,pi.id pi_id,pi. NAME pi_name FROM supplier s LEFT JOIN productinfo pi ON s.product_id = pi.id WHERE s.id = ? 
+14:30:28,230 DEBUG selectByPrimaryKey:132 - ==> Parameters: 36(Long)
+14:30:28,233 DEBUG selectByPrimaryKey:132 - <==      Total: 0
+14:30:28,235 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,235 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, productInfo_id, productPart_id, packageNumber, bulkNumber, amount, warnNumber, sn, storeNumber, incomeDate, outcomeDate from productstock where id = ? 
+14:30:28,236 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,238 TRACE selectByPrimaryKey:138 - <==    Columns: id, productInfo_id, productPart_id, packageNumber, bulkNumber, amount, warnNumber, sn, storeNumber, incomeDate, outcomeDate
+14:30:28,239 TRACE selectByPrimaryKey:138 - <==        Row: 2, 2, 2, 33, 43, 500, 0, 454, null, 2017-10-17 13:04:59.0, 2017-10-11 13:05:05.0
+14:30:28,241 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,241 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select pi.id, pi.code, pi.name, pt.id pt_id,pt.name pt_name, b.id b_id,b.name b_name, l.id l_id,l.name l_name, h.id h_id,h.name h_name, pp.id pp_id,pp.name pp_name, pi.price, pi.state, pi.img, pi.info,pi.memberprice from ProductInfo pi join producttype pt on pi.producttype_id=pt.id left join brand b on pi.brand_id = b.id left join location l on b.location_id=l.id left join harm h on pi.harm_id = h.id left join productpart pp on pp.id=pi.productpart_id where pi.id = ? 
+14:30:28,242 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,244 TRACE selectByPrimaryKey:138 - <==    Columns: id, code, name, pt_id, pt_name, b_id, b_name, l_id, l_name, h_id, h_name, pp_id, pp_name, price, state, img, info, memberprice
+14:30:28,244 TRACE selectByPrimaryKey:138 - <==        Row: 2, 528122, 大雕, 2, 鸟, 2, 上冻大雕, 1, 上海, null, null, 2, 大豆、猪肉, 2564, 2, , 2, 2
+14:30:28,246 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,246 DEBUG selectByPrimaryKey:132 - <==      Total: 1
+14:30:28,247 DEBUG selectByPrimaryKey:132 - ooo Using Connection [com.mysql.jdbc.JDBC4Connection@7e30f316]
+14:30:28,247 DEBUG selectByPrimaryKey:132 - ==>  Preparing: select id, name,state from productpart where id = ? 
+14:30:28,248 DEBUG selectByPrimaryKey:132 - ==> Parameters: 2(Long)
+14:30:28,248 TRACE selectByPrimaryKey:138 - <==    Columns: id, name, state
+14:30:28,249 TRACE selectByPrimaryKey:138 - <==        Row: 2, 大豆、猪肉, 1
+14:30:28,249 DEBUG selectByPrimaryKey:132 - <==      Total: 1

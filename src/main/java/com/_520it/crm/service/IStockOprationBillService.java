@@ -1,6 +1,9 @@
 package com._520it.crm.service;
 
 import com._520it.crm.domain.StockOprationBill;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.StockOprationBillQueryObject;
+import com._520it.crm.util.StockBIll;
 
 import java.util.List;
 
@@ -17,4 +20,16 @@ public interface IStockOprationBillService {
     List<StockOprationBill> selectAll();
 
     int updateByPrimaryKey(StockOprationBill record);
+
+    PageResult queryForList(StockOprationBillQueryObject qo);
+
+    void insertBill(StockBIll stockObjects);
+
+    Long queryProductIdByName(String productInfoId);
+
+    Long querySpecificIdByName(String productInfoId);
+
+    Long queryOpenStocksIdByName(String productInfoId);
+
+    Long queryStockIncomesIdByName(String productInfoId);
 }

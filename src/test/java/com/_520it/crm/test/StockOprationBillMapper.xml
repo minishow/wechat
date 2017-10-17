@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._520it.crm.mapper.StockOprationBillMapper" >
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.StockOprationBill" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="inputTime" property="inputTime" />
+    <result column="productionPrice" property="productionPrice"  />
+    <result column="costPrice" property="costPrice" />
+    <result column="number" property="number"  />
+    <result column="memberPrice" property="memberPrice"  />
+    <result column="productionDate" property="productionDate"/>
+    <result column="survivalTime" property="survivalTime"  />
+    <result column="warnNumber" property="warnNumber" />
+    <result column="warnDate" property="warnDate"  />
+    <result column="operation" property="operation"  />
+    <association property="productInfo" column="productInfo_id" javaType="ProductInfo"
+                 select="com._520it.crm.mapper.ProductInfoMapper.selectByPrimaryKey"/>
+    <association property="stockIncome" column="stockIncome_id" javaType="StockIncome"
+                 select="com._520it.crm.mapper.StockIncomeMapper.selectByPrimaryKey"/>
+    <association property="specific" column="specific_id" javaType="Specific"
+                 select="com._520it.crm.mapper.SpecificMapper.selectByPrimaryKey"/>
+    <association property="supplier" column="supplier_id" javaType="Supplier"
+                 select="com._520it.crm.mapper.SupplierMapper.selectByPrimaryKey"/>
+    <association property="ProductStock" column="productStock_id" javaType="Supplier"
+                 select="com._520it.crm.mapper.ProductStockMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from stockoprationbill
+    where id = #{id}
+  </delete>
+
+
+  <insert id="insert" parameterType="com._520it.crm.domain.StockOprationBill" useGeneratedKeys="true" keyProperty="id" >
+    insert into stockoprationbill (productInfo_id, stockIncome_id, inputTime,
+      specific_id, productionPrice, costPrice,
+      number, memberPrice, productionDate,
+      survivalTime, warnNumber,productStock_id,warnDate,operation)
+    values (#{productInfo.id}, #{stockIncome.id}, #{inputTime},
+      #{specific.id}, #{productionPric}, #{costPrice},
+      #{number}, #{memberPrice}, #{productionDate},
+      #{survivalTime}, #{warnNumber},
+      #{ProductStock.id},#{warnDate}, #{operation})
+  </insert>
+
+
+  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.StockOprationBill" >
+    update stockoprationbill
+    set
+       productStock_id = #{ProductStock.id},
+        warnDate = #{warnDate},
+       operation =  #{operation},
+     productInfo_id = #{productInfo.id},
+      stockIncome_id = #{stockIncome.id},
+      inputTime = #{inputTime},
+      specific_id = #{specific.id},
+      productionPrice = #{productionPrice},
+      costPrice = #{costPrice},
+      number = #{number},
+      memberPrice = #{memberPrice},
+      productionDate = #{productionDate},
+      survivalTime = #{survivalTime},
+      warnNumber = #{warnNumbe},
+       supplier_id = #{supplier.id}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice, 
+    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber,supplier_id,productStock_id,warnDate,operation
+    from stockoprationbill
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice, 
+    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber,supplier_id,productStock_id,warnDate,operation
+    from stockoprationbill
+  </select>
+
+
+
+
+
+
+  <select id="queryForData" resultMap="BaseResultMap" >
+    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice,
+    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber,supplier_id,productStock_id,warnDate,operation
+    from stockoprationbill
+  </select>
+
+
+
+
+  <select id="queryForCount" resultType="long" >
+    select COUNT(id)
+    from stockoprationbill
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

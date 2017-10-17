@@ -4,15 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 @Setter@Getter@ToString
 public class StockIncomeRecord {
     private Long id;
 
-    private Long stockOprationBillId;
+    private StockOprationBill stockOprationBill;
 
     private Integer number;
 
-    private Long amount;
+    private BigDecimal amount;
 
     private String auditor;
 

@@ -5,7 +5,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Setter@Getter
-public class ProductInfo {
+public class ProductInfo{
     private Long id;
     private String code;
     private String name;
