@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 @Setter
 @ToString
-public class StockObject {
+public class stockObject {
     private Long stockIncomeId;
     private Long specificId;
     private Long productInfoId;
