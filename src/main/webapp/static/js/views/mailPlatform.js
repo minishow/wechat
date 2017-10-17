@@ -72,6 +72,7 @@ $(function () {
                         //提示消息,当点确定的时候,关闭对话框,刷新数据表格
                         $.messager.alert("温馨提示",data.msg,"info",function(){
                             sendMailDialog.dialog("close");
+                            sendMailDatagrid.datagrid("reload");
                         });
                     }else{
                         $.messager.alert("温馨提示",data.msg,"error");
