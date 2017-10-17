@@ -68,7 +68,7 @@ public class CashBillServiceImpl implements ICashBillService{
             cashBillItemMapper.insert(item);
         }
         //会员卡余额 减少
-        if(cashBill.getPaymentTerm() == 4){
+        if(cashBill.getPaymentTerm() == 4){  //若是卡内消费
             //根据会员id查询余额
             double balance =   memberInfoMapper.queryBalanceByMemberId(cashBill.getMemberId().getId());
             //余额 = 余额 - 消费金额

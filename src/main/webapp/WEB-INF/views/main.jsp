@@ -79,7 +79,7 @@
 	                </div>
                 </shiro:hasRole>
                 <shiro:hasRole name="pay">
-	                <div id="payNav" onclick="addtab('收银管理','payNav','cashbillitem');" style="margin-top: 30px">
+	                <div id="payNav" onclick="addtab('收银管理','payNav','/cashbillitem');" style="margin-top: 30px">
 	                    <img src="/static/pics/sysicon/sygl.png" />
 	                    <a class="aStyle" style="float:left;" href="#">收银管理</a>
 	                </div>
@@ -89,7 +89,7 @@
 	                    <img src="/static/pics/sysicon/fw.png" />
 	                    <a class="aStyle" style="float:left;" href="#">宠物服务</a>
 	                </div>
-	                <div id="repertoryNav" onclick="addtab('库存管理','repertoryNav','');" style="margin-top: 30px">
+	                <div id="repertoryNav" onclick="addtab('库存管理','repertoryNav','/productRepertory');" style="margin-top: 30px">
 	                    <img src="/static/pics/sysicon/kcgl.png" />
 	                    <a class="aStyle" style="float:left;" href="#">库存管理</a>
 	                </div>

@@ -1,7 +1,9 @@
 package com._520it.crm.service.impl;
 
 import com._520it.crm.domain.ProductStock;
+import com._520it.crm.mapper.ProductInfoMapper;
 import com._520it.crm.mapper.ProductStockMapper;
+import com._520it.crm.mapper.ProductTypeMapper;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.ProductStockQueryObject;
 import com._520it.crm.service.IProductStockService;
@@ -20,6 +22,10 @@ public class ProductStockServiceImpl implements IProductStockService {
      */
     @Autowired
     private ProductStockMapper productStockMapper;
+    @Autowired
+    private ProductInfoMapper productInfoMapper;
+    @Autowired
+    private ProductTypeMapper productTypeMapper;
     @Override
     public int deleteByPrimaryKey(Long id) {
         productStockMapper.deleteByPrimaryKey(id);

@@ -1,10 +1,10 @@
 package com._520it.crm.service;
 
-import java.util.List;
-
 import com._520it.crm.domain.ProductInfo;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.ProductInfoQueryObject;
+
+import java.util.List;
 
 public interface IProductInfoService {
     int deleteByPrimaryKey(Long id);
@@ -20,4 +20,5 @@ public interface IProductInfoService {
 	PageResult query(ProductInfoQueryObject qo);
 
 	void changeState(Long id);
+
 }

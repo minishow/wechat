@@ -1,6 +1,8 @@
 package com._520it.crm.service;
 
 import com._520it.crm.domain.StockOutRecord;
+import com._520it.crm.page.PageResult;
+import com._520it.crm.query.StockOutRecordQueryObject;
 
 import java.util.List;
 
@@ -17,4 +19,6 @@ public interface IStockOutRecordService {
     List<StockOutRecord> selectAll();
 
     int updateByPrimaryKey(StockOutRecord record);
+
+    PageResult queryForList(StockOutRecordQueryObject qo);
 }

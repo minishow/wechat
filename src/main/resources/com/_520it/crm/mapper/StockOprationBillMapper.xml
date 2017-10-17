@@ -3,56 +3,124 @@
 <mapper namespace="com._520it.crm.mapper.StockOprationBillMapper" >
   <resultMap id="BaseResultMap" type="com._520it.crm.domain.StockOprationBill" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="productInfo_id" property="productInfoId" jdbcType="BIGINT" />
-    <result column="stockIncome_id" property="stockIncomeId" jdbcType="BIGINT" />
-    <result column="inputTime" property="inputTime" jdbcType="TIMESTAMP" />
-    <result column="specific_id" property="specificId" jdbcType="BIGINT" />
-    <result column="productionPrice" property="productionPrice" jdbcType="DECIMAL" />
-    <result column="costPrice" property="costPrice" jdbcType="DECIMAL" />
-    <result column="number" property="number" jdbcType="INTEGER" />
-    <result column="memberPrice" property="memberPrice" jdbcType="DECIMAL" />
-    <result column="productionDate" property="productionDate" jdbcType="TIMESTAMP" />
-    <result column="survivalTime" property="survivalTime" jdbcType="TIMESTAMP" />
-    <result column="warnNumber" property="warnNumber" jdbcType="INTEGER" />
+    <result column="inputTime" property="inputTime" />
+    <result column="productionPrice" property="productionPrice"  />
+    <result column="costPrice" property="costPrice" />
+    <result column="number" property="number"  />
+    <result column="memberPrice" property="memberPrice"  />
+    <result column="productionDate" property="productionDate"/>
+    <result column="survivalTime" property="survivalTime"  />
+    <result column="warnNumber" property="warnNumber" />
+    <result column="warnDate" property="warnDate"  />
+    <result column="operation" property="operation"  />
+    <result column="sn" property="sn"  />
+    <result column="openStockNumber" property="openStockNumber"  />
+    <result column="openStockPrice" property="openStockPrice"  />
+    <association property="productInfo" column="productInfo_id" javaType="ProductInfo"
+                 select="com._520it.crm.mapper.ProductInfoMapper.selectByPrimaryKey"/>
+    <association property="stockIncome" column="stockIncome_id" javaType="StockIncome"
+                select="com._520it.crm.mapper.StockIncomeMapper.selectByPrimaryKey"/>
+     <association property="specific" column="specific_id" javaType="Specific"
+                  select="com._520it.crm.mapper.SpecificMapper.selectByPrimaryKey"/>
+    <association property="supplier" column="supplier_id" javaType="Supplier"
+                    select="com._520it.crm.mapper.SupplierMapper.selectByPrimaryKey"/>
+  <association property="productStock" column="productStock_id" javaType="ProductStock"
+                  select="com._520it.crm.mapper.ProductStockMapper.selectByPrimaryKey"/>
+     <association property="openStock" column="openStock_id" javaType="OpenStock"
+                select="com._520it.crm.mapper.OpenStockMapper.selectByPrimaryKey"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from stockoprationbill
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
+
   <insert id="insert" parameterType="com._520it.crm.domain.StockOprationBill" useGeneratedKeys="true" keyProperty="id" >
-    insert into stockoprationbill (productInfo_id, stockIncome_id, inputTime, 
-      specific_id, productionPrice, costPrice, 
-      number, memberPrice, productionDate, 
-      survivalTime, warnNumber)
-    values (#{productInfoId,jdbcType=BIGINT}, #{stockIncomeId,jdbcType=BIGINT}, #{inputTime,jdbcType=TIMESTAMP}, 
-      #{specificId,jdbcType=BIGINT}, #{productionPrice,jdbcType=DECIMAL}, #{costPrice,jdbcType=DECIMAL}, 
-      #{number,jdbcType=INTEGER}, #{memberPrice,jdbcType=DECIMAL}, #{productionDate,jdbcType=TIMESTAMP}, 
-      #{survivalTime,jdbcType=TIMESTAMP}, #{warnNumber,jdbcType=INTEGER})
+    insert into stockoprationbill (productInfo_id, stockIncome_id, inputTime,
+    specific_id, productionPrice, costPrice,
+    number, memberPrice, productionDate,
+    survivalTime, warnNumber,productStock_id,warnDate,operation,sn,openStockNumber,openStockPrice,openStock_id)
+    values (#{productInfo.id}, #{stockIncome.id}, #{inputTime},
+    #{specific.id}, #{productionPrice}, #{costPrice},
+    #{number}, #{memberPrice}, #{productionDate},
+    #{survivalTime}, #{warnNumber},
+    #{productStock.id},#{warnDate}, #{operation},#{sn},#{openStockNumber},#{openStockPrice},#{openStock.id})
   </insert>
+
+
   <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.StockOprationBill" >
     update stockoprationbill
-    set productInfo_id = #{productInfoId,jdbcType=BIGINT},
-      stockIncome_id = #{stockIncomeId,jdbcType=BIGINT},
-      inputTime = #{inputTime,jdbcType=TIMESTAMP},
-      specific_id = #{specificId,jdbcType=BIGINT},
-      productionPrice = #{productionPrice,jdbcType=DECIMAL},
-      costPrice = #{costPrice,jdbcType=DECIMAL},
-      number = #{number,jdbcType=INTEGER},
-      memberPrice = #{memberPrice,jdbcType=DECIMAL},
-      productionDate = #{productionDate,jdbcType=TIMESTAMP},
-      survivalTime = #{survivalTime,jdbcType=TIMESTAMP},
-      warnNumber = #{warnNumber,jdbcType=INTEGER}
+    set
+    productStock_id = #{productStock},
+    warnDate = #{warnDate},
+    operation =  #{operation},
+    productInfo_id = #{productInfo.id},
+    stockIncome_id = #{stockIncome.id},
+    inputTime = #{inputTime},
+    specific_id = #{specific.id},
+    productionPrice = #{productionPrice},
+    costPrice = #{costPrice},
+    number = #{number},
+    memberPrice = #{memberPrice},
+    productionDate = #{productionDate},
+    survivalTime = #{survivalTime},
+    warnNumber = #{warnNumbe},
+    supplier_id = #{supplier.id} ,
+     sn = #{sn}, openStockNumber = #{openStockNumber} ,openStockPrice = #{openStockPrice}, openStock_id = #{openStock.id}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice, 
-    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber
+    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice,
+    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber,supplier_id,
+    productStock_id,warnDate,operation,sn,openStockNumber,openStockPrice,openStock_id
     from stockoprationbill
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice, 
-    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber
+    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice,
+    costPrice, number, memberPrice, productionDate, survivalTime, warnNumber,
+    supplier_id,productStock_id,warnDate,operation,sn,openStockNumber,openStockPrice,openStock_id
     from stockoprationbill
   </select>
+
+
+
+
+
+
+  <select id="queryForData" resultMap="BaseResultMap" >
+    select id, productInfo_id, stockIncome_id, inputTime, specific_id, productionPrice,
+    costPrice, number, memberPrice, productionDate, survivalTime,
+    warnNumber,supplier_id,productStock_id,warnDate,operation,sn,openStockNumber,openStockPrice,openStock_id
+    from stockoprationbill
+  </select>
+
+
+
+
+  <select id="queryForCount" resultType="long" >
+    select COUNT(id)
+    from stockoprationbill
+  </select>
+
+  <select id="queryProductIdByName" resultType="long" >
+    select id
+    from productinfo WHERE name=#{name}
+  </select>
+<select id="querySpecificIdByName" resultType="long" >
+    select id
+    from specifics WHERE beforeSpecific=#{name}
+  </select>
+<select id="queryOpenStocksIdByName" resultType="long" >
+    select id
+    from openstock WHERE name=#{name}
+  </select>
+
+<select id="queryStockIncomesIdByName" resultType="long" >
+    select id
+    from stockincome WHERE name=#{name}
+  </select>
+
+
+
+
 </mapper>

@@ -8,185 +8,151 @@ $(function () {
         pagination: true,
         rownumbers: true,
         rownumbers: true,
-        url: '/employee/json',
+        url: '/productStock/list',
         striped: true,
         singleSelect: true,
-        columns: [[
-            {field: 'id', title: '员工编号', rowspan: 2, width: 70, align: 'center', sortable: true},
-            {field: 'username', title: '用户名', rowspan: 2, width: 70, align: 'center', sortable: true},
-            {title: 'Item Details', colspan: 8}
-        ], [
-            {
-                field: 'realname',
-                title: '真正名',
-                width: 70,
-                align: 'right',
-                align: 'center',
-                sortable: true
-            },
-            {
-                field: 'dept',
-                title: '部门名称',
-                width: 70,
+        columns: [ [
+            {field: 'sn', title: '库存编码', align: 'center', width: '10%',color:'red'},
+            {field: "code", title: '商品69码', width: '10%', align: 'center', sortable: true,formatter: productCodeFormatter},
+            {field: "name", title: '商品名称', width: '10%', align: 'center', sortable: true,formatter: productNameFormatter},
+            {field: "productType", title: '商品类型', width: '10%', align: 'center', sortable: true,formatter: productTypeFormatter},
+            {field: "brand", title: '商品品牌', width: '10%', align: 'center', sortable: true,formatter: brandFormatter},
+            {   field: 'productPart',
+                title: '主要成分',
+                width: '10%',
                 align: 'right',
                 align: 'center',
                 sortable: true,
-                formatter: deptFormatter
+                formatter: productPartFormatter
             },
-            {field: 'password', title: '用户密码', align: 'center', width: 70},
-            {field: 'tel', title: '联系方式为', align: 'center', width: 70},
-            {field: 'email', title: 'Email', align: 'center', width: 70},
-            {field: 'inputTime', title: '入职时间', align: 'center', width: 70},
-            {field: 'state', title: '状态', align: 'center', width: 70, formatter: stateFormatter},
-            {field: 'admin', title: '是否是超级管理员', align: 'center', width: 70, formatter: adminFormatter}
+            {
+                field: 'packageNumber',
+                title: '整装库存',
+                width: '10%',
+                align: 'right',
+                align: 'center',
+                sortable: true,
+            },
+            {field: 'bulkNumber', title: '散装库存', align: 'center', width: '10%'},
+            {field: 'amount', title: '库存结余（元）', align: 'center', width: '10%'},
+            {field: 'warnNumber', title: '预警数量', align: 'center', width: '10%',color:'red',styler:stylerFormatter},
 
         ]],
         onClickRow: function () {
-            var rowData = $("#myDatagrid").datagrid("getSelected");
+            var rowData = $("#datagrip_table").datagrid("getSelected");
             if (rowData.state == 1) {
-                $("#del,#editData").linkbutton("disable");
+                $("#del,#edit").linkbutton("disable");
             } else {
-                $("#del,#editData").linkbutton("enable");
+                $("#del,#edit").linkbutton("enable");
             }
         },
-        toolbar: '#myTools'
+        toolbar: '#datagrip_tools'
     });
 
 
+    $("#productInfo_code").textbox("disable");
+    $("#productType_name").textbox("disable");
+    $("#productPart_name").textbox("disable");
+    $("#brand_name").textbox("disable");
+    $("#productInfo_id").combobox({
+        onSelect:function(data){
+            console.log(data.id);
+            $.get('/productStock/queryProductInfos?id='+data.id,function(rowData){
+                $("#productInfo_code").textbox("setText",rowData.code);
+                $("#productType_name").textbox("setText",rowData.productPart.name);
+                $("#productPart_name").textbox("setText",rowData.brand.name);
+                $("#brand_name").textbox("setText",rowData.productType.name);
+            })
+        }
+    });
 
 });
 
-function add() {
-    $('#edit_form').dialog({
-        title: '新增',
-        width: 300,
-        height: 250,
-        closed: false,
-        modal: true
-    });
-    $("#edit_form").form("clear");
-}
-
-function deptFormatter(value, rowData, index) {
-    if (value) {
-        return value.name;
+function productCodeFormatter(value, rowData, index) {
+     if(rowData.productInfo){
+        return rowData.productInfo.code;
     }
 }
-function stateFormatter(value, rowData, index) {
-    if (value) {
-        return "<font style='color: red'>离职</font>";
-    } else {
-        return "<font style='color: green'>在职</font>";
-
+function productNameFormatter(value, rowData, index) {
+    if(rowData.productInfo){
+        return rowData.productInfo.name;
     }
 }
-function adminFormatter(value, rowData, index) {
-    if (value) {
-        return "是";
-    } else {
-        return "否";
+function productTypeFormatter(value, rowData, index) {
+    if(rowData.productInfo){
+       return rowData.productInfo.productType.name;
     }
 }
 
-
-function del() {
-    var rowData = $("#myDatagrid").datagrid("getSelected");
-    if (rowData) {
-        $.messager.confirm("温馨提示", "您确定需要删除这条记录吗？", function (yes) {
-            if (yes) {
-                var args = "id=" + rowData.id + "&state=1";
-                $.get("/employee/delete", args, function (data) {
-                    if (data.success) {
-                        reloadData();
-                        $.messager.alert("温馨提示", data.msg, "warning", function () {
-                            $("#edit_form").dialog("close");
-                        });
-                    } else {
-                        $.messager.alert("温馨提示", data.msg, "warning", function () {
-                            $("#edit_form").dialog("close");
-                        });
-                    }
-                }, "json");
-            } else {
-                $.messager.alert("温馨提示", data.msg, "warning", function () {
-                    $("#edit_form").dialog("close");
-                });
-            }
-        });
-
-    } else {
-        $.messager.alert("温馨提示", "亲，请选择需要编辑的项", "warning");
+function brandFormatter(value, rowData, index) {
+    if(rowData.productInfo){
+       return rowData.productInfo.brand.name;
+    }
+}function productPartFormatter(value, rowData, index) {
+    if(rowData){
+       return rowData.productInfo.productPart.name;
     }
 }
-function reloadData() {
 
-    $("#myDatagrid").datagrid("reload");
+function stylerFormatter(value, rowData, index) {
+    if(value>0){
+        return  'background-color:#ffee00;color:red;';
+    }
+
 }
-function searchData() {
-    var keyword = $("#employee_keyword").textbox("getText");
-    var url = "/employee";
-    var args = "keyword="+keyword;
-    $.post(url, args, function (data) {
-    }, "json");
-    reloadData();
-}
-function editData() {
-    var rowData = $("#myDatagrid").datagrid("getSelected");
+
+$(function(){
+    loadData("#searchData");
+    $("#reload_data").linkbutton({
+        width:60,
+        height:30,
+        plain:true,
+        iconCls:'icon-search',
+        onClick:function(){
+            $("#code_sn").textbox("clear");
+            $("#productName").textbox("clear");
+            $("#productTypes").textbox("clear");
+            $("#datagrip_table").datagrid("reload");
+
+        }
+    })
+})
+
+function edit() {
+    var rowData = $("#datagrip_table").datagrid("getSelected");
     if (rowData) {
         $("#edit_form").dialog({
             title: '编辑',
-            width: 300,
-            height: 250,
+            width: 600,
+            height: 400,
             closed: false,
-            modal: true
+            modal: true,
+            buttons: '#edit_info'
         });
+        rowData["productInfo.name"] = rowData.productInfo.name;
+        rowData["productInfo.code"] = rowData.productInfo.code;
+        rowData["productInfo.productPart.name"] = rowData.productInfo.productPart.name;
+        rowData["productInfo.brand.name"] = rowData.productInfo.brand.name;
+      rowData["productInfo.productType.id"] = rowData.productInfo.productType.name;
+        rowData["productInfo.id"] = rowData.productInfo.id;
         $("#edit_form").form("clear");
-        rowData["dept.id"] = rowData.dept.id;
         $("#edit_form").form("load", rowData);
-        $.get("/employee/queryRoles?id="+rowData.id, function (data) {
-            var param=$.map(data,function(item){
-                var arr=new Array(2);
-                arr.add(item.name);
-                arr.add(item.id);
-                return arr;
-            })
-            $('#multiple_role').combobox('setValues', param);
-        });
     } else {
         $.messager.alert("温馨提示", "亲，请选择需要编辑的项", "warning");
     }
 }
+
 
 function saveInput() {
     var url;
     var eleId = $("[name='id']").val();
-    if (eleId) {
-        url = "/employee/edit";
-    } else {
-        url = "/employee/save";
-    }
+    url = "/productStock/saveOrUpdate";
     $("#edit_form").form("submit", {
-        url: url,onSubmit:function (param){
-            var ids=$("#multiple_role").combobox("getValues");
-            for(var i= 0;i<ids.length;i++){
-                param["roles["+i+"].id"]=ids[i];
-            }
-        },
+        url:url,
         success: function (data) {
             var dataJson = eval("(" + data + ")");
             if (dataJson.success) {
-                reloadData();
-                if (eleId) {
-                    $.get("/employee/queryRoles?id="+eleId, function (param) {
-                        var newParam=$.map(param,function(item){
-                            var arr=new Array(2);
-                            arr.add(item.name);
-                            arr.add(item.id);
-                            return arr;
-                        })
-                        $('#multiple_role').combobox('setValues', newParam);
-                    });
-                }
+                $("#datagrip_table").datagrid("reload");
                 $.messager.alert("温馨提示", dataJson.msg, "warning", function () {
                     $("#edit_form").dialog("close");
                 });
@@ -198,6 +164,54 @@ function saveInput() {
         }
     }, "json");
 }
-function closeInput() {
+
+
+function closeInput(){
     $("#edit_form").dialog("close");
 }
+
+
+function loadData(param){
+    $(param).linkbutton({
+        width:60,
+        height:30,
+        plain:true,
+        iconCls:'icon-search',
+        onClick:function(){
+            var keyword= $("#code_sn").textbox("getText");
+            var productName=$("#productName").textbox("getText");
+            var productType=$("#productTypes").combobox("getValues");
+            $("#datagrip_table").datagrid("load",{keyword:keyword,productName:productName,'productType':productType[0]});
+
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+if (eleId) {
+    $.get("/employee/queryRoles?id="+eleId, function (param) {
+        /!*  $('#multiple_role').combobox('setValues', newParam);*!/
+    });
+}
+*/
+
+/*   url: url,onSubmit:function (param){
+ var ids=$("#multiple_role").combobox("getValues");
+ for(var i= 0;i<ids.length;i++){
+ param["roles["+i+"].id"]=ids[i];
+ }
+ },*/

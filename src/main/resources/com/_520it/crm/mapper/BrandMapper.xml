@@ -30,8 +30,8 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select b.id, b.name, b.state,
     l.id l_id, l.name l_name
-    from brand b join location on b.location_id=l.id
-    where id = #{id,jdbcType=BIGINT}
+    from brand b join location l on b.location_id=l.id
+    where b.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select b.id, b.name, b.state,

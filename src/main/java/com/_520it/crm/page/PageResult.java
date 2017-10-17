@@ -8,7 +8,8 @@ import lombok.Setter;
 import java.util.List;
 
 @Setter@Getter@NoArgsConstructor@AllArgsConstructor
-public class PageResult {
+
+public class PageResult  {
 	private Long total;
 	private List rows;
 }

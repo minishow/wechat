@@ -36,7 +36,7 @@
     select l.id, l.logintime, l.ip, l.mac, l.state,
     e.id e_id,e.name e_name
     from LoginLog l join employee e on l.employee_id = e.id
-    where id = #{id,jdbcType=BIGINT}
+    where l.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
    select l.id, l.logintime, l.ip, l.mac, l.state,
