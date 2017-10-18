@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>供应商管理</title>
-<link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/default/easyui.css">   
+<link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/material/easyui.css">
 <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/icon.css">   
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.min.js"></script>  
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.easyui.min.js"></script>  
@@ -30,12 +30,12 @@
 					<tr>
 						<!-- 供应商编码 -->
 						<td><input class="easyui-textbox"  name="sn"
-								data-options="prompt:'请输入供应商编号',label:'供应商编号',labelPosition:'left'"></td>
+								data-options="width:250,prompt:'请输入供应商编号',label:'供应商编号',labelPosition:'left'"></td>
 					</tr>
 					<tr>
 						<td>
 							<input class="easyui-textbox"  name="person"
-								data-options="prompt:'请输入联系人名字',label:'联系人',labelPosition:'left'">
+								data-options="width:250,prompt:'请输入联系人名字',label:'联系人',labelPosition:'left'">
 						</td>
 					</tr>
 					<tr>
@@ -48,7 +48,7 @@
 						<td>
 							<!-- 优势 -->
 							<input class="easyui-textbox"  name="info"
-								data-options="prompt:'请输入供应商优势',label:'优势',labelPosition:'left'">
+								data-options="width:250,prompt:'请输入供应商优势',label:'优势',labelPosition:'left'">
 						</td>
 					</tr>
 				</table>
@@ -57,15 +57,15 @@
 				<table>
 					<tr>
 						<td><input class="easyui-textbox"  name="name"
-								data-options="prompt:'请输入供应商名称信息',label:'供应商名称',labelPosition:'left'"></td>
+								data-options="width:250,prompt:'请输入供应商名称信息',label:'供应商名称',labelPosition:'left'"></td>
 					</tr>
 					<tr>
 							<td><input class="easyui-textbox"  name="tel"
-								data-options="prompt:'请输入联系电话信息',label:'联系电话',labelPosition:'left'"></td>
+								data-options="width:250,prompt:'请输入联系电话信息',label:'联系电话',labelPosition:'left'"></td>
 					</tr>
 					<tr>
-							<td><input class="easyui-datebox"  name="dayTime"
-								data-options="prompt:'首次合作时间',label:'首次合作时间',labelPosition:'left'"></td>
+							<td><input class="easyui-datebox"  name="day"
+								data-options="width:250,prompt:'首次合作时间',label:'合作时间',labelPosition:'left'"></td>
 					</tr>
 					<tr>
 						<td>

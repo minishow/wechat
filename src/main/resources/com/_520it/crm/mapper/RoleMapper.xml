@@ -1,61 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com._520it.crm.mapper.RoleMapper" >
-  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Role" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <!-- <result column="userName" property="userName" jdbcType="VARCHAR" /> -->
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="sn" property="sn" jdbcType="VARCHAR" />
-     <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="loginTime" property="loginTime" jdbcType="DATE" />
-    <result column="establishTime" property="establishTime" jdbcType="DATE" />
-    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+
+  <resultMap id="BaseResultMap" type="com._520it.crm.domain.Role">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
+    <result column="sn" property="sn" jdbcType="VARCHAR"/>
+    <collection property="employee" ofType="com._520it.crm.domain.Employee" columnPrefix="e_">
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+      <result column="realName" property="realName"/>
+      <result column="tel" property="tel"/>
+      <result column="loginTime" property="loginTime"/>
+      <result column="password" property="password"/>
+    </collection>
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from role
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com._520it.crm.domain.Role" useGeneratedKeys="true" keyProperty="id" >
-     insert into role (userName, name, tel,
-      loginTime, establishTime, roleName
-      )
-    values (#{userName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
-      #{loginTime,jdbcType=DATE}, #{establishTime,jdbcType=DATE}, #{roleName,jdbcType=VARCHAR}
-      )
-    insert into role (name,sn)
-    values ( #{name,jdbcType=VARCHAR},#{sn,jdbcType=VARCHAR}
-      )
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Role" >
-    update role
-    set 
-      name = #{name,jdbcType=VARCHAR},
-      sn = #{sn,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select  name,id,sn
+
+  <select id="selectByPrimaryKey" resultType="Role" parameterType="java.lang.Long">
+    select  realName,id
     from role
     where id = #{id,jdbcType=BIGINT}
   </select>
 
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name,sn
+  <select id="selectAll" resultMap="BaseResultMap">
+    select realName,id
     from role
   </select>
+
+  <sql id="baes_">
+
+  </sql>
 
   <select id="selectByCount" resultType="long">
-    select count(id)
-    from role
+    select count(e.id)
+    from employee_role er
+    RIGHT JOIN employee e on e.id = er.employee_id
+    JOIN role r on r.id = er.role_id
+  </select>
+  <!--封装VO对象查询的数据封装在List<map>集合里-->
+  <select id="selectByPageList" resultType="map">
+    select  r.id r_id,r.roleName r_roleName,
+    e.id e_id, e.name e_name, e.realName e_realName,e.tel e_tel, e.loginTime e_loginTime,e.password e_password
+    from employee e
+    JOIN employee_role er on e.id = er.employee_id
+    JOIN role r on r.id = er.role_id
   </select>
 
-  <select id="selectByPageList" resultType="com._520it.crm.domain.Role">
-    select id,name,sn
-    limit #{start},#{rows}
+  <select id="selectRoleByEmployeeId" resultType="long">
+      select er.role_id
+      from employee_role er
+      where er.employee_id = #{employeeId}
   </select>
+
   <!-- 根据员工的id查询拥有的全部角色 -->
   <select id="queryRolesByEmployeeId" resultMap="BaseResultMap">
-  	select r.id,r.name,r.sn
+  	select r.id,r.roleName,r.sn
   	from role r join employee_role er on r.id=er.role_id
   	where er.employee_id=#{id}
   </select>

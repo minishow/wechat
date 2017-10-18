@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface EmployeeMapper {
+
     int dimissionByPrimaryKey(Long id);
 
     int insert(Employee record);
@@ -21,16 +22,24 @@ public interface EmployeeMapper {
 
     List<Employee> selectByPageList(EmployeeQueryObject qo);
 
-    /*
-     * 根据username查询出对象
-     */
-	Employee selectEmployeeByUsername(String username);
-
-
     List<Employee> selectListByLeaveRecord();
 
-	void updatePasswordByEmployeeId(@Param("newPassword")String newPassword, @Param("employeeId")Long id);
+    List<Employee> selectListByEmployee();
 
-	Employee checkEmailToDB(String email);
+    void inputRoleByEmployee(Employee employee);
+
+    void deleteByRelevance(Long id);
+
+    void insertByRelevance(@Param("employeeId") Long employeeId,@Param("roleId") Long roleId);
+
+    /*
+ * 根据username查询出对象
+ */
+    Employee selectEmployeeByUsername(String username);
+
+    void updatePasswordByEmployeeId(@Param("newPassword")String newPassword, @Param("employeeId")Long id);
+
+    Employee checkEmailToDB(String email);
+
 
 }

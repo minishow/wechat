@@ -55,13 +55,11 @@
 						">
                 </select>
             </div>
-
         </div>
     </form>
 </div>
 <!-- 定义顶部按钮 -->
 <div id="employee_datagrid_tb">
-
     <div>
         <a class="easyui-linkbutton" plain="true" data-cmd="add">添加员工</a>
         <a id="employee_editBtn" class="easyui-linkbutton" plain="true" data-cmd="edit">编辑</a>

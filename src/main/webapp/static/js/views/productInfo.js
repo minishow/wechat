@@ -19,7 +19,7 @@ $(function(){
 	            		  return "";
 	            	  }
 	              }},        
-	              {field:'brandLocation',title:'商品场地',width:100,align:'center',formatter:function(value,row,index){
+	              {field:'brandLocation',title:'商品产地',width:100,align:'center',formatter:function(value,row,index){
 	            	  if(row){
 	            		  if(row.brand){
 	            			  return row.brand.location?row.brand.location.name:"";
@@ -49,9 +49,9 @@ $(function(){
 	    toolbar:"#table_datagrid_tb"
 	});
 	$("#div_dialog").dialog({
-		title:"添加品牌",
-		width:800,
-		height:400,
+		title:"添加商品信息",
+		width:680,
+		height:280,
 		closed:true,
 		buttons:"#div_dialog_tb"
 	});

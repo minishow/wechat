@@ -3,10 +3,12 @@ package com._520it.crm.service.impl;
 
 import com._520it.crm.domain.CashBill;
 import com._520it.crm.domain.CashBillItem;
+import com._520it.crm.domain.Employee;
 import com._520it.crm.mapper.*;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.CashBillQueryObject;
 import com._520it.crm.service.ICashBillService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -50,10 +52,10 @@ public class CashBillServiceImpl implements ICashBillService{
         }
         cashBill.setTotalNumber(totalNumber);
          //操作人
-       /* Employee current = (Employee) SecurityUtils.getSubject();*/
-        cashBill.setEmployeeName("admin");
+        Employee current = (Employee) SecurityUtils.getSubject().getPrincipal();
+        cashBill.setEmployeeName(current.getName());
         //店铺名称
-       /* String shopName =  shopInfoMapper.queryShopNameByEmployeeId(current.getId());*/
+
         cashBill.setShopName("宠物店");
         //保存记录
         int insert = 0;

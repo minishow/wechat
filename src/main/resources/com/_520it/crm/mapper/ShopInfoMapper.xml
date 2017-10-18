@@ -10,11 +10,11 @@
         <result column="img" property="img" jdbcType="VARCHAR"/>
         <result column="info" property="info" jdbcType="VARCHAR"/>
         <!-- 关联员工信息 -->
-    <!--    <association property="employee" javaType="Employee">
+        <association property="employee" javaType="com._520it.crm.domain.Employee">
             <id column="e_id" property="id"></id>
             <result column="e_name" property="name"/>
             <result column="e_tel" property="tel"/>
-        </association>-->
+        </association>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from shopinfo

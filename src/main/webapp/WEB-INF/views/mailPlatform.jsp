@@ -7,8 +7,19 @@
     <title>邮件平台</title>
     <%@include file="common.jsp" %>
     <script type="text/javascript" src="/static/js/views/mailPlatform.js"></script>
+    <style type="text/css">
+        .mysec {
+            background-image: url("/static/pics/navIcons/33333.png"); /*图片地址*/
+            background-origin: content-box; /*从content区域开始显示背景*/
+            background-position: 90% 0%; /*             图片上下左右居中  */
+            background-size: contain; /*           保持图像本身的宽高比例，将图片缩放到宽度或高度正好适应定义背景的区域  */
+            background-repeat: no-repeat; /*         图像不重复显示  */
+        }
+    </style>
 </head>
 <body>
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'north',border:false" style="width:12%;height: 60%">
     <table id="sendMail_datagrid"></table>
     <div id="sendMail_dialog">
         <form id="sendMail_form" method="post">
@@ -32,6 +43,10 @@
         <a class="easyui-linkbutton" iconCls="" plain="" data-cmd="send">确认发送</a>
         <a class="easyui-linkbutton" iconCls="" plain="" data-cmd="cancel">取消</a>
     </div>
-
+    </div>
+    <div data-options="region:'center'" class="mysec" style="height: 40%"></div>
+</div>
+<div class="mysec" style="height: 40%"></div>
+</div>
 </body>
 </html>

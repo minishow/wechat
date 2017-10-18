@@ -22,7 +22,7 @@ $(function(){
 	            		  return "<span style='color:red'>否</span>";
 	            	  }
 	              }},   
-	              {field:'day',title:'合作天数',width:100,align:'center',formatter(value,row,index){
+	              {field:'day',title:'合作天数',width:100,align:'center',formatter:function(value,row,index){
 	            	  /*
 	            	   * 根据一个日期计算距离现在多少天
 	            	   */
@@ -36,8 +36,8 @@ $(function(){
 	});
 	$("#div_dialog").dialog({
 		title:"添加品牌",
-		width:400,
-		height:300,
+		width:600,
+		height:200,
 		closed:true,
 		buttons:"#div_dialog_tb"
 	});
@@ -46,6 +46,7 @@ $(function(){
 		url:"/productInfo/list",
 		valueField:"id",
 		textField:"name",
+        width:250,
 		editable:false,
 		multiple:false,
 		prompt:"请选择商品信息",
@@ -55,6 +56,7 @@ $(function(){
 	$("#input_combobox_state").combobox({
 		valueField:"id",
 		textField:"text",
+        width:250,
 		data:[
 		      {
 		    	id:0,

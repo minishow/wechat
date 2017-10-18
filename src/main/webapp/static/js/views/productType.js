@@ -9,7 +9,7 @@ $(function(){
 	    columns:[[    
 	              {field:'name',title:'商品类别',width:100,align:'center'},    
 	              {field:'parent',title:'上级类别',width:100,align:'center',formatter:function(value,row,index){
-	            	  return value?value.name:"";
+	            	  return value?value.name:"无";
 	              }},    
 	              {field:'state',title:'是否启用',width:100,align:'center',formatter:function(value,row,index){
 	            	  if(value){

@@ -17,7 +17,7 @@ public class Supplier {
      */
     private ProductInfo product;
     private String info;
-    @JsonFormat(pattern="MM-dd-yyyy",timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date day;
     private String tel;

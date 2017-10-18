@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/default/easyui.css">   
+<link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/material/easyui.css">
 <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/icon.css">   
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.min.js"></script>  
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.easyui.min.js"></script>  
@@ -63,6 +63,7 @@
 					imgObj.prop("src",arrayStr[0]);
 					/* 把验证码保存起来 */
 					$("#codeInput").data("code",arrayStr[1]);
+                    console.log("登录验证码:"+arrayStr[1]);
 					/* 拿到图片的名字并把名字存起来 */
 					var arrayStrName=arrayStr[0].split("/");
 					$("img").data("name",arrayStrName[4]);
@@ -97,7 +98,7 @@
 </head>
 <body>
 <div class="mysec">
-	<div style="position:fixed;bottom:150px;right:400px">
+	<div style="position:fixed;bottom:150px;right:330px">
 		<form method="post" id="form">
 			<table>
 				<tr><td><span style="font-size: 20px;font-style: italic;">白牙宠物店云管理系统平台</span></td></tr>
@@ -107,7 +108,9 @@
 				<tr>
 					<td><span><img src="/static/img/loginCheck/${codeImgName}" data-name="${codeImgName}"></span></td>
 					<td><input type="text" placeholder="请输入验证码" id="codeInput" data-code="${randomCode}"></td>
-					<td><span style="color: red;" id="codeSpan" data-flag="false"></span></td>
+					<td><span style="color: red;" id="codeSpan" data-flag="false">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;</span></td>
 				</tr>
 				<tr>
 					<td><input type="button" value="安全登录" id="loginBtn"></td>

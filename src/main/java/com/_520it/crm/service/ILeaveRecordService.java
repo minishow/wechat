@@ -22,4 +22,5 @@ public interface ILeaveRecordService {
     PageResult queryByPageList(LeaveRecordQueryObject qo);
 
     void saveByCancelReason(LeaveRecord leaveRecord);
+
 }

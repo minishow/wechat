@@ -1,14 +1,10 @@
 package com._520it.crm.web.controller;
 
 import com._520it.crm.domain.Employee;
-import com._520it.crm.domain.LeaveRecord;
-import com._520it.crm.domain.Position;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.EmployeeQueryObject;
 import com._520it.crm.service.IEmployeeService;
-import com.alibaba.druid.sql.PagerUtils;
-
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,6 +84,14 @@ public class EmployeeController {
     public List<Employee> selectListByLeaveRecord() {
         return employeeService.selectListByLeaveRecord();
     }
+
+    @RequestMapping("/selectListByEmployee")
+    @ResponseBody
+    public List<Employee> selectListByEmployee() {
+        return employeeService.selectListByEmployee();
+    }
+
+
     /*添加修改密码的方法*/
     @RequestMapping("/checkPassword")
     @ResponseBody

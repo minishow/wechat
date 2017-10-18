@@ -24,12 +24,12 @@
     <insert id="insert" parameterType="com._520it.crm.domain.Employee" useGeneratedKeys="true" keyProperty="id">
     insert into employee (jobNumber, position_id, name, 
       gender, tel, entryTime, 
-      resignationTime, basePay, idCard,password,email
+      resignationTime, basePay, idCard,password
       )
     values (#{jobNumber,jdbcType=BIGINT}, #{position.id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
       #{gender,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{entryTime,jdbcType=DATE}, 
       #{resignationTime,jdbcType=DATE}, #{basePay,jdbcType=DOUBLE}, #{idCard,jdbcType=VARCHAR},
-      #{password,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR}
+      #{password,jdbcType=VARCHAR}
       )
   </insert>
     <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.Employee">
@@ -43,7 +43,6 @@
       resignationTime = #{resignationTime,jdbcType=DATE},
       basePay = #{basePay,jdbcType=DOUBLE},
       idCard = #{idCard,jdbcType=VARCHAR}
-      state = #{state}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
@@ -108,5 +107,21 @@
     from employee
     where email = #{email}
   </select>
+
+    <select id="selectListByEmployee" resultType="com._520it.crm.domain.Employee">
+        select e.id,e.name from employee e
+    </select>
+    <update id="inputRoleByEmployee">
+        update employee set realName=#{realName},password=#{password},loginTime=#{loginTime},tel=#{tel}
+        where id=#{id}
+    </update>
+    <delete id="deleteByRelevance">
+        delete from employee_role
+        where employee_id=#{employeeId}
+    </delete>
+    <insert id="insertByRelevance">
+        insert into  employee_role  (employee_id,role_id ) values(#{employeeId},#{roleId})
+    </insert>
+
 
 </mapper>

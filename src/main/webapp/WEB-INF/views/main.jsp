@@ -42,8 +42,7 @@
             color: #dadada;
             line-height: 30px;
             text-align: center;
-            color: #dadada;
-            background: #393939;
+            background: #313131;
             font-size: 12px;
             width: 100%;
         }
@@ -51,27 +50,46 @@
             color:white;
             text-decoration:none;
         }
-
+        .mysec {
+            background-image: url("/static/pics/navIcons/topnav.jpg"); /*图片地址*/
+            background-origin: content-box; /*从content区域开始显示背景*/
+            background-position: 50% 50%; /*             图片上下左右居中  */
+            background-size: contain; /*           保持图像本身的宽高比例，将图片缩放到宽度或高度正好适应定义背景的区域  */
+            background-repeat: no-repeat; /*         图像不重复显示  */
+            height: 60px;
+            border: 0px;
+            background-color: #313131;
+        }
     </style>
 </head>
 <body>
     <div class="easyui-layout" fit="true">
-        <div data-options="region:'north'" style="background-color: #393939;height: 47px;border: 0px">
-            <img style="float: left;margin-left: 20px" src="/static/pics/sysicon/logo_gl.png" />
+        <div data-options="region:'north'" class="mysec">
             <div style="float: right;margin-top: 20px;margin-right: 15px;color: white">
-                <a class="aStyle" href="/employee/changePassword" onclick="">唐笑笑</a>
+                <span id="d"></span>
+                <script type="text/javascript">
+                    var nowTime ;
+                    function play(){
+                        var time = new Date();
+                        nowTime = time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
+                        document.getElementById("d").innerHTML = nowTime;
+                    }
+                    setInterval(play,1000);
+                </script>&nbsp;&nbsp;
                 <span>|</span>&nbsp;&nbsp;
-                <span style="position: relative"><a id="warning" onclick="">库存预警</a><span id="tip" class="tip"></span><span id="tipone" class="tip"></span></span>&nbsp;&nbsp;
+                <a class="aStyle" href="/employee/changePassword" onclick="">${name}</a>
                 <span>|</span>&nbsp;&nbsp;
+                <%--<span style="position: relative"><a id="warning" onclick="">库存预警</a><span id="tip" class="tip"></span><span id="tipone" class="tip"></span></span>&nbsp;&nbsp;
+                <span>|</span>&nbsp;&nbsp;--%>
                 <a class="aStyle" href="/logout" onclick="return confirm('确定退出系统吗？');">退出</a>&nbsp;&nbsp;
                 <span class="wc">|</span>&nbsp;&nbsp;
-                <span id="weixin" style="cursor: pointer">微信二维码</span><span id="tip1" class="tip1">
+                <%--<span id="weixin" style="cursor: pointer">微信二维码</span><span id="tip1" class="tip1">
                     <img style="position: absolute; top: -8px; left: 60px; width: 15px;" src="/static/pics/sysicon/jj.png">
-                    <img src="/static/pics/sysicon/wechat.png" width="130" /></span>&nbsp;&nbsp;
+                    <img src="/static/pics/sysicon/wechat.png" width="130" /></span>&nbsp;&nbsp;--%>
             </div>
         </div>
-        <div data-options="region:'west',width:80" style="background-color: #393939;border: 0px;">
-            <div id="navDiv" style="margin-left: 15px;margin-right: 15px;margin-top: 30px">
+        <div data-options="region:'west',width:60" style="background-color: #313131;border: 0px;">
+            <div id="navDiv" style="margin-left: 5px;margin-right: 5px;margin-top: 30px">
                 <shiro:hasRole name="shoper">
 	                <div id="memberNav" onclick="addtab('会员管理','memberNav','/petInfo');">
 	                    <img src="/static/pics/sysicon/cwgl.png" />
@@ -119,7 +137,7 @@
                 </div>
             </div>
         </div>
-        <div data-options="region:'south',height:30" style="background-color: #393939;border: 0px">
+        <div data-options="region:'south',height:30" style="background-color: #313131;border: 0px">
             <div class="pageBottom">白牙宠物 伴你一路</div>
         </div>
     </div>

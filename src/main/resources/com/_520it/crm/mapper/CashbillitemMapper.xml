@@ -8,7 +8,7 @@
     <result column="costAmount" property="costAmount" jdbcType="DOUBLE" />
     <result column="memberAmount" property="memberAmount" jdbcType="DOUBLE" />
     <result column="bill_id" property="billId" jdbcType="BIGINT" />
-    <association property="productInfoId" javaType="ProductInfo" columnPrefix="p_">
+    <association property="productInfoId" javaType="com._520it.crm.domain.ProductInfo" columnPrefix="p_">
       <id column="id" property="id"/>
       <result column="code" property="code"/>
       <result column="name" property="name"/>

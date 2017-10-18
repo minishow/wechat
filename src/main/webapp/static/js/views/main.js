@@ -12,7 +12,7 @@ function addtab(name,idNo,url) {
     });
 
     var selectDiv = document.getElementById(idNo);
-    selectDiv.style.backgroundColor = "orange";
+    selectDiv.style.backgroundColor = "skyblue";
     //判断tabs中是否已经有该面板
     if ($("#main_tabs").tabs("exists",name)) {
         //如果有就选中

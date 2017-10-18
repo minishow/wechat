@@ -23,49 +23,49 @@
         </association>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from leaverecord
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+        delete from leaverecord
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
     <insert id="insert" parameterType="com._520it.crm.domain.LeaveRecord" useGeneratedKeys="true" keyProperty="id">
-    insert into leaverecord (employee_id, leaveCategory,
-      reason, beginTime, finishTime, 
-      days, view, normal, 
-      state, cancelReason)
-    values (#{employeeId.id,jdbcType=BIGINT}, #{leavecategory,jdbcType=VARCHAR},
-      #{reason,jdbcType=VARCHAR}, #{begintime,jdbcType=TIMESTAMP}, #{finishtime,jdbcType=TIMESTAMP}, 
-      #{days,jdbcType=BIGINT}, #{view,jdbcType=VARCHAR}, #{normal,jdbcType=INTEGER}, 
-      #{state,jdbcType=INTEGER}, #{cancelreason,jdbcType=VARCHAR})
-  </insert>
+        insert into leaverecord (employee_id, leaveCategory,
+        reason, beginTime, finishTime,
+        days, view, normal,
+        state, cancelReason)
+        values (#{employeeId.id,jdbcType=BIGINT}, #{leavecategory,jdbcType=VARCHAR},
+        #{reason,jdbcType=VARCHAR}, #{begintime,jdbcType=TIMESTAMP}, #{finishtime,jdbcType=TIMESTAMP},
+        #{days,jdbcType=BIGINT}, #{view,jdbcType=VARCHAR}, #{normal,jdbcType=INTEGER},
+        #{state,jdbcType=INTEGER}, #{cancelreason,jdbcType=VARCHAR})
+    </insert>
 
     <update id="saveByCancelReason">
-     update  leaverecord set cancelReason=#{cancelreason},state=1 where id = #{id}
-  </update>
+        update  leaverecord set cancelReason=#{cancelreason},state=1 where id = #{id}
+    </update>
 
     <update id="updateByPrimaryKey" parameterType="com._520it.crm.domain.LeaveRecord">
-    update leaverecord
-    set employee_id = #{employeeId.id,jdbcType=BIGINT},
-      leaveCategory = #{leavecategory,jdbcType=VARCHAR},
-      reason = #{reason,jdbcType=VARCHAR},
-      beginTime = #{begintime,jdbcType=TIMESTAMP},
-      finishTime = #{finishtime,jdbcType=TIMESTAMP},
-      days = #{days,jdbcType=BIGINT},
-      view = #{view,jdbcType=VARCHAR},
-      normal = #{normal,jdbcType=INTEGER},
-      state = #{state,jdbcType=INTEGER},
-      cancelReason = #{cancelreason,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        update leaverecord
+        set employee_id = #{employeeId.id,jdbcType=BIGINT},
+        leaveCategory = #{leavecategory,jdbcType=VARCHAR},
+        reason = #{reason,jdbcType=VARCHAR},
+        beginTime = #{begintime,jdbcType=TIMESTAMP},
+        finishTime = #{finishtime,jdbcType=TIMESTAMP},
+        days = #{days,jdbcType=BIGINT},
+        view = #{view,jdbcType=VARCHAR},
+        normal = #{normal,jdbcType=INTEGER},
+        state = #{state,jdbcType=INTEGER},
+        cancelReason = #{cancelreason,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
-    select id, employee_id, leaveCategory, reason, beginTime, finishTime, days,
-    view, normal, state, cancelReason
-    from leaverecord
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+        select id, employee_id, leaveCategory, reason, beginTime, finishTime, days,
+        view, normal, state, cancelReason
+        from leaverecord
+        where id = #{id,jdbcType=BIGINT}
+    </select>
     <select id="selectAll" resultMap="BaseResultMap">
-    select id, employee_id, leaveCategory, reason, beginTime, finishTime, days,
-    view, normal, state, cancelReason
-    from leaverecord
-  </select>
+        select id, employee_id, leaveCategory, reason, beginTime, finishTime, days,
+        view, normal, state, cancelReason
+        from leaverecord
+    </select>
 
     <sql id="baes_where">
         <where>

@@ -1,31 +1,27 @@
 package com._520it.crm.mapper;
 
-import com._520it.crm.domain.Employee;
 import com._520it.crm.domain.Role;
-import com._520it.crm.query.EmployeeQueryObject;
-import com._520it.crm.query.QueryObject;
-import com._520it.crm.query.RoleQueryObject;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RoleMapper {
-    int deleteByPrimaryKey(Long id);
-
-    int insert(Role record);
 
     Role selectByPrimaryKey(Long id);
 
     List<Role> selectAll();
 
-    int updateByPrimaryKey(Role record);
+    Long selectByCount();
 
-    Long selectByCount(RoleQueryObject qo);
+    List<Map> selectByPageList();
 
-    List<Role> selectByPageList(RoleQueryObject qo);
+    List<Long> selectRoleByEmployeeId(Long employeeId);
+
     /**
      * 根据员工id查询拥有的全部角色
      * @param id
      * @return
      */
 	List<Role> queryRolesByEmployeeId(Long id);
+
 }

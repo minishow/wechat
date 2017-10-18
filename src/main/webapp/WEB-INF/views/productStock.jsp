@@ -18,14 +18,14 @@
 <table id="datagrip_table">
     <div id="datagrip_tools" style="" align="center">
         <form id="search_form">
-            <input id="code_sn" type="text" class="easyui-textbox" data-options="label:'商品条码/库存编码;'" style="width: 20%"
+            <input id="code_sn" type="text" class="easyui-textbox" data-options="label:'商品/库存码;'" style="width: 20%"
                    name="keyword" iconCls="icon-man" name="keyword"/>
             <input id="productName" type="text" class="easyui-textbox" data-options="label:'商品名称;'" style="width: 20%"
                    name="productName" iconCls="icon-man" name="keyword"/>
             <input id="productTypes" class="easyui-combobox" data-options="label:'商品类别:',
                     valueField:'id',textField:'name',
                       multiple:true,
-                     url:'/productStock/productTypes'" style="width:150px;">
+                     url:'/productStock/productTypes'" style="width:220px;">
             </input>
             <a id="searchData" data-options="width:60,height:30,plain:true" iconCls="icon-search">查询</a>
             <a id="edit" onclick="edit();" class="easyui-linkbutton"

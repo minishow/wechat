@@ -2,11 +2,11 @@ package com._520it.crm.mapper;
 
 import com._520it.crm.domain.LeaveRecord;
 import com._520it.crm.query.LeaveRecordQueryObject;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface LeaveRecordMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(LeaveRecord record);
@@ -22,4 +22,5 @@ public interface LeaveRecordMapper {
     List<LeaveRecord> selectByPageList(LeaveRecordQueryObject qo);
 
     void saveByCancelReason(LeaveRecord leaveRecord);
+
 }

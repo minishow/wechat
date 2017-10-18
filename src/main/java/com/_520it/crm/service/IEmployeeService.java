@@ -1,10 +1,10 @@
 package com._520it.crm.service;
 
-import java.util.List;
-
 import com._520it.crm.domain.Employee;
 import com._520it.crm.page.PageResult;
 import com._520it.crm.query.EmployeeQueryObject;
+
+import java.util.List;
 
 public interface IEmployeeService {
     //离职
@@ -32,5 +32,8 @@ public interface IEmployeeService {
 	void changePassword(String newPassword);
 
 	void checkEmailToDB(String email);
+
+
+    List<Employee> selectListByEmployee();
 
 }

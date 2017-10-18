@@ -46,6 +46,7 @@ public class PetServiceController {
     @ResponseBody
     public MemberInfo queryInfoByMemberId(String memberId){
         MemberInfo result = memberInfoService.queryInfoByMemberId(memberId);
+        System.out.println(result);
         return result;
     }
 }

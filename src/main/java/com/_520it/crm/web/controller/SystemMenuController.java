@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SystemMenuController {
 	@RequestMapping("")
 	public String systemMenu(){
-		return "systemMenu";
+		return "systemMenuNew";
 	}
 }

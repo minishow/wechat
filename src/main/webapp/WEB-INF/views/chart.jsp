@@ -50,19 +50,20 @@
             margin-right: 27px;
             padding-top: 10px;
             width: 90px;
+            border-radius: 22px;
         }
     </style>
 </head>
 <body>
 <div class="main_box">
     <div class="imageButton" onclick="show('/chart/lineJsp')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/pie.png" /><p style="text-align: center; margin-top: 7px;">服务折线图</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/navIcons/1.png" /><p style="text-align: center; margin-top: 7px;">服务折线图</p>
     </div>
     <div class="imageButton" onclick="show('/chart/pieJsp')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/index.png" /><p style="text-align: center; margin-top: 7px;">服务饼图</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/navIcons/2.png" /><p style="text-align: center; margin-top: 7px;">服务饼图</p>
     </div>
     <div class="imageButton" onclick="show('/chart/cashBillJsp')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/sysicon/sales.png" /><p style="text-align: center; margin-top: 7px;">消费方式表</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/navIcons/3.png" /><p style="text-align: center; margin-top: 7px;">消费方式表</p>
     </div>
 </div>
 <div>

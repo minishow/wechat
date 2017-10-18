@@ -43,10 +43,10 @@ public class ShopInfoController {
 	public AjaxResult save(ShopInfo shopInfo){
 		try {
 			shopInfoService.updateByPrimaryKey(shopInfo);
-			return new AjaxResult(true,"添加成功!");
+			return new AjaxResult(true,"修改成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new AjaxResult(false,"添加失败!");
+			return new AjaxResult(false,"修改失败!");
 		}
 	}
 	@RequestMapping("/changeImg")

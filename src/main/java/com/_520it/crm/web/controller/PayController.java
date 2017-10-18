@@ -30,6 +30,4 @@ public class PayController {
         }
         return result;
     }
-
-
 }

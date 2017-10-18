@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>店铺首页</title>
-    <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/material/easyui.css">
     <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/icon.css">
     <script type="text/javascript" src="/static/js/jquery-easyui/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery-easyui/jquery.easyui.min.js"></script>
@@ -114,7 +114,7 @@
                 <tr>
                     <td>
                         <input class="easyui-textbox" name="employee.name"
-                               data-options="label:'负责人',labelPosition:'left'">
+                               data-options="label:'负责人',labelPosition:'left',readonly:true">
                     </td>
                 </tr>
                 <tr>
@@ -128,7 +128,7 @@
             <table>
                 <tr>
                     <td><input class="easyui-textbox" name="employee.tel"
-                               data-options="label:'负责人联系方式',labelPosition:'left'"></td>
+                               data-options="label:'负责人联系方式',labelPosition:'left',readonly:true"></td>
                 </tr>
                 <tr>
                     <td>
@@ -151,5 +151,8 @@
     <a class="easyui-linkbutton" data-options="text:'保存',onClick:mySave"></a>
     <a class="easyui-linkbutton" data-options="text:'取消',onClick:myCancel"></a>
 </div>
+<marquee direction="left" onmousemove="stop()" onmouseout="start()" style="margin-top: 20px; width: 280px; height: 50px; position: absolute; right: 120px; top: 2px; opacity: 0.5; z-index: 99999;"><img src="/static/pics/serviceIcons/serviceLog.bmp" /><a href="http://www.520it.com/" style="color:#393939;" target=_blank>快来点我,带你走上人生巅峰!”</a></marquee>
+<img style="position: absolute; right: 20px; top: 2px; opacity: 0.5; z-index: 99999; cursor: pointer" src="" onclick="top.f_addTab('home');">
+
 </body>
 </html>

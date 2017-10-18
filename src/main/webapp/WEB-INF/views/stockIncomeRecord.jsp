@@ -2,7 +2,7 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
-<link href="/static/js/jquery-easyui/themes/default/easyui.css" rel="stylesheet" type="text/css"/>
+<link href="/static/js/jquery-easyui/themes/material/easyui.css" rel="stylesheet" type="text/css"/>
 <link href="/static/js/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="/static/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="/static/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>

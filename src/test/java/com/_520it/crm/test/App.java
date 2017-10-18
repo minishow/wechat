@@ -52,8 +52,10 @@ public class App {
     private ProductPartMapper ProductPartMapper;
     @Autowired
     public BrandMapper LocationMapper;
+    @Autowired
+    public MemberInfoMapper memberInfoMapper;
     @Test
     public void Test(){
-        System.out.println(LocationMapper.selectByPrimaryKey(1l));
+        System.out.println(memberInfoMapper.selectAll());
     }
 }

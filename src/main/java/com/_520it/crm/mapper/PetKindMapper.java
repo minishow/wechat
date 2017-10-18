@@ -1,6 +1,5 @@
 package com._520it.crm.mapper;
 
-import com._520it.crm.domain.Brand;
 import com._520it.crm.domain.PetKind;
 import com._520it.crm.query.PetKindQueryObject;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,7 @@ public interface PetKindMapper {
 
 	Long queryForCount(PetKindQueryObject qo);
 
-	List<Brand> queryForList(PetKindQueryObject qo);
+	List<PetKind> queryForList(PetKindQueryObject qo);
 
 	void changeState(Long id);
 

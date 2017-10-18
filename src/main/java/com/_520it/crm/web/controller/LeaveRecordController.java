@@ -1,6 +1,5 @@
 package com._520it.crm.web.controller;
 
-import com._520it.crm.domain.Employee;
 import com._520it.crm.domain.LeaveRecord;
 import com._520it.crm.page.AjaxResult;
 import com._520it.crm.page.PageResult;

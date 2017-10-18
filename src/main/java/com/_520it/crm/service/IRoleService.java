@@ -1,26 +1,27 @@
 package com._520it.crm.service;
 
 import com._520it.crm.domain.Role;
-import com._520it.crm.page.PageResult;
-import com._520it.crm.query.RoleQueryObject;
+import com._520it.crm.util.EmployeeRoleVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IRoleService {
     
-    int deleteByPrimaryKey(Long id);
-
-    int insert(Role record);
 
     Role selectByPrimaryKey(Long id);
 
     List<Role> selectAll();
 
-    int updateByPrimaryKey(Role record);
 
-    PageResult queryByPageList(RoleQueryObject qo);
+    List<Map> queryByPageList();
     /*
      * 根据员工的id查询全部的角色列表
      */
 	List<Role> queryRolesByEmployeeId(Long id);
+
+
+    int inputRoleByEmployee(EmployeeRoleVO employee);
+
+    List<Long> selectRoleByEmployeeId(Long employeeId);
 }

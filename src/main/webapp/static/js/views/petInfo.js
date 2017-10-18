@@ -33,7 +33,7 @@ $(function(){
             {field:'petGender',title:'性别',width:100,align:'centre',formatter:adminGenber},
             {field:'petBirthday',title:'生日',width:100,align:'centre'},
             {field:'petKind',title:'宠物品种',width:100,align:'centre',formatter:adminType},
-            {field:'petAncestry',title:'血统',width:100,align:'centre'},
+            {field:'petAncestryRegister',title:'血统',width:100,align:'centre'},
             {field:'petColour',title:'毛色',width:100,align:'centre'},
             {field:'balance',title:'余额',width:100,align:'centre',formatter:adminDalance},
             {field:'adress',title:'地址',width:100,align:'centre',formatter:adminAdress},

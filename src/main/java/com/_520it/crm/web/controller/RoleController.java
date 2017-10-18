@@ -1,16 +1,15 @@
 package com._520it.crm.web.controller;
 
-import com._520it.crm.domain.Role;
 import com._520it.crm.page.AjaxResult;
-import com._520it.crm.page.PageResult;
-import com._520it.crm.query.RoleQueryObject;
 import com._520it.crm.service.IRoleService;
+import com._520it.crm.util.EmployeeRoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/role")
@@ -19,33 +18,24 @@ public class RoleController {
     private IRoleService roleService;
 
     @RequestMapping("")
-    public String index(){
+    public String index() {
         return "role";
-    }
-
-    @RequestMapping("/selectListByRole")
-    @ResponseBody
-    public List<Role> selectListForRoleForm() {
-        return roleService.selectAll();
     }
 
     @RequestMapping("/queryByPageList")
     @ResponseBody
-    public PageResult queryByPageList(RoleQueryObject qo) {
-        PageResult result = null;
-        try {
-            result = roleService.queryByPageList(qo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public List<Map> queryByPageList() {
+        List<Map> result= roleService.queryByPageList();
+        System.out.println(result);
         return result;
     }
 
-    @RequestMapping("/save")
+    @RequestMapping("/inputRoleByEmployee")
     @ResponseBody
-    public AjaxResult save(Role role) {
+    public AjaxResult inputRoleByEmployee(EmployeeRoleVO employee) {
         try {
-            int insert = roleService.insert(role);
+            System.out.println(employee.toString());
+            roleService.inputRoleByEmployee(employee);
             return new AjaxResult(true, "添加成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,27 +43,9 @@ public class RoleController {
         }
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("/selectRoleByEmployeeId")
     @ResponseBody
-    public AjaxResult update(Role role) {
-        try {
-            roleService.updateByPrimaryKey(role);
-            return new AjaxResult(true, "修改成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new AjaxResult("修改失败!请联系管理员");
-        }
-    }
-
-    @RequestMapping("/delete")
-    @ResponseBody
-    public AjaxResult delete(Long id) {
-        try {
-            roleService.deleteByPrimaryKey(id);
-            return new AjaxResult(true, "删除成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new AjaxResult("删除失败");
-        }
+    public List<Long> selectByRoleId(Long employeeId) {
+        return roleService.selectRoleByEmployeeId(employeeId);
     }
 }

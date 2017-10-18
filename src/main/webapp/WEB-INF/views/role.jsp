@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <jsp:include page="common.jsp"></jsp:include>
@@ -10,53 +11,31 @@
 <table id="role_datagrid"></table>
 <div id="role_dialog">
     <form id="role_form" method="post">
-        <input type="hidden" name="id">
+        <input id="hiddenId" type="hidden" name="e_id">
         <div align="center" style="margin-top: 10px;">
             <div>
-                <input type="text" name="jobNumber" class="easyui-textbox"
-                       data-options="label:'工号:',labelPosition:'top', width:150">
+                <select id="selectId" name="e_name"></select>
+            </div>
+                <div>
+                    <input type="password" name="e_password" class="easyui-textbox"
+                           data-options="label:'登录密码:',labelPosition:'top', width:150">
+                </div>
+            <div>
+                <input type="text" name="e_realName" class="easyui-textbox"
+                       data-options="label:'真实姓名:',labelPosition:'top', width:150">
             </div>
             <div>
-                <input type="text" name="name" class="easyui-textbox"
-                       data-options="label:'姓名:',labelPosition:'top', width:150">
+                <input type="text" name="e_tel" class="easyui-textbox"
+                       data-options="label:'电话号码:',labelPosition:'top', width:150">
             </div>
+
             <div>
-                <input type="text" name="tel" class="easyui-textbox"
-                       data-options="label:'联系电话:',labelPosition:'top', width:150">
-            </div>
-            <div>
-                <input type="text" name="idCard" class="easyui-textbox"
-                       data-options="label:'身份证:',labelPosition:'top', width:150">
-            </div>
-            <div>
-                <input type="text" name="basePay" class="easyui-textbox"
-                       data-options="label:'基本工资:',labelPosition:'top', width:150">
-            </div>
-            <div>
-                <select class="easyui-combobox" name="gender" style="width:150px;" label="性别"
+                <select id="rolesSelect" class="easyui-combobox" name="r_id" style="width:150px;" label="账号角色"
                         labelPosition="top">
-                    <option value="1">男</option>
-                    <option value="0">女</option>
+                    <option value="1">收银员</option>
+                    <option value="2">店长</option>
                 </select>
             </div>
-            <div>
-                <input id="dd" name="entryTime" data-options="label:'入职时间:',labelPosition:'top', width:150"
-                       type="text" class="easyui-datebox" required="required"> </input>
-            </div>
-
-            <div>
-                <select name="position.id" class="easyui-combobox"
-                        data-options="
-						 width:150,
-						 label:'职位:',
-						 labelPosition:'top',
-						 valueField:'id',
-						 textField:'name',
-						 url:'/position/selectListByPosition'
-						">
-                </select>
-            </div>
-
         </div>
     </form>
 </div>
@@ -66,8 +45,6 @@
     <div>
         <a class="easyui-linkbutton" plain="true" data-cmd="add">添加角色</a>
     </div>
-
-
 
 </div>
 

@@ -65,7 +65,7 @@ public class PetKindServiceImpl implements IPetKindService {
 		if(total==0){
 			return new PageResult(new Long(0),new ArrayList<Brand>());
 		}
-		List<Brand> rows=petKindMapper.queryForList(qo);
+		List<PetKind> rows=petKindMapper.queryForList(qo);
 		return new PageResult(total,rows);
 	}
 

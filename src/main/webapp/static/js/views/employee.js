@@ -16,13 +16,11 @@ $(function () {
             {field: 'entryTime', title: '入职时间', width: 100},
             {field: 'resignationTime', title: '离职时间', width: 100},
             {field: 'basePay', title: '基本工资', width: 100, align: 'right'},
-            {field: 'state'},
             {field: 'idCard', title: '身份证号码', width: 100, align: 'right'},
         ]],
         onClickRow:function(rowIndex,rowData){
             //判断当前记录中的状态的值.
             if(rowData.state==1){
-                console.log(rowData.state);
                 //员工已经离职了,编辑和离职按钮应该变灰.
                 $("#employee_dimissionBtn,#employee_editBtn").linkbutton("disable");
             }else{
@@ -76,11 +74,12 @@ $(function () {
                 //1.清空表单数据
                 $("#employee_form").form("clear");
                 //2.设置对话框的标题
-                $("#employee_dialog").dialog("setTitle", "新增");
+                $("#employee_dialog").dialog("setTitle", "编辑");
                 //3.打开对话框
                 $("#employee_dialog").dialog("open");
                 //特殊数据的处理
                 if (rowData.position)
+
                     rowData["position.id"] = rowData.position.id;
                 //4.回显数据
                 $("#employee_form").form("load", rowData);//基于同名匹配规则

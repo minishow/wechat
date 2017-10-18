@@ -41,25 +41,26 @@
             margin-right: 27px;
             padding-top: 10px;
             width: 90px;
+            border-radius: 22px;
         }
     </style>
 </head>
 <body>
 <div class="main_box">
     <div class="imageButton" onclick="show('/employee')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/picture/1.png" /><p style="text-align: center; margin-top: 7px;">基本信息</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/navIcons/4.png" /><p style="text-align: center; margin-top: 7px;">基本信息</p>
     </div>
     <div class="imageButton" onclick="show('/position')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/picture/2.png" /><p style="text-align: center; margin-top: 7px;">职位设置</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/navIcons/5.png" /><p style="text-align: center; margin-top: 7px;">职位设置</p>
     </div>
     <div class="imageButton" onclick="show('/leaveRecord')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/picture/3.png" /><p style="text-align: center; margin-top: 7px;">请假记录</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/navIcons/6.png" /><p style="text-align: center; margin-top: 7px;">请假记录</p>
     </div>
     <div class="imageButton" onclick="show('/pay')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/picture/3.png" /><p style="text-align: center; margin-top: 7px;">薪资计算</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/navIcons/7.png" /><p style="text-align: center; margin-top: 7px;">薪资计算</p>
     </div>
     <div class="imageButton" onclick="show('/role')">
-        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/picture/3.png" /><p style="text-align: center; margin-top: 7px;">角色管理</p>
+        <img style="margin-left: 30px; width: 35px; height: 35px" src="/static/pics/navIcons/8.png" /><p style="text-align: center; margin-top: 7px;">角色管理</p>
     </div>
 </div>
 <div>

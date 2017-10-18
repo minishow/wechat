@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商品详情</title>
-<link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/default/easyui.css">   
+<link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/material/easyui.css">
 <link rel="stylesheet" type="text/css" href="/static/js/jquery-easyui/themes/icon.css">   
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.min.js"></script>  
 <script type="text/javascript" src="/static/js/jquery-easyui/jquery.easyui.min.js"></script>  
@@ -38,63 +38,62 @@
 	<div id="div_dialog">
 		<form method="post" id="div_dialog_post" enctype="multipart/form-data">
 			<div style="float: left">
-				<table>
+				<table style="margin-left: 20px;margin-right: 20px;margin-top: 30px">
 					<tr>
 						<!-- 商品编码 -->
 						<td><input class="easyui-textbox"  name="code"
-								data-options="prompt:'请输入商品编码',label:'商品编码',labelPosition:'left'"></td>
+								data-options="width:250,prompt:'请输入商品编码',label:'商品编码',labelPosition:'left'"></td>
 					</tr>
 					<tr>
 						<td>
 							<!-- 商品类别 -->
-							<input id="input_combobox_product_type" name="productType.id"/>
+							<input id="input_combobox_product_type" name="productType.id" data-options="width:250"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<!-- 商品品牌 -->
-							<input id="input_combobox_brand" name="brand.id"/>
+							<input id="input_combobox_brand" name="brand.id" data-options="width:250"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<!-- 商品主要成分 -->
-							<input id="input_combobox_product_part" name="productPart.id"/>
+							<input id="input_combobox_product_part" name="productPart.id" data-options="width:250"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<!-- 商品照片 -->
-							<input class="easyui-filebox"  name="imgFile" data-options="prompt:'请输入商品图片',label:'商品图片',labelPosition:'left',
+							<input class="easyui-filebox"  name="imgFile" data-options="width:250,prompt:'请输入商品图片',label:'商品图片',labelPosition:'left',
 							width:300,buttonText:'请选择要上传的图片'">
 						</td>
 					</tr>
 				</table>
 			</div>
 			<div style="float: right">
-				<table>
+				<table style="margin-left: 20px;margin-right: 20px;margin-top: 30px">
 					<tr>
 						<td><input class="easyui-textbox"  name="name"
-								data-options="prompt:'请输入商品名称信息',label:'商品名称',labelPosition:'left'"></td>
+								data-options="width:250,prompt:'请输入商品名称信息',label:'商品名称',labelPosition:'left'"></td>
 					</tr>
 					<tr>
 						<td>
-						<td>
 							<!-- 过敏物 -->
-							<input id="input_combobox_harm" name="harm.id"/>
+							<input id="input_combobox_harm" name="harm.id" data-options="width:250"/>
 						</td>
 					</tr>
 					<tr>
 							<td><input class="easyui-textbox"  name="info"
-								data-options="prompt:'请输入商品备注信息',label:'备注',labelPosition:'left'"></td>
+								data-options="width:250,prompt:'请输入商品备注信息',label:'备注',labelPosition:'left'"></td>
 					</tr>
 					<tr>
 							<td><input class="easyui-textbox"  name="price"
-								data-options="prompt:'请输入商品价格信息',label:'价格',labelPosition:'left'"></td>
+								data-options="width:250,prompt:'请输入商品价格信息',label:'价格',labelPosition:'left'"></td>
 					</tr>
 					<tr>
 						<td>
-							<input id="input_combobox_state" name="state"/>
+							<input id="input_combobox_state" name="state" data-options="width:200"/>
 						</td>
 					</tr>
 				</table>

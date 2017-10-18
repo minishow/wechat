@@ -99,7 +99,7 @@
                 宠物性别:
                 <label><input name="petGender" type="radio" value="1"/>公 </label>
                 <label><input name="petGender" type="radio" value="0"/>母 </label>
-                <label><input name="petGender" type="radio" value="-1"/>阉割版 </label>
+                <label><input name="petGender" type="radio" value="-1"/>暂不清楚 </label>
                 <input class="easyui-textbox" name="petFeature" data-options="label:'特征:'">
             </div>
             <div>
@@ -144,8 +144,8 @@
     </form>
 </div>
 <div id="petinfo_addMember_dialog_bt">
-    <a class="easyui-linkbutton" iconCls="icon-save" data-cmd="save">保存</a>
-    <a class="easyui-linkbutton" iconCls="icon-cancel" data-cmd="cencalMember">取消</a>
+    <a class="easyui-linkbutton" iconCls="" data-cmd="save">保存</a>
+    <a class="easyui-linkbutton" iconCls="" data-cmd="cencalMember">取消</a>
 </div>
 <%--增加宠物--%>
 <div id="petInfo_addPet_dialog">
@@ -217,8 +217,8 @@
 </div>
 <%--保存和取消按钮--%>
 <div id="petInfo_pet_bt">
-    <a class="easyui-linkbutton" iconCls="icon-save" data-cmd="save">保存</a>
-    <a class="easyui-linkbutton" iconCls="icon-cancel" data-cmd="cencalPet">取消</a>
+    <a class="easyui-linkbutton" iconCls="" data-cmd="save">保存</a>
+    <a class="easyui-linkbutton" iconCls="" data-cmd="cencalPet">取消</a>
 </div>
 <%--充值--%>
 <div id="petInfo_addMoney_dialog">
@@ -268,8 +268,8 @@
 
 <%--充值按钮--%>
 <div id="petinfo_addMoney_dialog_bt">
-    <a class="easyui-linkbutton" iconCls="icon-save" data-cmd="saveMoney">充值</a>
-    <a class="easyui-linkbutton" iconCls="icon-cancel" data-cmd="cencalMoney">取消</a>
+    <a class="easyui-linkbutton" iconCls="" data-cmd="saveMoney">充值</a>
+    <a class="easyui-linkbutton" iconCls="" data-cmd="cencalMoney">取消</a>
 </div>
 <%--退卡--%>
 <div id="member_addremark_dialog">
@@ -289,8 +289,8 @@
 </div>
 <%--退卡按钮--%>
 <div id="petinfo_addremark_dialog_bt">
-    <a class="easyui-linkbutton" iconCls="icon-save" data-cmd="saveremark">确认退卡</a>
-    <a class="easyui-linkbutton" iconCls="icon-cancel" data-cmd="cencalBlock">取消</a>
+    <a class="easyui-linkbutton" iconCls="" data-cmd="saveremark">确认退卡</a>
+    <a class="easyui-linkbutton" iconCls="" data-cmd="cencalBlock">取消</a>
 </div>
 </body>
 </html>
